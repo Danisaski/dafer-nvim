@@ -7,9 +7,9 @@ require("lazy").setup({
 	-- Mason for managing LSP servers and tools
 	"williamboman/mason.nvim",
 	{
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    requires = { "williamboman/mason.nvim" },
-},
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		requires = { "williamboman/mason.nvim" },
+	},
 	"williamboman/mason-lspconfig.nvim",
 
 	"kyazdani42/nvim-web-devicons",
@@ -39,7 +39,6 @@ require("lazy").setup({
 	-- Null-ls for formatters and linters
 	"jose-elias-alvarez/null-ls.nvim",
 
-
 	-- Telescope for fuzzy finding
 	{
 		"nvim-telescope/telescope.nvim",
@@ -58,12 +57,7 @@ require("lazy").setup({
 	},
 
 	-- Themes
-	{
-  'ayu-theme/ayu-vim',
-  config = function()
-    vim.cmd('colorscheme ayu')  -- Set Ayu Dark as the default colorscheme
-  end
-},
+	"catppuccin/nvim",
 
 	{
 		"nvim-lualine/lualine.nvim",

@@ -9,10 +9,9 @@ vim.opt.rtp:prepend("~/.local/share/nvim/lazy/lazy.nvim")
 require("user.plugins")
 
 -- Load other configurations
-require("user.autopairs")
 require("user.cmp")
-require("user.diagnostics")
 require("user.formatters")
+require("user.diagnostics")
 require("user.lspconfig")
 require("user.mappings")
 require("user.mason")

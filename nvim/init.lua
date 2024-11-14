@@ -3,7 +3,7 @@
 vim.g.mapleader = " "
 
 -- Prepend lazy.nvim to the runtime path
-vim.opt.rtp:prepend("~/.local/share/nvim/lazy/lazy.nvim")
+vim.opt.rtp:prepend("C:/Users/dafer/AppData/Local/nvim/lazy/lazy.nvim")
 
 -- Load the plugins configuration
 require("user.plugins")
@@ -20,3 +20,4 @@ require("user.statusbar")
 require("user.telescope")
 require("user.theme")
 require("user.tree")
+require("user.gitsigns")

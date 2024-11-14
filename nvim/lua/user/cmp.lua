@@ -1,49 +1,49 @@
--- Set up nvim-cmp for completion
+-- ~/.config/nvim/lua/user/cmp.lua
+
+-- Set up nvim-cmp for code completion
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 
 cmp.setup({
+	-- Define completion sources
 	sources = {
-		{ name = "nvim_lsp" }, -- Use LSP for completion
+		{ name = "nvim_lsp" }, -- LSP-based completion
 		{ name = "luasnip" }, -- Snippet completion
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "buffer" }, -- Text within the buffer
+		{ name = "path" }, -- File path completion
 	},
+	-- Configure snippet expansion
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			require("luasnip").lsp_expand(args.body) -- Expand snippets using LuaSnip
 		end,
 	},
+	-- Formatting options with lspkind for icons
 	formatting = {
-		-- Use lspkind for adding icons
 		format = lspkind.cmp_format({
-			mode = "symbol_text", -- Show both text and icons
-			maxwidth = 80, -- Set max width of completion items
+			mode = "symbol_text", -- Display both symbol and text
+			maxwidth = 80, -- Limit max width of completion items
 		}),
 	},
+	-- Key mappings for navigating and selecting completion items
 	mapping = {
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<Tab>"] = cmp.mapping.select_next_item(),
-		["<S-Tab>"] = cmp.mapping.select_prev_item(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm selection on Enter
+		["<C-n>"] = cmp.mapping.select_next_item(), -- Next item
+		["<C-p>"] = cmp.mapping.select_prev_item(), -- Previous item
+		["<Tab>"] = cmp.mapping.select_next_item(), -- Tab to next
+		["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Shift-Tab to previous
+		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
 	},
-
+	-- Customization of completion and documentation windows
 	window = {
-		-- Customization of completion window
 		completion = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Nice border
-			winhighlight = "Normal:CmpDoc,FloatBorder:CmpBorder,Search:None", -- Highlight settings
-			col_offset = -3, -- Control tooltip position
-			side_padding = 1, -- Space on the side of the tooltip
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Border style
+			winhighlight = "Normal:CmpDoc,FloatBorder:CmpBorder,Search:None", -- Highlights
+			col_offset = -3, -- Adjust tooltip position
+			side_padding = 1, -- Space around tooltip
 		},
 		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Nice border for documentation
-			winhighlight = "Normal:CmpDoc,FloatBorder:CmpBorder,Search:None", -- Documentation window highlight
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- Documentation border
+			winhighlight = "Normal:CmpDoc,FloatBorder:CmpBorder,Search:None", -- Documentation highlights
 		},
-	},
-	sources = {
-		{ name = "nvim_lsp" }, -- Use LSP for completion
-		{ name = "luasnip" }, -- Snippet completion
 	},
 })

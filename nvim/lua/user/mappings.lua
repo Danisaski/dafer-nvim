@@ -13,10 +13,13 @@ local run_script = function()
 	-- Save the current file before running
 	vim.cmd("silent write")
 
+	-- Set CWD to the directory of the current file
+	vim.cmd("cd %:p:h")
+
 	local filetype = vim.bo.filetype
 
 	if filetype == "python" then
-		vim.cmd("!python3 %")
+		vim.cmd("!python %")
 	elseif filetype == "lua" then
 		vim.cmd("!lua %")
 	elseif filetype == "rust" then

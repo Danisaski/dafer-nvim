@@ -1,21 +1,25 @@
 # Installing Lazy
 
-// Instal Lazy in Linux
-
+// Install Lazy in Linux
 git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
-git clone https://github.com/folke/lazy.nvim.git C:/Users/dafer/AppData/Local/nvim/lazy/lazy.nvim
 
+// Install Lazy in Windows
+git clone https://github.com/folke/lazy.nvim.git %userprofile%\AppData\Local\nvim\lazy\lazy.nvim
 
 # Deleting local config 
 
+// Linux
 rm -rf ~/.local/share/nvim/lazy
 
+// Windows
+rd -r %userprofile%\AppData\Local\nvim
+rd -r %userprofile%\AppData\Local\nvim-data
 
 # Python dependancies
 
-// Install pythonn language server
+// Install pythonn language server, linter and formatter
 
-pip install pyright
+pip install pyright black ruff mypy
 
 
 # OS dependancies
@@ -35,3 +39,6 @@ winget install BurntSushi.ripgrep.MSVC
 
 // WSL
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+
+TODO: Debugger interface and config

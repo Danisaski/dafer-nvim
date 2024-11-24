@@ -1,19 +1,13 @@
 # Cloning my own config
 
-#### Install Lazy in Linux
+#### Linux
 git clone https://github.com/danisaski/nvim_config.git ~/.local/share/nvim
 
-#### Install Lazy in Windows
+#### Windows
 git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Local\nvim
 
 
-# Installing Lazy
-
-#### Install Lazy in Linux
-git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
-
-#### Install Lazy in Windows
-git clone https://github.com/folke/lazy.nvim.git %userprofile%\AppData\Local\nvim\lazy\lazy.nvim
+# Manual installation
 
 # Deleting local config 
 
@@ -24,9 +18,18 @@ rm -rf ~/.local/share/nvim/lazy
 rd -r %userprofile%\AppData\Local\nvim
 rd -r %userprofile%\AppData\Local\nvim-data
 
+## Installing lazy.nvim
+
+#### Linux
+git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
+
+#### Windows
+git clone https://github.com/folke/lazy.nvim.git %userprofile%\AppData\Local\nvim\lazy\lazy.nvim
+
+
 # Python dependancies
 
-### Install python language server, linter and formatter
+### Install a python language server, linter and formatter
 
 pip install pyright ruff
 

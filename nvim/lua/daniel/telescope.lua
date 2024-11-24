@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/user/telescope.lua
+-- ~/.config/nvim/lua/daniel/telescope.lua
 
 require("telescope").setup({
 	defaults = {

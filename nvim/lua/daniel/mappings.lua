@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/user/mappings.lua
+-- ~/.config/nvim/lua/daniel/mappings.lua
 
 -- Map ';' to ':'
 vim.keymap.set("n", ";", ":")
@@ -7,6 +7,8 @@ vim.keymap.set("n", "K", "5k")
 
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>u',vim.cmd.UndotreeToggle)
 
 -- Map Ctrl+Alt+N to save and then run the current script in multiple modes
 local run_script = function()

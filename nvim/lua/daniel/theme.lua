@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/user/theme.lua
+-- ~/.config/nvim/lua/daniel/theme.lua
 
 vim.cmd("colorscheme catppuccin")
 

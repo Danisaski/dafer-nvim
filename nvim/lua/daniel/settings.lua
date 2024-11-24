@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/user/settings.lua
+-- ~/.config/nvim/lua/daniel/settings.lua
 
 -- Automatically save the file when leaving insert mode
 vim.cmd("autocmd InsertLeave * write")

@@ -1,4 +1,4 @@
--- ~/.config/nvim/lua/user/cmp.lua
+-- ~/.config/nvim/lua/daniel/cmp.lua
 
 -- Set up nvim-cmp for code completion
 local cmp = require("cmp")
@@ -8,15 +8,8 @@ cmp.setup({
 	-- Define completion sources
 	sources = {
 		{ name = "nvim_lsp" }, -- LSP-based completion
-		{ name = "luasnip" }, -- Snippet completion
 		{ name = "buffer" }, -- Text within the buffer
 		{ name = "path" }, -- File path completion
-	},
-	-- Configure snippet expansion
-	snippet = {
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body) -- Expand snippets using LuaSnip
-		end,
 	},
 	-- Formatting options with lspkind for icons
 	formatting = {

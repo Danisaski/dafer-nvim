@@ -1,3 +1,12 @@
+# Cloning my own config
+
+#### Install Lazy in Linux
+git clone https://github.com/danisaski/nvim_config.git ~/.local/share/nvim
+
+#### Install Lazy in Windows
+git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Local\nvim
+
+
 # Installing Lazy
 
 #### Install Lazy in Linux

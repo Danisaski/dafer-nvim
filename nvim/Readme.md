@@ -1,42 +1,43 @@
-## Installing Lazy
+# Installing Lazy
 
-# Install Lazy in Linux
+### Install Lazy in Linux
 git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
 
-# Install Lazy in Windows
+### Install Lazy in Windows
 git clone https://github.com/folke/lazy.nvim.git %userprofile%\AppData\Local\nvim\lazy\lazy.nvim
 
-## Deleting local config 
+# Deleting local config 
 
-# Linux
+### Linux
 rm -rf ~/.local/share/nvim/lazy
 
-# Windows
+### Windows
 rd -r %userprofile%\AppData\Local\nvim
 rd -r %userprofile%\AppData\Local\nvim-data
 
-## Python dependancies
+# Python dependancies
 
-# Install pythonn language server, linter and formatter
+### Install pythonn language server, linter and formatter
 
 pip install pyright black ruff mypy
 
 
-## OS dependancies
+# OS dependancies
 
-# Install ripgrep for telescope grep
+### Install ripgrep for telescope grep
 
-# Linux
+### Linux
 sudo apt install ripgrep
 
-# Windows
+### Windows
 winget install BurntSushi.ripgrep.MSVC
 
 
-## Other dependancies
-# Install Rust
+# Other dependancies
 
-// WSL
+### Install Rust
+
+### WSL
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 

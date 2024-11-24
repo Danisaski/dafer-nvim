@@ -1,7 +1,7 @@
 # Cloning my own config
 
 #### Linux
-git clone https://github.com/danisaski/nvim_config.git ~/.local/share/nvim
+git clone https://github.com/danisaski/nvim_config.git ~/.config/nvim
 
 #### Windows
 git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Local\nvim
@@ -12,7 +12,8 @@ git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Loc
 # Deleting local config 
 
 #### Linux
-rm -rf ~/.local/share/nvim/lazy
+rm -rf ~/.local/share/nvim
+rm -rf ~/.config/nvim
 
 #### Windows
 rd -r %userprofile%\AppData\Local\nvim

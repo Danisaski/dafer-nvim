@@ -1,19 +1,19 @@
 -- Determine the proper path based on OS
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if vim.fn.has('win32') == 1 then
-    -- Windows path (using backslashes)
-    lazypath = vim.fn.stdpath("data") .. "\\lazy\\lazy.nvim"
+	-- Windows path (using backslashes)
+	lazypath = vim.fn.stdpath("data") .. "\\lazy\\lazy.nvim"
 end
 
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -36,3 +36,4 @@ require('daniel.treesitter')
 require('daniel.undotree')
 require('daniel.lspconfig')
 require('daniel.formatters')
+require('daniel.comments')

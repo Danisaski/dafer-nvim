@@ -1,2 +1,8 @@
--- In windows there is no diff, so have to use FC
-vim.g.undotree_DiffCommand = "FC"
+-- Check the operating system
+if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+	-- If on Windows, set the DiffCommand to FC
+	vim.g.undotree_DiffCommand = "FC"
+else
+	-- If not Windows, don't set the DiffCommand
+	-- This block is intentionally left blank
+end

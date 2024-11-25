@@ -49,8 +49,11 @@ winget install BurntSushi.ripgrep.MSVC
 
 ### Install Rust
 
-#### WSL
+#### Linux / WSL2
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+### Install nodejs and npm
+sudo apt update
+sudo apt install nodejs npm
 
 TODO: Debugger interface and config

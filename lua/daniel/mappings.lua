@@ -1,3 +1,4 @@
+--@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/mappings.lua
 
 -- Map ';' to ':'
@@ -8,9 +9,9 @@ vim.keymap.set("n", "K", "5k")
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>u',vim.cmd.UndotreeToggle)
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
--- Map Ctrl+Alt+N to save and then run the current script in multiple modes
+-- Map Ctrl+Alt+N to save and then run the current script for multiple languages
 local run_script = function()
 	-- Save the current file before running
 	vim.cmd("silent write")

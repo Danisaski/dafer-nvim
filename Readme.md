@@ -16,8 +16,8 @@ rm -rf ~/.local/share/nvim
 rm -rf ~/.config/nvim
 
 #### Windows
-rd -r %userprofile%\AppData\Local\nvim
-rd -r %userprofile%\AppData\Local\nvim-data
+rd /s /q %userprofile%\AppData\Local\nvim
+rd /s /q %userprofile%\AppData\Local\nvim-data
 
 ## Installing lazy.nvim
 

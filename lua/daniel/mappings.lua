@@ -39,10 +39,14 @@ local run_script = function(mode)
 	else
 		print("Unsupported filetype")
 	end
+
+	-- If running in terminal mode, switch to insert mode
+	if mode == "term" then
+		vim.cmd("startinsert")
+	end
 end
 
-
--- Uppercase R runs in :term
+-- Uppercase R runs in :term and switches to insert mode
 vim.keymap.set("n", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })
 vim.keymap.set("v", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })
 vim.keymap.set("x", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })

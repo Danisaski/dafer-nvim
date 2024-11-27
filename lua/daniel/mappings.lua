@@ -11,8 +11,7 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
--- Map Ctrl+Alt+N to save and then run the current script for multiple languages
-local run_script = function()
+local run_script = function(mode)
 	-- Save the current file before running
 	vim.cmd("silent write")
 	-- Set CWD to the directory of the current file
@@ -20,24 +19,35 @@ local run_script = function()
 	local filetype = vim.bo.filetype
 
 	if filetype == "python" then
-		vim.cmd("!python %")
+		if mode == "term" then
+			vim.cmd(":term python %")
+		else
+			vim.cmd("!python %")
+		end
 	elseif filetype == "lua" then
-		vim.cmd("!lua %")
+		if mode == "term" then
+			vim.cmd(":term lua %")
+		else
+			vim.cmd("!lua %")
+		end
 	elseif filetype == "rust" then
-		vim.cmd("!cargo run")
+		if mode == "term" then
+			vim.cmd(":term cargo run")
+		else
+			vim.cmd("!cargo run")
+		end
 	else
 		print("Unsupported filetype")
 	end
 end
--- In Insert mode, simulate the Ctrl+Alt+N keypress to run the function directly
-vim.keymap.set("i", "<C-a>n", function()
-	-- Run the script without leaving Insert mode
-	run_script()
-	-- Simulate pressing Esc to remain in Insert mode
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-end, { desc = "Save and run current script" })
 
--- Apply the mapping in Normal mode (n), Insert mode (i), Visual mode (v), and other modes
-vim.keymap.set("n", "<leader>r", run_script, { desc = "Save and run current script" })
-vim.keymap.set("v", "<leader>r", run_script, { desc = "Save and run current script" })
-vim.keymap.set("x", "<leader>r", run_script, { desc = "Save and run current script" })
+
+-- Uppercase R runs in :term
+vim.keymap.set("n", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })
+vim.keymap.set("v", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })
+vim.keymap.set("x", "<leader>R", function() run_script("term") end, { desc = "Save and run current script in terminal" })
+
+-- Lowercase r runs using !
+vim.keymap.set("n", "<leader>r", function() run_script() end, { desc = "Save and run current script" })
+vim.keymap.set("v", "<leader>r", function() run_script() end, { desc = "Save and run current script" })
+vim.keymap.set("x", "<leader>r", function() run_script() end, { desc = "Save and run current script" })

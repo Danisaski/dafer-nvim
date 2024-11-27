@@ -15,10 +15,8 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 local run_script = function()
 	-- Save the current file before running
 	vim.cmd("silent write")
-
 	-- Set CWD to the directory of the current file
 	vim.cmd("cd %:p:h")
-
 	local filetype = vim.bo.filetype
 
 	if filetype == "python" then
@@ -31,9 +29,8 @@ local run_script = function()
 		print("Unsupported filetype")
 	end
 end
-
 -- In Insert mode, simulate the Ctrl+Alt+N keypress to run the function directly
-vim.keymap.set("i", "<C-A-n>", function()
+vim.keymap.set("i", "<C-a>n", function()
 	-- Run the script without leaving Insert mode
 	run_script()
 	-- Simulate pressing Esc to remain in Insert mode
@@ -41,7 +38,6 @@ vim.keymap.set("i", "<C-A-n>", function()
 end, { desc = "Save and run current script" })
 
 -- Apply the mapping in Normal mode (n), Insert mode (i), Visual mode (v), and other modes
-vim.keymap.set("n", "<C-A-n>", run_script, { desc = "Save and run current script" })
-vim.keymap.set("v", "<C-A-n>", run_script, { desc = "Save and run current script" })
-vim.keymap.set("x", "<C-A-n>", run_script, { desc = "Save and run current script" })
-vim.keymap.set("c", "<C-A-n>", run_script, { desc = "Save and run current script" })
+vim.keymap.set("n", "<leader>r", run_script, { desc = "Save and run current script" })
+vim.keymap.set("v", "<leader>r", run_script, { desc = "Save and run current script" })
+vim.keymap.set("x", "<leader>r", run_script, { desc = "Save and run current script" })

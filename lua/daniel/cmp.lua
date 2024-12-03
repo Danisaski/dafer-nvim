@@ -20,11 +20,10 @@ cmp.setup({
 	},
 	-- Key mappings for navigating and selecting completion items
 	mapping = {
-		["<C-n>"] = cmp.mapping.select_next_item(), -- Next item
-		["<C-p>"] = cmp.mapping.select_prev_item(), -- Previous item
-		["<Tab>"] = cmp.mapping.select_next_item(), -- Tab to next
+		["<Down>"] = cmp.mapping.select_next_item(), -- Next item
+		["<Up>"] = cmp.mapping.select_prev_item(), -- Previous item
 		["<S-Tab>"] = cmp.mapping.select_prev_item(), -- Shift-Tab to previous
-		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
+		["<Tab>"] = cmp.mapping.confirm({ select = true }), -- Enter to confirm
 	},
 	-- Customization of completion and documentation windows
 	window = {

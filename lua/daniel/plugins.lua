@@ -51,8 +51,8 @@ require("lazy").setup({ -- Plugin Manager
 			"nvim-tree/nvim-web-devicons" -- Optional: File icons
 		}
 	},                                    -- **Git Integration**
-	"lewis6991/gitsigns.nvim",            -- Shows git changes in sign column
-	'numToStr/Comment.nvim',
+	{ "lewis6991/gitsigns.nvim" },        -- Shows git changes in sign column
+	{ 'numToStr/Comment.nvim' },
 	-- **Keybinding Helper**
 	{
 		"folke/which-key.nvim", -- Visual keybinding prompt
@@ -64,6 +64,26 @@ require("lazy").setup({ -- Plugin Manager
 		"nvim-lualine/lualine.nvim",        -- Status line plugin
 		dependencies = { "kyazdani42/nvim-web-devicons" } -- Optional: Icons
 	},                                          -- **Themes**
-	"catppuccin/nvim"                           -- Catppuccin theme
-	-- Additional Plugins can be added below as needed
+	{ "catppuccin/nvim" },                      -- Catppuccin theme
+	-- DEBUGGING
+	{
+		"folke/lazydev.nvim",
+		config = function()
+			require("lazydev").setup({})
+		end
+	},
+	{ "nvim-neotest/nvim-nio" },
+	{
+		"mfussenegger/nvim-dap-python",
+		ft = "python",
+		dependencies = { "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui" },
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+	},
+	{
+		"mfussenegger/nvim-dap",
+
+	},
 })

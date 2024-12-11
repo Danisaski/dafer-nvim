@@ -1,7 +1,16 @@
 -- ~/.config/nvim/lua/daniel/settings.lua
 
 -- Automatically save the file when leaving insert mode
-vim.cmd("autocmd InsertLeave * write")
+vim.api.nvim_create_autocmd("InsertLeave", {
+	pattern = "*",
+	callback = function()
+		-- Check the buffer type
+		if vim.bo.buftype == "" then
+			vim.cmd("write") -- Write only if it's a normal buffer
+		end
+	end,
+})
+
 
 vim.o.cursorlineopt = 'both'
 

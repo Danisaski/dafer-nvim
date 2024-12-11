@@ -37,3 +37,10 @@ require('daniel.undotree')
 require('daniel.lspconfig')
 require('daniel.formatters')
 require('daniel.comments')
+require('daniel.debug')
+
+
+vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#FF0000", bold = true })         -- Red dot
+vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#FFA500", bold = true }) -- Orange for rejected breakpoints
+vim.api.nvim_set_hl(0, "DapStopped", { fg = "#00FF00", bold = true })            -- Green for current line
+vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#003300" })                     -- Background for stopped line

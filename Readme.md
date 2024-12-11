@@ -73,4 +73,5 @@ sudo apt update
 sudo apt install nodejs npm
 ```
 
-**TODO:** Debugger interface and config
+**TODO:** Debugger interface and config for RUST
+ensure installed equivalent to debugpy. Reorder pluggins.lua. Autoinstall node, npm, etc.

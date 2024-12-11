@@ -40,7 +40,13 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		config = function() require("nvim-autopairs").setup({}) end,
 	},
-	"kyazdani42/nvim-web-devicons",
+	{ "kyazdani42/nvim-web-devicons" },
+	{
+		'goolord/alpha-nvim',
+		config = function()
+			require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+		end
+	},
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -69,12 +75,17 @@ require("lazy").setup({
 	-- **Commenting**
 	{ "numToStr/Comment.nvim" },
 
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {}
+	},
 	-- **Themes**
 	{ "catppuccin/nvim" },
 
 	-- **Custom Menu**
-	{ "nvzone/volt",          lazy = true },
-	{ "nvzone/menu",          lazy = true },
+	{ "nvzone/volt",    lazy = true },
+	{ "nvzone/menu",    lazy = true },
 
 	-- **Debugging**
 	{

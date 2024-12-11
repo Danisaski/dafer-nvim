@@ -1,76 +1,85 @@
 -- ~/.config/nvim/lua/daniel/plugins.lua
 -- Set up lazy.nvim as the plugin manager
-require("lazy").setup({ -- Plugin Manager
-	"folke/lazy.nvim", -- **LSP and Tooling Management**
+require("lazy").setup({
+	-- **Plugin Manager**
+	"folke/lazy.nvim",
+
+	-- **LSP and Tooling Management**
 	{
 		"VonHeikemen/lsp-zero.nvim",
-		dependencies = { { "neovim/nvim-lspconfig" }, -- Native LSP configuration
-			{ "williamboman/mason.nvim" }, -- LSP server manager
-			{ "williamboman/mason-lspconfig.nvim" }, -- Integrates Mason with lspconfig
+		dependencies = {
+			{ "neovim/nvim-lspconfig" },
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
-				dependencies = { "williamboman/mason.nvim" } -- Ensures mason.nvim is loaded first
-			}, {
-			"hrsh7th/nvim-cmp",      -- Completion engine
-			config = function()
-				require("daniel.cmp") -- Custom completion configuration
-			end
-		}, { "hrsh7th/cmp-nvim-lsp" },   -- LSP source for nvim-cmp
-			{ "hrsh7th/cmp-buffer" }, -- Buffer source for nvim-cmp
-			{ "hrsh7th/cmp-path" },  -- Path source for nvim-cmp
-			{ "onsails/lspkind-nvim" } -- Icons and labels for completion menu
-		}
-	},                                       -- **Treesitter**
+				dependencies = { "williamboman/mason.nvim" },
+			},
+			{ "hrsh7th/nvim-cmp",    config = function() require("daniel.cmp") end },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
+			{ "onsails/lspkind-nvim" },
+		},
+	},
+
+	-- **Treesitter**
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate"
-	},          -- **Undotree**
-	'mbbill/undotree', -- **Auto Pairs**
+		build = ":TSUpdate",
+	},
+
+	-- **Git Integration**
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function() require("gitsigns").setup() end,
+	},
+
+	-- **UI Enhancements**
 	{
 		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({}) -- Basic auto-pairs setup
-		end
-	},                             -- **File Icons**
-	"kyazdani42/nvim-web-devicons", -- File icons for plugins
-	-- **Fuzzy Finder**
+		config = function() require("nvim-autopairs").setup({}) end,
+	},
+	"kyazdani42/nvim-web-devicons",
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" } -- Telescope dependencies
-	},                                           -- **File Explorer**
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 	{
-		"kyazdani42/nvim-tree.lua",          -- File tree explorer
-		dependencies = { "kyazdani42/nvim-web-devicons" }, -- Optional: File icons
-		config = function()
-			require("daniel.tree")       -- Custom tree configuration
-		end
-	},                                           -- **Buffer Line**
+		"kyazdani42/nvim-tree.lua",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		config = function() require("daniel.tree") end,
+	},
 	{
 		"romgrk/barbar.nvim",
-		dependencies = { "lewis6991/gitsigns.nvim", -- Optional: Git integration
-			"nvim-tree/nvim-web-devicons" -- Optional: File icons
-		}
-	},                                    -- **Git Integration**
-	{ "lewis6991/gitsigns.nvim" },        -- Shows git changes in sign column
-	{ 'numToStr/Comment.nvim' },
-	-- **Keybinding Helper**
+		dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
+	},
 	{
-		"folke/which-key.nvim", -- Visual keybinding prompt
-		config = function()
-			require("which-key").setup({})
-		end
-	},                                          -- **Status Line**
+		"folke/which-key.nvim",
+		config = function() require("which-key").setup({}) end,
+	},
 	{
-		"nvim-lualine/lualine.nvim",        -- Status line plugin
-		dependencies = { "kyazdani42/nvim-web-devicons" } -- Optional: Icons
-	},                                          -- **Themes**
-	{ "catppuccin/nvim" },                      -- Catppuccin theme
-	-- DEBUGGING
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+	},
+
+	-- **Undo Tree**
+	"mbbill/undotree",
+
+	-- **Commenting**
+	{ "numToStr/Comment.nvim" },
+
+	-- **Themes**
+	{ "catppuccin/nvim" },
+
+	-- **Custom Menu**
+	{ "nvzone/volt",          lazy = true },
+	{ "nvzone/menu",          lazy = true },
+
+	-- **Debugging**
 	{
 		"folke/lazydev.nvim",
-		config = function()
-			require("lazydev").setup({})
-		end
+		config = function() require("lazydev").setup({}) end,
 	},
 	{ "nvim-neotest/nvim-nio" },
 	{
@@ -82,8 +91,5 @@ require("lazy").setup({ -- Plugin Manager
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 	},
-	{
-		"mfussenegger/nvim-dap",
-
-	},
+	{ "mfussenegger/nvim-dap" },
 })

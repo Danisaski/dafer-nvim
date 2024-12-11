@@ -29,10 +29,54 @@ vim.keymap.set({ "n", "v", "x" }, '<S-F11>', function()
 	require('dap').step_out()
 end, { desc = "Step out" })
 
-vim.keymap.set({ "n", "v", "x" }, '<ESC>', function()
+vim.keymap.set({ "n", "v", "x" }, '<F12>', function()
 	require('dap').terminate()
 end, { desc = "Stop debugging session" })
 
+-- Keyboard users
+vim.keymap.set("n", "<leader>m", function()
+	require("menu").open("default")
+end, { desc = "Open context menu" })
+
+-- Keyboard users
+vim.keymap.set("n", "<C-t>", function()
+	require("menu").open("default")
+end, { desc = "Open context menu" })
+
+-- mouse users + nvimtree users!
+vim.keymap.set("n", "<RightMouse>", function()
+	vim.cmd.exec '"normal! \\<RightMouse>"'
+
+	local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+	require("menu").open(options, { mouse = true })
+end, {})
+
+-- Format Buffer
+vim.keymap.set({ "n", "v", "x" }, '<leader>fm', function()
+	vim.lsp.buf.format({ async = true })
+end, { desc = "Format Buffer" })
+
+-- Code Actions
+vim.keymap.set({ "n", "v" }, '<leader>ca', function()
+	vim.lsp.buf.code_action()
+end, { desc = "Code Actions" })
+
+-- Edit Config
+vim.keymap.set("n", "ed", function()
+	vim.cmd("edit $MYVIMRC")
+end, { desc = "Edit Config" })
+
+-- Copy Content
+vim.keymap.set({ "n", "v", "x" }, "<C-c>", '"+y', { desc = "Copy Content" })
+
+-- Delete Content
+vim.keymap.set({ "v", "x" }, "dc", '"_d', { desc = "Delete Content" })
+
+-- Paste in visual mode without copying the replaced text
+vim.keymap.set("x", "p", '"_dp', { desc = "Paste without overwriting register in visual mode" })
+
+-- Paste in visual line mode without overwriting
+vim.keymap.set("x", "P", '"_dP', { desc = "Paste before without overwriting register" })
 
 
 -- Remap 'jk' to 'Esc' in insert mode
@@ -40,25 +84,27 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
 
+-- Keybinding to trigger Telescope
+vim.keymap.set({ "n", "v", "x" }, "<leader>ff", require("telescope.builtin").find_files, { desc = "Find Files" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>fg", require("telescope.builtin").live_grep, { desc = "Live Grep" })
 
--- Function to update Barbar's offset based on Nvim-Tree's visibility
-local function update_barbar_offset()
-	local view = require("nvim-tree.view")
-	if view.is_visible() then
-		-- Set the offset to match Nvim-Tree's width when it’s open
-		require("bufferline.api").set_offset(30, "File Tree")
-	else
-		-- Remove the offset when Nvim-Tree is closed
-		require("bufferline.api").set_offset(0)
-	end
-end
+-- BarBar and Tabs
+vim.keymap.set({ "n", "v", "x" }, '<leader>bb', '<Cmd>BufferPick<CR>',
+	{ noremap = true, silent = true, desc = "Fast buffer pick" })
+vim.keymap.set({ "n", "v", "x" }, '<leader>w', '<Cmd>BufferClose<CR>',
+	{ noremap = true, silent = true, desc = "Close buffer" })
+vim.keymap.set({ "n", "v", "x" }, '<leader>j', '<Cmd>BufferPrevious<CR>',
+	{ noremap = true, silent = true, desc = "Previous buffer" })
+vim.keymap.set({ "n", "v", "x" }, '<leader>k', '<Cmd>BufferNext<CR>',
+	{ noremap = true, silent = true, desc = "Next buffer" })
+
+vim.keymap.set('n', '<leader>h', '<C-w>h', { noremap = true, silent = true, desc = "Move to left window" })
+vim.keymap.set('n', '<leader>l', '<C-w>l', { noremap = true, silent = true, desc = "Move to right window" })
 
 -- Keymap to toggle the tree view and update Barbar's offset
 vim.keymap.set("n", "<leader>t", function()
 	-- Toggle the Nvim-Tree
 	vim.cmd("NvimTreeToggle")
-	-- Update Barbar's offset after toggling
-	update_barbar_offset()
 end, {
 	desc = "Toggle file tree",
 	silent = true,
@@ -101,8 +147,8 @@ local run_script = function(mode)
 end
 
 -- Uppercase R runs in :term and switches to insert mode
-vim.keymap.set({ "n", "v", "x" }, "<leader>R", function() run_script("term") end,
+vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script("term") end,
 	{ desc = "Save and run current script in terminal" })
 
 -- Lowercase r runs using !
-vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script() end, { desc = "Save and run current script" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>R", function() run_script() end, { desc = "Save and run current script" })

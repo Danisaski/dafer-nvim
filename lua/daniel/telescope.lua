@@ -7,7 +7,3 @@ require("telescope").setup({
 		},
 	},
 })
-
--- Keybinding to trigger Telescope
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, { desc = "Find Files" })
-vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "Live Grep" })

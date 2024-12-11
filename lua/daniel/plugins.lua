@@ -48,6 +48,10 @@ require("lazy").setup({
 		end
 	},
 	{
+		'mg979/vim-visual-multi',
+		branch = 'master',
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},

@@ -5,6 +5,8 @@
 vim.keymap.set({ "n", "v", "x" }, ";", ":")
 vim.keymap.set({ "n", "v", "x" }, "J", "5j")
 vim.keymap.set({ "n", "v", "x" }, "K", "5k")
+vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<ESC>k", { desc = "Insert white line below" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>O", "o<ESC>j", { desc = "Insert white line above" })
 vim.keymap.set({ "n", "v", "x" }, '<leader>db', function()
 	require('dap').continue()
 end, { desc = "Start debugging session" })

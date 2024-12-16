@@ -33,7 +33,7 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Search in buffer
-vim.keymap.set("n", "<C-f>", "/", { silent = true, noremap = true })
+vim.keymap.set("n", "<C-f>", "/", { noremap = true })
 
 -- Floating menu for keyboard users
 vim.keymap.set("n", "<leader>m", function()

@@ -3,6 +3,7 @@
 
 -- Map ';' to ':'
 vim.keymap.set({ "n", "v", "x" }, ";", ":")
+vim.keymap.set({ "n", "v", "x" }, ":", "<cmd>FineCmdline<CR>", { silent = true, noremap = true })
 vim.keymap.set({ "n", "v", "x" }, "J", "5j")
 vim.keymap.set({ "n", "v", "x" }, "K", "5k")
 vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<ESC>k", { desc = "Insert white line below" })

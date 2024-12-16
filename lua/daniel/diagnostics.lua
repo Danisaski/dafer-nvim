@@ -1,12 +1,13 @@
--- Function to show line diagnostics
+-- Function to show line diagnostics only if no other floating window is open
 local function show_line_diagnostics()
-	vim.diagnostic.open_float(nil, {
-		focusable = false,
-		scope = "line",
-		border = "rounded",
-	})
+	if #vim.api.nvim_list_wins() == 1 then
+		vim.diagnostic.open_float(nil, {
+			focusable = false,
+			scope = "line",
+			border = "rounded",
+		})
+	end
 end
-
 -- Auto-trigger on CursorHold
 vim.api.nvim_create_autocmd("CursorHold", {
 	callback = show_line_diagnostics,

@@ -72,7 +72,15 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
 	},
-
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				stages = "fade_in_slide_out", -- Animation style
+			})
+			vim.notify = require("notify") -- Replace default `vim.notify`
+		end,
+	},
 	-- **Undo Tree**
 	"mbbill/undotree",
 
@@ -90,6 +98,8 @@ require("lazy").setup({
 	-- **Custom Menu**
 	{ "nvzone/volt",    lazy = true },
 	{ "nvzone/menu",    lazy = true },
+	'MunifTanjim/nui.nvim',
+	'VonHeikemen/fine-cmdline.nvim',
 
 	-- **Debugging**
 	{

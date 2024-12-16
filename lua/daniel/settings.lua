@@ -2,22 +2,43 @@
 
 -- Automatically save the file when leaving insert mode
 vim.api.nvim_create_autocmd("InsertLeave", {
-	pattern = "*",
-	callback = function()
-		-- Check the buffer type
-		if vim.bo.buftype == "" then
-			vim.cmd("write") -- Write only if it's a normal buffer
-		end
-	end,
+    pattern = "*",
+    callback = function()
+        -- Check the buffer type
+        if vim.bo.buftype == "" then
+            vim.cmd("write") -- Write only if it's a normal buffer
+        end
+    end,
 })
 
-vim.o.updatetime = 300 -- 300ms is a common sweet spot
-vim.o.cursorline = true
-vim.o.cursorlineopt = 'both'
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number'
 
--- Enable relative line numbers
-vim.wo.relativenumber = true
-vim.wo.number = true                                                             -- Ensure absolute line number for the current line
+vim.opt.nu = true
+vim.opt.relativenumber = true
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.opt.smartindent = true
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.termguicolors = true
+
+vim.opt.scrolloff = 8
+
+vim.opt.updatetime = 50
+
+vim.opt.colorcolumn = "80"
 
 vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#FF0000", bold = true })         -- Red dot
 vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#FFA500", bold = true }) -- Orange for rejected breakpoints

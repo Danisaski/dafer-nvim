@@ -8,12 +8,10 @@ require("lualine").setup({
 		lualine_b = { "branch", "diff", "diagnostics", "lsp_progress" }, -- Add LSP progress
 		lualine_c = { "filename" },
 		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
+		lualine_y = { "progress", "location" },
 		lualine_z = {
-			"location",
 			function()
 				return os.date("%H:%M:%S") -- Display current time in HH:MM:SS format
-			end
-		},
+			end },
 	},
 })

@@ -24,3 +24,32 @@ vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", li
 -- Optionally, set up additional signs for different types of breakpoints
 vim.fn.sign_define("DapBreakpointRejected", { text = "×", texthl = "DapBreakpointRejected", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "▶", texthl = "DapStopped", linehl = "DapStoppedLine", numhl = "" })
+
+
+vim.keymap.set({ "n", "v", "x" }, '<leader>db', function()
+	require('dap').continue()
+end, { desc = "Start debugging session" })
+
+vim.keymap.set({ "n", "v", "x" }, '<F9>', function()
+	require('dap').toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+
+vim.keymap.set({ "n", "v", "x" }, '<F8>', function()
+	require('dapui').toggle()
+end, { desc = "Toggle debugging UI" })
+
+vim.keymap.set({ "n", "v", "x" }, '<F10>', function()
+	require('dap').step_over()
+end, { desc = "Step over" })
+
+vim.keymap.set({ "n", "v", "x" }, '<F11>', function()
+	require('dap').step_into()
+end, { desc = "Step into" })
+
+vim.keymap.set({ "n", "v", "x" }, '<S-F11>', function()
+	require('dap').step_out()
+end, { desc = "Step out" })
+
+vim.keymap.set({ "n", "v", "x" }, '<F12>', function()
+	require('dap').terminate()
+end, { desc = "Stop debugging session" })

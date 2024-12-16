@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 })
 
 -- Keybinding to go to the next diagnostic in Normal and Visual mode
-vim.keymap.set({ 'n', 'x' }, '<leader>d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set({ 'n', 'x' }, '<leader>e', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 
 -- Keybinding to go to the previous diagnostic in Normal and Visual mode
-vim.keymap.set({ 'n', 'x' }, '<leader>e', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set({ 'n', 'x' }, '<leader>E', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })

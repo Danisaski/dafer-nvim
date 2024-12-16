@@ -6,14 +6,14 @@ vim.keymap.set({ "n", "v", "x" }, ";", "<cmd>FineCmdline<CR>", { silent = true }
 vim.keymap.set({ "n", "v", "x" }, ":", "<cmd>FineCmdline<CR>", { silent = true })
 
 -- Quick navigating
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
 vim.keymap.set({ "n", "x" }, "J", "5j")
 vim.keymap.set({ "n", "x" }, "K", "5k")
 
 -- Move lines in visual mode
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move down" })
 
 -- Keep centered when next and previous
 vim.keymap.set("n", "n", "nzzzv")
@@ -30,7 +30,8 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Substitute current cursor position word
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Substitute in active buffer" })
 
 -- Search in buffer
 vim.keymap.set("n", "<C-f>", "/", { noremap = true })

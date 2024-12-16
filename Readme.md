@@ -70,7 +70,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ### Install nodejs and npm
 ```bash
 sudo apt update
-sudo apt install nodejs npm
+sudo apt install nodejs
 ```
 
 **TODO:** Debugger interface and config for RUST

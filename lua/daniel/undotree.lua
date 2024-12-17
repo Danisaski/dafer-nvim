@@ -6,3 +6,7 @@ else
 	-- If not Windows, don't set the DiffCommand
 	-- This block is intentionally left blank
 end
+
+-- Toggle undo tree
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = "Toggle undo tree" })
+

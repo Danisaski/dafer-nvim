@@ -24,3 +24,14 @@ require("nvim-tree").setup({
         }
     }
 })
+
+-- Keymap to toggle the tree view and update Barbar's offset
+vim.keymap.set("n", "<leader>t", function()
+    -- Toggle the Nvim-Tree
+    vim.cmd("NvimTreeToggle")
+end, {
+    desc = "Toggle file tree",
+    silent = true,
+    noremap = true
+})
+

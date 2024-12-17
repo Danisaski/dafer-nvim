@@ -1,4 +1,4 @@
-# Cloning my own config
+# Cloning the config
 
 #### Linux
 ```bash
@@ -9,6 +9,8 @@ git clone https://github.com/danisaski/nvim_config.git ~/.config/nvim
 ```powershell
 git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Local\nvim
 ```
+
+<details> <summary>Manual installation</summary>
 
 # Manual installation
 
@@ -26,6 +28,8 @@ rd /s /q %userprofile%\AppData\Local\nvim
 rd /s /q %userprofile%\AppData\Local\nvim-data
 ```
 
+<details> <summary>Click to expand Python, Rust and OS Dependencies</summary>
+  
 ## Installing lazy.nvim
 
 #### Linux
@@ -67,10 +71,15 @@ winget install BurntSushi.ripgrep.MSVC
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### Install nodejs and npm
+### Install nodejs
+
 ```bash
 sudo apt update
 sudo apt install nodejs
+```
+
+```bash
+git remote set-url origin git@github.com:danisaski/nvim_config
 ```
 
 **TODO:** Debugger interface and config for RUST

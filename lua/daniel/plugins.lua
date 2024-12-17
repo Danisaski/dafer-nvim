@@ -45,8 +45,9 @@ require("lazy").setup({
     { "kyazdani42/nvim-web-devicons" },
     {
         'goolord/alpha-nvim',
+        dependencies = { 'echasnovski/mini.icons' },
         config = function()
-            require('alpha').setup(require 'alpha.themes.dashboard'.config)
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
         end
     },
     {

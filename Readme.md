@@ -2,12 +2,12 @@
 
 #### Linux
 ```bash
-git clone https://github.com/danisaski/nvim_config.git ~/.config/nvim
+git clone https://github.com/danisaski/neodafer.git ~/.config/nvim
 ```
 
 #### Windows
 ```powershell
-git clone https://github.com/danisaski/nvim_config.git %userprofile%\AppData\Local\nvim
+git clone https://github.com/danisaski/neodafer.git %userprofile%\AppData\Local\nvim
 ```
 
 <details> <summary>Manual installation</summary>
@@ -79,7 +79,7 @@ sudo apt install nodejs
 ```
 
 ```bash
-git remote set-url origin git@github.com:danisaski/nvim_config
+git remote set-url origin git@github.com:danisaski/neodafer
 ```
 
 ```bash

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/plugins.lua
 -- Set up lazy.nvim as the plugin manager
 require("lazy").setup({
@@ -54,6 +55,7 @@ require("lazy").setup({
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
+            "stevearc/dressing.nvim",
         }
     },
     {
@@ -86,18 +88,23 @@ require("lazy").setup({
 
     -- **Commenting**
     { "numToStr/Comment.nvim" },
-
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {}
     },
     -- **Themes**
-    { "catppuccin/nvim" },
+    {
+        "catppuccin/nvim",
+        priority = 1000,
+        init = function()
+            vim.cmd("colorscheme catppuccin")
+        end
+    },
 
     -- **Custom Menu**
-    { "nvzone/volt",    lazy = true },
-    { "nvzone/menu",    lazy = true },
+    { "nvzone/volt", lazy = true },
+    { "nvzone/menu", lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

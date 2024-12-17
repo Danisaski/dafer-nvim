@@ -1,4 +1,4 @@
--- Function to show line diagnostics only if no other floating window is open
+-- -- Function to show line diagnostics only if no other floating window is open
 local function show_line_diagnostics()
 	if #vim.api.nvim_list_wins() == 1 then
 		vim.diagnostic.open_float(nil, {
@@ -8,8 +8,9 @@ local function show_line_diagnostics()
 		})
 	end
 end
--- Auto-trigger on CursorHold
-vim.api.nvim_create_autocmd("CursorHold", {
+
+-- auto-trigger on cursorhold
+vim.api.nvim_create_autocmd("cursorhold", {
 	callback = show_line_diagnostics,
 	desc = "Show line diagnostics in a floating window",
 })

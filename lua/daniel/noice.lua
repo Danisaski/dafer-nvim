@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 require("noice").setup({
     lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -16,3 +17,18 @@ require("noice").setup({
         lsp_doc_border = false,   -- add a border to hover docs and signature help
     },
 })
+
+require("dressing").setup({
+    input = {
+        enabled = true,
+        border = "rounded",
+    },
+    select = {
+        enabled = true,
+        backend = { "telescope", "builtin" },
+        builtin = {
+            border = "rounded",
+        },
+    },
+})
+

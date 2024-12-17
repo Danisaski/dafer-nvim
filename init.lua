@@ -25,7 +25,6 @@ require("daniel.plugins")
 
 -- Load other configurations
 require("daniel.mason")
-require("daniel.theme")
 require('daniel.comments')
 require("daniel.statusbar")
 require("daniel.telescope")

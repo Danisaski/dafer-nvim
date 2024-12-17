@@ -1,8 +1,9 @@
+---@diagnostic disable: missing-fields
 --@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/mappings.lua
 
 -- Map ';' to ':' and other command line tools
-vim.keymap.set({ "n", "v", "x" }, ";", ":", { silent = true })
+vim.keymap.set({ "n", "v", "x" }, ";", ":")
 
 -- Quick navigating
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
@@ -25,18 +26,21 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
--- Clear highlight 
-vim.keymap.set({ "n", "v", "x" },  '<Esc>', "<Esc>:noh<CR>", {silent = true})
+-- Clear highlight
+vim.keymap.set({ "n", "v", "x" }, '<Esc>', "<Esc>:noh<CR>", { silent = true })
 
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Substitute current cursor position word
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Substitute in active buffer" })
+-- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+--     { desc = "Substitute in active buffer" })
 
--- Search in buffer
-vim.keymap.set("n", "<C-f>", "/", { noremap = true })
+-- Shortcut for searching your Neovim configuration files
+vim.keymap.set('n', '<leader>sn', function()
+    require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+end, { desc = '[S]earch [N]eovim files' })
+
 
 -- Floating menu for keyboard users
 vim.keymap.set("n", "<leader>m", function()
@@ -61,11 +65,10 @@ vim.keymap.set({ "n", "v" }, '<leader>ca', function()
     vim.lsp.buf.code_action()
 end, { desc = "Code Actions" })
 
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
 -- Copy Content
 vim.keymap.set({ "n", "v", "x" }, "<C-c>", '"+y', { desc = "Copy Content" })
-
--- Delete Content
-vim.keymap.set({ "v", "x" }, "dc", '"_d', { desc = "Delete Content" })
 
 -- Paste in visual mode without copying the replaced text
 vim.keymap.set("x", "p", '"_dp', { desc = "Paste without overwriting register in visual mode" })
@@ -92,13 +95,15 @@ vim.keymap.set({ "n", "v", "x" }, '<leader>bb', '<Cmd>BufferPick<CR>',
     { noremap = true, silent = true, desc = "Fast buffer pick" })
 vim.keymap.set({ "n", "v", "x" }, '<leader>w', '<Cmd>BufferClose<CR>',
     { noremap = true, silent = true, desc = "Close buffer" })
-vim.keymap.set({ "n", "v", "x" }, '<leader>j', '<Cmd>BufferPrevious<CR>',
+vim.keymap.set({ "n", "v", "x" }, '<leader>h', '<Cmd>BufferPrevious<CR>',
     { noremap = true, silent = true, desc = "Previous buffer" })
-vim.keymap.set({ "n", "v", "x" }, '<leader>k', '<Cmd>BufferNext<CR>',
+vim.keymap.set({ "n", "v", "x" }, '<leader>l', '<Cmd>BufferNext<CR>',
     { noremap = true, silent = true, desc = "Next buffer" })
 
-vim.keymap.set('n', '<leader>h', '<C-w>h', { noremap = true, silent = true, desc = "Move to left window" })
-vim.keymap.set('n', '<leader>l', '<C-w>l', { noremap = true, silent = true, desc = "Move to right window" })
+vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = "Move to left window" })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = "Move to right window" })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true, desc = "Move to lower window" })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true, desc = "Move to upper window" })
 
 -- Keymap to toggle the tree view and update Barbar's offset
 vim.keymap.set("n", "<leader>t", function()
@@ -151,3 +156,26 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script("term") end
 
 -- Lowercase r runs using !
 vim.keymap.set({ "n", "v", "x" }, "<leader>R", function() run_script() end, { desc = "Save and run current script" })
+
+
+--  See `:help lua-guide-autocommands`
+
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+-- Slightly advanced example of overriding default behavior and theme
+vim.keymap.set('n', '<C-f>', function()
+    -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        winblend = 10,
+        previewer = false,
+    })
+end, { desc = '[/] Fuzzily search in current buffer' })

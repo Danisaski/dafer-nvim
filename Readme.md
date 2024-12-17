@@ -94,5 +94,9 @@ sudo mv nvim-linux64 /usr/local/nvim
 export PATH="/usr/local/nvim/bin:$PATH"
 ```
 
+```bash
+source ~/code/python/venvs/denv/bin/activate
+```
+
 **TODO:** Debugger interface and config for RUST
 ensure installed equivalent to debugpy. Reorder pluggins.lua. Autoinstall node, npm, etc.

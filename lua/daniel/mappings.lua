@@ -26,6 +26,9 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<ESC>j", { desc = "Insert white
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
+-- Clear highlight 
+vim.keymap.set('',  '<ESC>', "<ESC>:noh<CR>", {silent = true})
+
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")
 

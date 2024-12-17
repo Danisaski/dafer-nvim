@@ -4,29 +4,22 @@ require("lazy").setup({
     -- **Plugin Manager**
     "folke/lazy.nvim",
 
--- **LSP and Tooling Management**
-{
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-    "WhoIsSethDaniel/mason-tool-installer",
-},
-{
+    -- **LSP and Tooling Management**
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = { 'saghen/blink.cmp',
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer" },
+    },
+    {
         'saghen/blink.cmp',
-        lazy = false,
+        lazy = false, -- lazy loading handled internally
         dependencies = 'rafamadriz/friendly-snippets',
         version = 'v0.*',
-        opts = {
-            keymap = { preset = 'super-tab' },
-            appearance = {
-                use_nvim_cmp_as_default = true,
-                nerd_font_variant = 'normal'
-            },
-            sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer'},
-            },
-        },
-        opts_extend = { "sources.default" }
+
+        -- Load the configuration from the external file
+        opts = require("daniel.blink_cmp"),
     },
     -- **Treesitter**
     {
@@ -82,6 +75,7 @@ require("lazy").setup({
         config = function()
             require("notify").setup({
                 stages = "fade_in_slide_out", -- Animation style
+                timeou = 3000,
             })
             vim.notify = require("notify")    -- Replace default `vim.notify`
         end,

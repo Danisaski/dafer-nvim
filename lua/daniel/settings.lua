@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
         -- Check the buffer type
         if vim.bo.buftype == "" then
-            vim.cmd("write") -- Write only if it's a normal buffer
+            vim.cmd("silent! write") -- Write only if it's a normal buffer
         end
     end,
 })

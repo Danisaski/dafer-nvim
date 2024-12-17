@@ -1,3 +1,21 @@
+-- ~/.config/nvim/lua/daniel/lspconfig.lua
+local capabilities = require('blink.cmp').get_lsp_capabilities()
+local lspconfig = require('lspconfig')
+
+-- Define servers and their configurations
+local servers = {
+  lua_ls = {},           -- Lua Language Server
+  pyright = {},          -- Python LSP
+  ruff = {},             -- Ruff Linter (LSP mode)
+  rust_analyzer = {},    -- Rust Language Server
+}
+
+-- Setup each server with capabilities
+for server, config in pairs(servers) do
+  config.capabilities = vim.tbl_deep_extend("force", config.capabilities or {}, capabilities)
+  lspconfig[server].setup(config)
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)

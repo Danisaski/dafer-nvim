@@ -36,14 +36,25 @@ require("lazy").setup({
     -- **UI Enhancements**
     {
         "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup({}) end,
+        config = true,
+        opts = {
+            map_bs = false,
+        },
     },
     { "kyazdani42/nvim-web-devicons" },
     {
         'goolord/alpha-nvim',
         config = function()
-            require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+            require('alpha').setup(require 'alpha.themes.dashboard'.config)
         end
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        }
     },
     {
         'mg979/vim-visual-multi',
@@ -60,7 +71,7 @@ require("lazy").setup({
     },
     {
         "romgrk/barbar.nvim",
-        dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
+        dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons", 'echasnovski/mini.nvim' },
     },
     {
         "folke/which-key.nvim",
@@ -69,9 +80,6 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
-    },
-    {
-        "rcarriga/nvim-notify",
     },
     -- **Undo Tree**
     "mbbill/undotree",
@@ -91,7 +99,6 @@ require("lazy").setup({
     { "nvzone/volt",    lazy = true },
     { "nvzone/menu",    lazy = true },
     'MunifTanjim/nui.nvim',
-    'VonHeikemen/fine-cmdline.nvim',
 
     -- **Debugging**
     {

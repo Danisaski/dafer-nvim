@@ -2,8 +2,7 @@
 -- ~/.config/nvim/lua/daniel/mappings.lua
 
 -- Map ';' to ':' and other command line tools
-vim.keymap.set({ "n", "v", "x" }, ";", "<cmd>FineCmdline<CR>", { silent = true })
-vim.keymap.set({ "n", "v", "x" }, ":", "<cmd>FineCmdline<CR>", { silent = true })
+vim.keymap.set({ "n", "v", "x" }, ";", ":", { silent = true })
 
 -- Quick navigating
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
@@ -20,14 +19,14 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Insert white line without leaving normal mode
-vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<ESC>k", { desc = "Insert white line below" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<ESC>j", { desc = "Insert white line above" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<Esc>k", { desc = "Insert white line below" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white line above" })
 
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
 -- Clear highlight 
-vim.keymap.set('',  '<ESC>', "<ESC>:noh<CR>", {silent = true})
+vim.keymap.set({ "n", "v", "x" },  '<Esc>', "<Esc>:noh<CR>", {silent = true})
 
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")

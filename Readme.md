@@ -82,5 +82,17 @@ sudo apt install nodejs
 git remote set-url origin git@github.com:danisaski/nvim_config
 ```
 
+```bash
+tar -xvzf nvim-linux64.tar.gz
+```
+
+```bash
+sudo mv nvim-linux64 /usr/local/nvim
+```
+
+```bash
+export PATH="/usr/local/nvim/bin:$PATH"
+```
+
 **TODO:** Debugger interface and config for RUST
 ensure installed equivalent to debugpy. Reorder pluggins.lua. Autoinstall node, npm, etc.

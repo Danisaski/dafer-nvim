@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local dap = require("dap")
 local dapui = require("dapui")
 require("dap-python").setup("python")
@@ -5,23 +6,24 @@ require("dap-python").setup("python")
 dapui.setup({
     layouts = {
         {
-            -- Layout for Scopes and REPL
-            elements = {
-                { id = "scopes", size = 0.5 }, -- Show Scopes with half of the layout
-                { id = "repl", size = 0.5 }, -- Show REPL with half of the layout
-            },
-            size = 40, -- Width of this layout (for vertical)
-            position = "left", -- Position of this layout
-        },
-        {
             -- Layout for Console/Terminal
             elements = {
-                { id = "console", size = 1.0 }, -- Full height for console
+                { id = "scopes", size = 0.5 }, -- Full height for console
+                    { id = "repl", size = 0.3 }, -- Show REPL with half of the layout
             },
-            size = 10, -- Height of this layout (for horizontal)
+            size = 12, -- Height of this layout (for horizontal)
             position = "bottom", -- Position of this layout
         },
-    },
+
+        {
+            -- Layout for Scopes and REPL
+            elements = {
+                { id = "console", size = 1 }, -- Show Scopes with half of the layout
+            },
+            size = 30, -- Width of this layout (for vertical)
+            position = "left", -- Position of this layout
+        },
+            },
     floating = {
         max_height = nil,
         max_width = nil,
@@ -66,18 +68,19 @@ vim.keymap.set({ "n", "v", "x" }, '<F8>', function()
 end, { desc = "Toggle debugging UI" })
 
 vim.keymap.set({ "n", "v", "x" }, '<F10>', function()
-    require('dap').step_over()
-end, { desc = "Step over" })
+    require('dap').continue()
+end, { desc = "Continue" })
 
-vim.keymap.set({ "n", "v", "x" }, '<F11>', function()
-    require('dap').step_into()
-end, { desc = "Step into" })
+-- Bug since F11 is shared to toggle full screen
+-- vim.keymap.set({ "n", "v", "x" }, '<F11>', function()
+--     require('dap').step_into()
+-- end, { desc = "Step into" })
+--
+-- vim.keymap.set({ "n", "v", "x" }, '<S-F11>', function()
+--     require('dap').step_out()
+-- end, { desc = "Step out" })
 
-vim.keymap.set({ "n", "v", "x" }, '<S-F11>', function()
-    require('dap').step_out()
-end, { desc = "Step out" })
-
-vim.keymap.set({ "n", "v", "x" }, '<ESC>', function()
+vim.keymap.set({ "n", "v", "x" }, '<F12>', function()
     require('dap').terminate()
 end, { desc = "Stop debugging session" })
 

@@ -1,17 +1,10 @@
--- ~/.config/nvim/lua/daniel/blink_cmp.lua
-
 return {
-  keymap = { preset = 'super-tab' },
-
-  appearance = {
-    use_nvim_cmp_as_default = true,
-    nerd_font_variant = 'mono',
-  },
-
-  sources = {
-    default = { 'lsp', 'path', 'snippets', 'buffer' },
-  },
-
-  opts_extend = { "sources.default" },
+    keymap = { preset = 'super-tab' },
+    appearance = {
+        use_nvim_cmp_as_default = false,
+        nerd_font_variant = 'normal'
+    },
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer'},
+    },
 }
-

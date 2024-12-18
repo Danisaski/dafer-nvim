@@ -28,7 +28,7 @@ rd /s /q %userprofile%\AppData\Local\nvim
 rd /s /q %userprofile%\AppData\Local\nvim-data
 ```
 
-<details> <summary>Click to expand Python, Rust and OS Dependencies</summary>
+<details> <summary>Click to expand misc. notes</summary>
   
 ## Installing lazy.nvim
 
@@ -51,11 +51,11 @@ pip install pyright ruff
 
 # OS Dependencies
 
-### Install ripgrep for telescope grep
+### Install ripgrep and fzf for telescope/fzf-lua
 
 #### Linux
 ```bash
-sudo apt install ripgrep
+sudo apt install ripgrep fzf
 ```
 
 #### Windows
@@ -63,40 +63,24 @@ sudo apt install ripgrep
 winget install BurntSushi.ripgrep.MSVC
 ```
 
-# Other Dependencies
-
-### Install Rust
-#### Linux / WSL2
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-### Install nodejs
-
-```bash
-sudo apt update
-sudo apt install nodejs
-```
-
+### Personal notes
+#### Set-url SSH
 ```bash
 git remote set-url origin git@github.com:danisaski/neodafer
 ```
-
+#### Extract neovim tar.gz
 ```bash
 tar -xvzf nvim-linux64.tar.gz
 ```
-
+#### mv appropiate location
 ```bash
 sudo mv nvim-linux64 /usr/local/nvim
 ```
-
+#### Add to .bashrc
 ```bash
 export PATH="/usr/local/nvim/bin:$PATH"
-```
-
-```bash
 source ~/code/python/venvs/denv/bin/activate
 ```
 
 **TODO:** Debugger interface and config for RUST
-ensure installed equivalent to debugpy. Reorder pluggins.lua. Autoinstall node, npm, etc.
+ensure installed equivalent to debugpy. Reorder pluggins.lua. Autoinstall nodejs, etc.

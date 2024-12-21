@@ -6,9 +6,9 @@ if not status then
     return
 end
 
-fzf.setup({
+fzf.setup({ 'telescope',
     winopts = {
-        prompt_position = 'bottom',
+        -- prompt_position = 'top',
         height = 0.85,
         width = 0.80,
         preview = {
@@ -20,23 +20,30 @@ fzf.setup({
         builtin = {
             ['<esc>'] = 'abort',
         },
+        fzf = {
+            ['tab'] = 'down',          -- Tab navigates down
+            ['btab'] = 'up',          -- Ctrl+P navigates up (alternative to Shift-Tab)
+            ['left'] = 'toggle+up',    -- Left arrow untoggles and moves up
+            ['right'] = 'toggle+down', -- Right arrow untoggles and moves down
+            ['up'] = 'up',             -- Up arrow for navigating up
+            ['down'] = 'down',         -- Down arrow for navig'shift-tab:up'ating down
+        },
     },
-    -- fzf_opts = {
-    --     ['--layout'] = 'reverse', -- Places the query input at the bottom.
-    --     ['--info'] = 'inline', -- Displays the info inline like Telescope.
-    -- },
+    fzf_opts = {
+        ['--info'] = 'inline', -- Displays the info inline like Telescope.
+    },
     colors = {
-        fg = "#cdd6f4",  -- Catppuccin text color
-        bg = "#1e1e2e",  -- Catppuccin base background
-        hl = "#f5c2e7",  -- Catppuccin pink highlight
+        fg = "#cdd6f4",      -- Catppuccin text color
+        bg = "#1e1e2e",      -- Catppuccin base background
+        hl = "#f5c2e7",      -- Catppuccin pink highlight
         ['fg+'] = "#cdd6f4", -- Catppuccin brighter text
         ['bg+'] = "#302d41", -- Catppuccin surface color
         ['hl+'] = "#f38ba8", -- Catppuccin red highlight
-        info = "#a6e3a1", -- Catppuccin green for info
-        border = "#89b4fa", -- Catppuccin blue for borders
-        prompt = "#f5c2e7", -- Catppuccin pink for prompt text
+        info = "#a6e3a1",    -- Catppuccin green for info
+        border = "#89b4fa",  -- Catppuccin blue for borders
+        prompt = "#f5c2e7",  -- Catppuccin pink for prompt text
         pointer = "#f38ba8", -- Catppuccin red for the pointer
-        marker = "#f9e2af", -- Catppuccin yellow for markers
+        marker = "#f9e2af",  -- Catppuccin yellow for markers
     },
 })
 

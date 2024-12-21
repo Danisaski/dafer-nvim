@@ -15,9 +15,8 @@ require("lazy").setup({
     },
     {
         'saghen/blink.cmp',
-        lazy = false, -- lazy loading handled internally
         dependencies = 'rafamadriz/friendly-snippets',
-        version = 'v0.*',
+        version = '*',
 
         -- Load the configuration from the external file
         opts = require("daniel.blink_cmp"),
@@ -67,12 +66,6 @@ require("lazy").setup({
         "ibhagwan/fzf-lua",
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            -- calling `setup` is optional for customization
-            require("fzf-lua").setup({})
-        end
-        -- "nvim-telescope/telescope.nvim",
-        -- dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
         "kyazdani42/nvim-tree.lua",

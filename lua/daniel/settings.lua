@@ -36,11 +36,6 @@ vim.opt.timeoutlen = 300
 
 vim.opt.colorcolumn = "80"
 
-vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#FF0000", bold = true })         -- Red dot
-vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#FFA500", bold = true }) -- Orange for rejected breakpoints
-vim.api.nvim_set_hl(0, "DapStopped", { fg = "#00FF00", bold = true })            -- Green for current line
-vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#003300" })                     -- Background for stopped line
-
 
 -- Automatically save the file when leaving insert mode
 vim.api.nvim_create_autocmd("InsertLeave", {

@@ -21,6 +21,24 @@ require("lazy").setup({
         -- Load the configuration from the external file
         opts = require("daniel.blink_cmp"),
     },
+    {
+        "kdheepak/lazygit.nvim",
+        lazy = true,
+        cmd = {
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
+        },
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        keys = {
+            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+        }
+    },
     -- **Treesitter**
     {
         "nvim-treesitter/nvim-treesitter",

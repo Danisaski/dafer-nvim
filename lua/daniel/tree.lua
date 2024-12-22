@@ -1,23 +1,27 @@
 -- ~/.config/nvim/lua/daniel/tree.lua
 require("nvim-tree").setup({
-	view = {
-		width = 30,
-		side = "left"
-	},
-	filters = {
-		dotfiles = false
-	},
-	renderer = {
-		highlight_git = true,
-		icons = {
-			show = {
-				file = true,
-				folder = true,
-				folder_arrow = true,
-				git = true
-			}
-		}
-	},
+    view = {
+        width = 30,
+        side = "left",
+    },
+    filters = {
+        dotfiles = false
+    },
+    renderer = {
+        highlight_git = true,
+        icons = {
+            show = {
+                file = true,
+                folder = true,
+                folder_arrow = true,
+                git = true
+            },
+        },
+        indent_markers = {
+            enable = true,
+        },
+        root_folder_label = false,
+           },
     actions = {
         open_file = {
             quit_on_open = true,
@@ -34,4 +38,3 @@ end, {
     silent = true,
     noremap = true
 })
-

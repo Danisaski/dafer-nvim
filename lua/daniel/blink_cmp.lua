@@ -7,7 +7,6 @@ return {
     completion = {
         keyword = { range = 'full' },
         -- Insert completion item on selection, don't select by default
-        list = { selection = 'auto_insert' },
         menu = {
             -- nvim-cmp style menu
             draw = {

@@ -8,7 +8,6 @@ end
 
 fzf.setup({ 'telescope',
     winopts = {
-        -- prompt_position = 'top',
         height = 0.85,
         width = 0.80,
         preview = {

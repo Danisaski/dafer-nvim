@@ -106,7 +106,6 @@ require("lazy").setup({
     "mbbill/undotree",
 
     -- **Commenting**
-    { "numToStr/Comment.nvim" },
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },

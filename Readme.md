@@ -2,12 +2,12 @@
 
 #### Linux
 ```bash
-git clone https://github.com/danisaski/neodafer.git ~/.config/nvim
+git clone https://github.com/danisaski/neodafer.git ~/.config
 ```
 
 #### Windows
 ```powershell
-git clone https://github.com/danisaski/neodafer.git %userprofile%\AppData\Local\nvim
+git clone https://github.com/danisaski/neodafer.git %userprofile%\AppData\Local
 ```
 
 <details> <summary>Manual installation</summary>

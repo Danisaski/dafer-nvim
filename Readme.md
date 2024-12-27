@@ -2,19 +2,12 @@
 
 #### Linux
 ```bash
-mkdir -p ~/.config && \
-git clone https://github.com/danisaski/neodafer.git /tmp/neodafer && \
-mv /tmp/neodafer/nvim ~/.config/nvim && \
-mv /tmp/neodafer/starship.toml ~/.config/starship.toml && \
-rm -rf /tmp/neodafer
+git clone https://github.com/danisaski/neodafer.git ~/.config/nvim
 ```
 
 #### Windows
 ```powershellmkdir "%USERPROFILE%\AppData\Local\.config"
-git clone https://github.com/danisaski/neodafer.git "%USERPROFILE%\AppData\Local\temp_neodafer"
-move "%USERPROFILE%\AppData\Local\temp_neodafer\nvim" "%USERPROFILE%\AppData\Local\.config\nvim"
-move "%USERPROFILE%\AppData\Local\temp_neodafer\starship.toml" "%USERPROFILE%\AppData\Local\.config\starship.toml"
-rmdir /s /q "%USERPROFILE%\AppData\Local\temp_neodafer"
+git clone https://github.com/danisaski/neodafer.git %userprofile%\AppData\Local\nvim
 ```
 
 <details> <summary>Manual installation</summary>

@@ -28,47 +28,63 @@ This guide provides setup instructions for both Arch Linux and Ubuntu/Debian WSL
 This method allows you to track changes and update directly using Git.
 
 #### For Linux (Arch/Ubuntu/Debian):
+Backup existing configurations if needed
 ```bash
-# Backup existing configurations if needed
 mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null
 mv ~/.config/starship.toml ~/.config/starship.toml.bak 2>/dev/null
+```
 
-# Clone directly to the configuration directory
+Clone directly to the configuration directory
+```bash
 git clone https://github.com/Danisaski/neodafer.git ~/.config/nvim
 ln -s ~/.config/nvim/starship.toml ~/.config/starship.toml
+```
 
-# To update configuration later:
+To update configuration later:
+```bash
 cd ~/.config/nvim
 git pull
+```
 
-# To clean/reset configuration:
+To clean/reset configuration:
+```bash
 cd ~/.config/nvim
 git fetch origin
 git reset --hard origin/main
 ```
 
 #### For Windows (CMD):
+Backup existing configurations if needed
 ```cmd
-:: Backup existing configurations if needed
 if exist "%LOCALAPPDATA%\nvim" ren "%LOCALAPPDATA%\nvim" nvim.bak
 if exist "%USERPROFILE%\.config\starship.toml" ren "%USERPROFILE%\.config\starship.toml" starship.toml.bak
+```
 
-:: Create necessary directories
+Create necessary directories
+```cmd
 mkdir "%LOCALAPPDATA%\nvim" 2>nul
 mkdir "%USERPROFILE%\.config" 2>nul
+```
 
-:: Clone directly to the configuration directory
+Clone directly to the configuration directory
+```cmd
 cd /d "%LOCALAPPDATA%"
 git clone https://github.com/Danisaski/neodafer.git nvim
+```
 
-:: Create symbolic link for starship config
+Create symbolic link for starship config
+```cmd
 mklink "%USERPROFILE%\.config\starship.toml" "%LOCALAPPDATA%\nvim\starship.toml"
+```
 
-:: To update configuration later:
+To update configuration later:
+```cmd
 cd /d "%LOCALAPPDATA%\nvim"
 git pull
+```
 
-:: To clean/reset configuration:
+To clean/reset configuration:
+```cmd
 cd /d "%LOCALAPPDATA%\nvim"
 git fetch origin
 git reset --hard origin/main
@@ -78,16 +94,20 @@ git reset --hard origin/main
 This method creates a clean copy of the configurations without Git history.
 
 #### For Linux (Arch/Ubuntu/Debian):
+Create necessary config directories
 ```bash
-# Create necessary config directories
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config
+```
 
-# Clean existing configurations
+Clean existing configurations
+```bash
 rm -rf ~/.config/nvim/*
 rm -f ~/.config/starship.toml
+```
 
-# Clone and setup
+Clone and setup
+```bash
 git clone https://github.com/Danisaski/neodafer.git ~/.config/neodafer-tmp
 cp -r ~/.config/neodafer-tmp/lua ~/.config/nvim/
 cp ~/.config/neodafer-tmp/init.lua ~/.config/nvim/
@@ -96,17 +116,21 @@ rm -rf ~/.config/neodafer-tmp
 ```
 
 #### For Windows (CMD):
+Create necessary directories
 ```cmd
-:: Create necessary directories
 mkdir "%LOCALAPPDATA%\nvim" 2>nul
 mkdir "%USERPROFILE%\.config" 2>nul
+```
 
-:: Clean existing configurations
+Clean existing configurations
+```cmd
 rd /s /q "%LOCALAPPDATA%\nvim" 2>nul
 del /f "%USERPROFILE%\.config\starship.toml" 2>nul
 mkdir "%LOCALAPPDATA%\nvim"
+```
 
-:: Clone and setup
+Clone and setup
+```cmd
 cd /d "%TEMP%"
 git clone https://github.com/Danisaski/neodafer.git neodafer-tmp
 xcopy /E /I /Y neodafer-tmp\lua "%LOCALAPPDATA%\nvim\lua\"
@@ -155,13 +179,12 @@ pacman-key --init
 pacman-key --populate
 pacman -Syu
 pacman -S base-devel git curl wget unzip zip sudo
+```
 
-# Create your user if not exists
-useradd -m -G wheel -s /bin/bash yourusername
-passwd yourusername
-
-# Enable sudo for wheel group (uncomment %wheel ALL=(ALL:ALL) ALL)
-EDITOR=vim visudo
+Create your user if not exists
+```bash
+useradd -m -G wheel -s /bin/bash dafer
+passwd dafer
 ```
 
 ### Ubuntu/Debian Setup
@@ -177,13 +200,17 @@ sudo apt install -y build-essential git curl wget unzip zip pkg-config
 ### Zsh & Oh My Zsh
 
 Install and configure Zsh:
+Arch
 ```bash
-# Arch
 sudo pacman -S zsh
+```
 
-# Ubuntu/Debian
+Ubuntu/Debian
+```bash
 sudo apt install -y zsh
+```
 
+```bash
 # Set Zsh as default shell
 chsh -s $(which zsh)
 
@@ -198,23 +225,27 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.
 ### Starship Prompt
 
 Install Starship:
+Arch
 ```bash
-# Arch
 sudo pacman -S starship
+```
 
-# Ubuntu/Debian
+Ubuntu/Debian
+```bash
 curl -sS https://starship.rs/install.sh | sh
 ```
 
 ### Development Tools
 
 Install FZF, Ripgrep, and Lazygit:
+Arch
 ```bash
-# Arch
 sudo pacman -S fzf ripgrep
 sudo pacman -S lazygit
+```
 
-# Ubuntu/Debian
+Ubuntu/Debian
+```bash
 sudo apt install -y fzf ripgrep
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
@@ -225,14 +256,18 @@ sudo install lazygit /usr/local/bin
 ### Python Setup
 
 Install Python and virtualenv:
+Arch
 ```bash
-# Arch
 sudo pacman -S python python-pip python-virtualenv
+```
 
-# Ubuntu/Debian
+Ubuntu/Debian
+```bash
 sudo apt install -y python3 python3-pip python3-venv
+```
 
-# Create default virtual environment directory
+Create default virtual environment directory
+```bash
 mkdir -p ~/code/python/venvs
 python3 -m venv ~/code/python/venvs/denv
 ```
@@ -241,7 +276,6 @@ python3 -m venv ~/code/python/venvs/denv
 
 Install Rust using rustup:
 ```bash
-# Both distributions
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 ```
@@ -249,11 +283,13 @@ source "$HOME/.cargo/env"
 ### Neovim Setup
 
 Install Neovim:
+Arch
 ```bash
-# Arch
 sudo pacman -S neovim
+```
 
-# Ubuntu/Debian
+Ubuntu/Debian
+```bash
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz

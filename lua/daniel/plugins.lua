@@ -72,7 +72,12 @@ require("lazy").setup({
         event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
+            {
+                "rcarriga/nvim-notify",
+                opts = {
+                    top_down = false,
+                },
+            },
             "stevearc/dressing.nvim",
         }
     },
@@ -121,8 +126,8 @@ require("lazy").setup({
     },
 
     -- **Custom Menu**
-    { "nvzone/volt", lazy = true },
-    { "nvzone/menu", lazy = true },
+    { "nvzone/volt",                 lazy = true },
+    { "nvzone/menu",                 lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

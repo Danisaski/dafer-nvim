@@ -258,7 +258,11 @@ Ubuntu/Debian
 ```bash
 sudo apt install -y tmux
 ```
-
+Download and set up the Catppuccin theme for Tmux:
+```bash
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone -b v2.1.2 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+```
 Add these lines to your `~/.bashrc` or `~/.zshrc` to automatically start Tmux on terminal open:
 ```bash
 # Automatically start Tmux on terminal open

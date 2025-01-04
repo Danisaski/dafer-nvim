@@ -107,7 +107,7 @@ mkdir -p ~/.config
 
 Clean existing configurations
 ```bash
-rm -rf ~/.config/nvim/*
+rm -rf ~/.config/nvim
 rm -f ~/.config/starship.toml
 rm -f ~/.tmux.conf
 ```

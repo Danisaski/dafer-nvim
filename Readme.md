@@ -172,6 +172,8 @@ dir "%USERPROFILE%\.tmux.conf"
 ```bash
 rm -rf ~/.local/share/nvim
 rm -rf ~/.config/nvim
+rm -f ~/.config/starship.toml
+rm -f ~/.tmux.conf
 ```
 
 #### For Windows:

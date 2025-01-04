@@ -14,6 +14,7 @@ This guide provides setup instructions for both Arch Linux and Ubuntu/Debian WSL
 - [Development Environment](#development-environment)
   - [Zsh & Oh My Zsh](#zsh--oh-my-zsh)
   - [Starship Prompt](#starship-prompt)
+  - [Tmux Setup](#tmux-setup)
   - [Development Tools](#development-tools)
   - [Python Setup](#python-setup)
   - [Rust Setup](#rust-setup)
@@ -32,12 +33,14 @@ Backup existing configurations if needed
 ```bash
 mv ~/.config/nvim ~/.config/nvim.bak 2>/dev/null
 mv ~/.config/starship.toml ~/.config/starship.toml.bak 2>/dev/null
+mv ~/.tmux.conf ~/.tmux.conf.bak 2>/dev/null
 ```
 
 Clone directly to the configuration directory
 ```bash
 git clone https://github.com/Danisaski/neodafer.git ~/.config/nvim
 ln -s ~/.config/nvim/starship.toml ~/.config/starship.toml
+ln -s ~/.config/nvim/.tmux.conf ~/.tmux.conf
 ```
 
 To update configuration later:
@@ -58,6 +61,7 @@ Backup existing configurations if needed
 ```cmd
 if exist "%LOCALAPPDATA%\nvim" ren "%LOCALAPPDATA%\nvim" nvim.bak
 if exist "%USERPROFILE%\.config\starship.toml" ren "%USERPROFILE%\.config\starship.toml" starship.toml.bak
+if exist "%USERPROFILE%\.tmux.conf" ren "%USERPROFILE%\.tmux.conf" tmux.conf.bak
 ```
 
 Create necessary directories
@@ -72,9 +76,10 @@ cd /d "%LOCALAPPDATA%"
 git clone https://github.com/Danisaski/neodafer.git nvim
 ```
 
-Create symbolic link for starship config
+Create symbolic links for configuration
 ```cmd
 mklink "%USERPROFILE%\.config\starship.toml" "%LOCALAPPDATA%\nvim\starship.toml"
+mklink "%USERPROFILE%\.tmux.conf" "%LOCALAPPDATA%\nvim\.tmux.conf"
 ```
 
 To update configuration later:
@@ -104,6 +109,7 @@ Clean existing configurations
 ```bash
 rm -rf ~/.config/nvim/*
 rm -f ~/.config/starship.toml
+rm -f ~/.tmux.conf
 ```
 
 Clone and setup
@@ -112,6 +118,7 @@ git clone https://github.com/Danisaski/neodafer.git ~/.config/neodafer-tmp
 cp -r ~/.config/neodafer-tmp/lua ~/.config/nvim/
 cp ~/.config/neodafer-tmp/init.lua ~/.config/nvim/
 cp ~/.config/neodafer-tmp/starship.toml ~/.config/
+cp ~/.config/neodafer-tmp/.tmux.conf ~/
 rm -rf ~/.config/neodafer-tmp
 ```
 
@@ -126,6 +133,7 @@ Clean existing configurations
 ```cmd
 rd /s /q "%LOCALAPPDATA%\nvim" 2>nul
 del /f "%USERPROFILE%\.config\starship.toml" 2>nul
+del /f "%USERPROFILE%\.tmux.conf" 2>nul
 mkdir "%LOCALAPPDATA%\nvim"
 ```
 
@@ -136,6 +144,7 @@ git clone https://github.com/Danisaski/neodafer.git neodafer-tmp
 xcopy /E /I /Y neodafer-tmp\lua "%LOCALAPPDATA%\nvim\lua\"
 copy /Y neodafer-tmp\init.lua "%LOCALAPPDATA%\nvim\"
 copy /Y neodafer-tmp\starship.toml "%USERPROFILE%\.config\"
+copy /Y neodafer-tmp\.tmux.conf "%USERPROFILE%\"
 rd /s /q neodafer-tmp
 ```
 
@@ -146,6 +155,7 @@ rd /s /q neodafer-tmp
 ls -la ~/.config/nvim/init.lua
 ls -la ~/.config/nvim/lua
 ls -la ~/.config/starship.toml
+ls -la ~/.tmux.conf
 ```
 
 #### For Windows (CMD):
@@ -153,6 +163,7 @@ ls -la ~/.config/starship.toml
 dir "%LOCALAPPDATA%\nvim\init.lua"
 dir "%LOCALAPPDATA%\nvim\lua"
 dir "%USERPROFILE%\.config\starship.toml"
+dir "%USERPROFILE%\.tmux.conf"
 ```
 
 ### Delete Configuration
@@ -235,6 +246,27 @@ Ubuntu/Debian
 curl -sS https://starship.rs/install.sh | sh
 ```
 
+### Tmux Setup
+
+Install Tmux:
+Arch
+```bash
+sudo pacman -S tmux
+```
+
+Ubuntu/Debian
+```bash
+sudo apt install -y tmux
+```
+
+Add these lines to your `~/.bashrc` or `~/.zshrc` to automatically start Tmux on terminal open:
+```bash
+# Automatically start Tmux on terminal open
+if [[ -z "$TMUX" ]]; then
+    tmux
+fi
+```
+
 ### Development Tools
 
 Install FZF, Ripgrep, and Lazygit:
@@ -247,7 +279,7 @@ sudo pacman -S lazygit
 Ubuntu/Debian
 ```bash
 sudo apt install -y fzf ripgrep
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\\K[^"]*')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
@@ -330,6 +362,7 @@ nvim --version
 python3 --version
 rustc --version
 starship --version
+tmux -V
 ```
 
 Remember to:
@@ -347,5 +380,7 @@ The setup includes these main dependencies:
 - Zsh shell dependencies
 - Python build dependencies
 - Neovim dependencies
+- Tmux for terminal multiplexing
 
 Note: Some commands might require re-logging or restarting your terminal to take effect.
+

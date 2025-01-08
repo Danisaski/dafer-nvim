@@ -41,10 +41,12 @@ vim.opt.colorcolumn = "80"
 vim.api.nvim_create_autocmd("InsertLeave", {
     pattern = "*",
     callback = function()
-        -- Check the buffer type
         if vim.bo.buftype == "" then
-            vim.cmd("silent! write") -- Write only if it's a normal buffer
+            -- Save using buf_write to trigger proper LSP events
+            local ok = pcall(vim.api.nvim_buf_call, 0, function()
+                vim.cmd.update({ mods = { silent = true } })
+            end)
         end
     end,
+    desc = "Silent save on InsertLeave"
 })
-

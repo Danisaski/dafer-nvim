@@ -8,6 +8,15 @@ local servers = {
     pyright = {},       -- Python LSP
     ruff = {},          -- Ruff Linter (LSP mode)
     rust_analyzer = {}, -- Rust Language Server
+    ltex = {
+        settings = {
+            ltex = {
+                checkFrequency = "save"}
+        }
+    },
+    zls = {},
+    marksman = {},
+    clangd = {},
 }
 
 -- Setup each server with capabilities
@@ -78,4 +87,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-

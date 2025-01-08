@@ -8,8 +8,8 @@ vim.keymap.set({ "n", "v", "x" }, ";", ":")
 -- Quick navigating
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
-vim.keymap.set({ "n", "x" }, "J", "5j")
-vim.keymap.set({ "n", "x" }, "K", "5k")
+-- vim.keymap.set({ "n", "x" }, "J", "5j")
+-- vim.keymap.set({ "n", "x" }, "K", "5k")
 
 -- Move lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })

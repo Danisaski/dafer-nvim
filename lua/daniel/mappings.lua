@@ -24,10 +24,10 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<Esc>k", { desc = "Insert white
 vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white line above" })
 
 -- Remap 'jk' to 'Esc' in insert mode
-vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
 -- Esc + clear highlight
-vim.keymap.set({ "n", "v", "x" }, '<Esc>', "<Esc>:noh<CR>", { silent = true })
+vim.keymap.set({ "n", "v", "x" }, '<Esc>', "<Esc>:noh<CR>", { noremap = true, silent = true })
 
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")

@@ -330,9 +330,9 @@ sudo tar -C /opt -xzf nvim-linux64.tar.gz
 sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
 ```
 
-### Zsh Configuration
+### Zsh/Bash Configuration
 
-Add these lines to your `~/.zshrc`:
+Add these lines to your `~/.zshrc` or `~/.bashrc`:
 ```bash
 # Enable plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
@@ -349,6 +349,11 @@ alias lg='lazygit'
 
 # Add cargo to path
 source "$HOME/.cargo/env"
+
+# Automatically start Tmux on terminal open
+if [[ -z "$TMUX" ]]; then
+    tmux
+fi
 ```
 
 ## Post-Installation

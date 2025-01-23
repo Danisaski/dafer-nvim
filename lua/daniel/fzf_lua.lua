@@ -20,8 +20,8 @@ fzf.setup({ 'telescope',
             ['<esc>'] = 'abort',
         },
         fzf = {
-            ['tab'] = 'down',          -- Tab navigates down
-            ['btab'] = 'up',          -- Ctrl+P navigates up (alternative to Shift-Tab)
+            ['tab'] = 'up',          -- Tab navigates up
+            ['btab'] = 'down',          -- S-Tab navigates down
             ['left'] = 'toggle+up',    -- Left arrow untoggles and moves up
             ['right'] = 'toggle+down', -- Right arrow untoggles and moves down
             ['up'] = 'up',             -- Up arrow for navigating up

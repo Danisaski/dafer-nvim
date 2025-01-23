@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+---@diagnostic disable: undefined-global, missing-fields
 -- ~/.config/nvim/lua/daniel/plugins.lua
 -- Set up lazy.nvim as the plugin manager
 require("lazy").setup({
@@ -59,7 +59,6 @@ require("lazy").setup({
             map_bs = false,
         },
     },
-    { "kyazdani42/nvim-web-devicons" },
     {
         'goolord/alpha-nvim',
         dependencies = { 'echasnovski/mini.icons' },
@@ -108,7 +107,7 @@ require("lazy").setup({
         dependencies = { "kyazdani42/nvim-web-devicons" },
     },
     -- **Undo Tree**
-    "mbbill/undotree",
+    { "mbbill/undotree" },
 
     -- **Commenting**
     {
@@ -118,16 +117,27 @@ require("lazy").setup({
     },
     -- **Themes**
     {
-        "catppuccin/nvim",
+        -- "catppuccin/nvim",
+        -- "rebelot/kanagawa.nvim",
+        -- "morhetz/gruvbox",
+        'sainnhe/gruvbox-material',
+        lazy = false,
         priority = 1000,
-        init = function()
-            vim.cmd("colorscheme catppuccin")
+        config = function()
+            -- Optionally configure and load the colorscheme
+            -- directly inside the plugin declaration.
+            vim.g.gruvbox_material_enable_italic = true
+            vim.g.gruvbox_material_diagnostic_line_highlight = true
+            vim.g.gruvbox_material_diagnostic_text_highlight = true
+            vim.g.gruvbox_material_enable_bold=true
+            vim.cmd.colorscheme('gruvbox-material')
         end
     },
 
+
     -- **Custom Menu**
-    { "nvzone/volt",                 lazy = true },
-    { "nvzone/menu",                 lazy = true },
+    { "nvzone/volt",    lazy = true },
+    { "nvzone/menu",    lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

@@ -33,6 +33,9 @@ vim.opt.scrolloff = 10
 
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
+vim.opt.ttimeoutlen = 10
+
+
 
 vim.opt.colorcolumn = "80"
 

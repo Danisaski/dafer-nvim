@@ -191,14 +191,26 @@ rd /s /q %userprofile%\AppData\Local\nvim-data
 
 ### Arch Linux Setup
 
+Setup the default user
+```bash
+echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
+useradd -m -G wheel -s /bin/bash dafer
+passwd dafer
+exit
+```
+Then in cmd, Arch.exe cwd.
+```bash
+Arch.exe config --default-user dafer
+```
+
 First update the system and install essential packages:
 ```bash
-pacman-key --init
-pacman-key --populate
+sudo pacman-key --init
+sudo pacman-key --populate
 sudo pacman -Sy archlinux-keyring
 sudo pacman-key --refresh-keys
-pacman -Syu
-pacman -S base-devel git curl wget unzip zip sudo
+sudo pacman -Syu
+sudo pacman -S base-devel git curl wget unzip zip sudo
 ```
 
 Create your user if not exists

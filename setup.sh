@@ -43,7 +43,7 @@ if ask "Do you want to install the complete developer environment?"; then
 
     # Set Zsh as the default shell
     echo "Setting Zsh as the default shell..."
-    chsh -s "$(which zsh)"
+    chsh -s /bin/zsh
 
     # Install Oh My Zsh
     echo "Installing Oh My Zsh..."

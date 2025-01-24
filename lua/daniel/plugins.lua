@@ -100,7 +100,7 @@ require("lazy").setup({
     },
     {
         "folke/which-key.nvim",
-        config = function() require("which-key").setup({}) end,
+        config = function() require("which-key").setup({preset='modern'}) end,
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -119,8 +119,7 @@ require("lazy").setup({
     {
         -- "catppuccin/nvim",
         -- "rebelot/kanagawa.nvim",
-        -- "morhetz/gruvbox",
-        'sainnhe/gruvbox-material',
+        "sainnhe/gruvbox-material",
         lazy = false,
         priority = 1000,
         config = function()

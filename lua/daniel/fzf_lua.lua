@@ -6,22 +6,24 @@ if not status then
     return
 end
 
-fzf.setup({ 'telescope',
+fzf.setup({
+    'telescope',
     winopts = {
-        height = 0.85,
-        width = 0.80,
-        preview = {
+        height   = 0.85,
+        width    = 0.80,
+        preview  = {
             layout = 'horizontal',
         },
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+        border   = "rounded",
+        backdrop = 60,
     },
     keymap = {
         builtin = {
             ['<esc>'] = 'abort',
         },
         fzf = {
-            ['tab'] = 'up',          -- Tab navigates up
-            ['btab'] = 'down',          -- S-Tab navigates down
+            ['tab'] = 'up',            -- Tab navigates up
+            ['btab'] = 'down',         -- S-Tab navigates down
             ['left'] = 'toggle+up',    -- Left arrow untoggles and moves up
             ['right'] = 'toggle+down', -- Right arrow untoggles and moves down
             ['up'] = 'up',             -- Up arrow for navigating up

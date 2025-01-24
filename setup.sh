@@ -77,14 +77,16 @@ if ask "Install the complete developer environment?"; then
     # Update system and install essential packages
     print_message "Updating system and installing essential packages..."
     sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit python python-pip python-virtualenv starship
+    sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship
 
     # Language and Environment Installations
     separator
     print_message "Language and Environment Installations"
 
     # Python Setup
-    if ask "Install Python virtual environment?"; then
+    if ask "Install Python and setup virtual environment?"; then
+        print_message "Installing python..."
+        sudo pacman -S --noconfirm python python-pip python-virtualenv
         print_message "Setting up Python virtual environment..."
         mkdir -p ~/code/python/venvs
         python3 -m venv ~/code/python/venvs/denv
@@ -103,12 +105,7 @@ if ask "Install the complete developer environment?"; then
     if ask "Install Zig programming language?"; then
         print_message "Installing Zig..."
         # Assuming latest version, adjust URL as needed
-        ZIG_VERSION=$(curl -s https://ziglang.org/download/index.json | grep -oP '(?<="version": ")[^"]*' | head -n 1)
-        wget https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz
-        tar xf zig-linux-x86_64-${ZIG_VERSION}.tar.xz
-        sudo mv zig-linux-x86_64-${ZIG_VERSION} /usr/local/zig
-        sudo ln -s /usr/local/zig/zig /usr/local/bin/zig
-        rm zig-linux-x86_64-${ZIG_VERSION}.tar.xz
+        sudo pacman -S --noconfirm zig
         print_success "Zig installed successfully!"
     fi
 

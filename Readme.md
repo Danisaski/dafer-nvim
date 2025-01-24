@@ -195,6 +195,8 @@ First update the system and install essential packages:
 ```bash
 pacman-key --init
 pacman-key --populate
+sudo pacman -Sy archlinux-keyring
+sudo pacman-key --refresh-keys
 pacman -Syu
 pacman -S base-devel git curl wget unzip zip sudo
 ```

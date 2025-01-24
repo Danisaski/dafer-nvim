@@ -21,6 +21,7 @@ This guide provides setup instructions for both Arch Linux and Ubuntu/Debian WSL
   - [Neovim Setup](#neovim-setup)
   - [Zsh Configuration](#zsh-configuration)
 - [Post-Installation](#post-installation)
+- [Github SSH configuration](#github-ssh-configuration)
 - [Dependencies Overview](#dependencies-overview)
 
 ## Configuration Management
@@ -395,6 +396,17 @@ Remember to:
 - Clone your personal Starship configuration
 - Clone your Neovim configuration
 - Configure any additional Git settings
+
+## Github SSH configuration
+
+Create a SSH key
+```bash
+ssh-keygen -t ed25519 -C dafernandezperez@gmail.com
+```
+Get its contents
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
 
 ## Dependencies Overview
 

@@ -73,6 +73,7 @@ if ask "Install the complete developer environment?"; then
     print_message "Initializing and populating pacman keys..."
     sudo pacman-key --init
     sudo pacman-key --populate
+    sudo pacman -Sy archlinux-keyring
     
     # Update system and install essential packages
     print_message "Updating system and installing essential packages..."

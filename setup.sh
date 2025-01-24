@@ -77,7 +77,7 @@ if ask "Install the complete developer environment?"; then
     # Update system and install essential packages
     print_message "Updating system and installing essential packages..."
     sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship
+    sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship openssh
 
     # Language and Environment Installations
     separator

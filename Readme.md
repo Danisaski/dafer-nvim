@@ -25,6 +25,11 @@ This guide provides setup instructions for both Arch Linux and Ubuntu/Debian WSL
 
 ## Configuration Management
 
+Fresh arch linux install
+```bash
+git clone https://github.com/Danisaski/neodafer.git ~/.config/nvim && bash ~/.config/nvim/setup.sh
+```
+
 ### Option A: Direct Git Repository
 This method allows you to track changes and update directly using Git.
 

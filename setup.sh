@@ -129,12 +129,6 @@ if ask "Install the complete developer environment?"; then
     print_message "Setting Zsh as the default shell..."
     chsh -s /usr/bin/zsh
 
-    # Install Oh My Zsh
-    print_message "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || {
-        print_error "Oh My Zsh installation failed. Continuing...";
-    }
-
     # Install Zsh plugins
     print_message "Installing Zsh plugins..."
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -163,6 +157,9 @@ export NVM_DIR="\$HOME/.nvm"
 if [[ -z "\$TMUX" ]]; then
     tmux
 fi
+
+# Always start in the home directory
+cd ~
 EOL
 
     # Source configuration files
@@ -170,6 +167,12 @@ EOL
     print_message "Sourcing configuration files"
     source ~/.zshrc
     tmux source-file ~/.tmux.conf
+
+    # Install Oh My Zsh
+    print_message "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || {
+        print_error "Oh My Zsh installation failed. Continuing...";
+    }
 
     print_success "Developer environment setup is complete!"
 else

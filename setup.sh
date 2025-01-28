@@ -136,7 +136,7 @@ if ask "Install the complete developer environment?"; then
 
     # Update .zshrc configuration
     print_message "Updating .zshrc..."
-    cat >> ~/.zshrc <<EOL
+    cat > ~/.zshrc <<EOL
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
     
@@ -157,7 +157,9 @@ source "\$HOME/.cargo/env"
 
 # Add NVM to path
 export NVM_DIR="\$HOME/.nvm"
-[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
+[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"    # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 # Automatically start Tmux on terminal open
 if [[ -z "\$TMUX" ]]; then

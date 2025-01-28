@@ -356,9 +356,6 @@ Add these lines to your `~/.zshrc` or `~/.bashrc`:
 ```bash
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# update automatically without asking
-zstyle ':omz:update' mode auto
     
 # Enable plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
@@ -377,7 +374,9 @@ source "\$HOME/.cargo/env"
 
 # Add NVM to path
 export NVM_DIR="\$HOME/.nvm"
-[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
+[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"    # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 # Automatically start Tmux on terminal open
 if [[ -z "\$TMUX" ]]; then

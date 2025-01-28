@@ -100,7 +100,7 @@ if ask "Install the complete developer environment?"; then
         # Update system and install essential packages
         print_message "Updating system and installing essential packages..."
         sudo pacman -Syu --noconfirm
-        sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship openssh
+        sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship openssh luarocks
     elif [ "$OS_TYPE" = "debian" ]; then
         print_message "Updating system and installing essential packages..."
         sudo apt update && sudo apt upgrade -y
@@ -163,6 +163,7 @@ if ask "Install the complete developer environment?"; then
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
         nvm install node # installs latest Node.js
+        # npm install -g neovim
         print_success "Node.js and npm installed successfully!"
     fi
 

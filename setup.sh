@@ -139,9 +139,6 @@ if ask "Install the complete developer environment?"; then
     cat >> ~/.zshrc <<EOL
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# update automatically without asking
-zstyle ':omz:update' mode auto
     
 # Enable plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)

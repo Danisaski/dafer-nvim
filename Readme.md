@@ -178,8 +178,10 @@ dir "%USERPROFILE%\.tmux.conf"
 ```bash
 rm -rf ~/.local/share/nvim
 rm -rf ~/.config/nvim
+rm -rf ~/.oh-my-zsh
 rm -f ~/.config/starship.toml
 rm -f ~/.tmux.conf
+rm -f ~/.zshrc
 ```
 
 #### For Windows:

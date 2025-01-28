@@ -354,26 +354,38 @@ sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
 
 Add these lines to your `~/.zshrc` or `~/.bashrc`:
 ```bash
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# update automatically without asking
+zstyle ':omz:update' mode auto
+    
 # Enable plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
+# Source the plugins
+source $ZSH/oh-my-zsh.sh
+
 # Initialize starship
-eval "$(starship init zsh)"
+eval "\$(starship init zsh)"
 
 # Activate Python venv on startup
 source ~/code/python/venvs/denv/bin/activate
 
-# Useful aliases
-alias vim='nvim'
-alias lg='lazygit'
-
 # Add cargo to path
-source "$HOME/.cargo/env"
+source "\$HOME/.cargo/env"
+
+# Add NVM to path
+export NVM_DIR="\$HOME/.nvm"
+[ -s "\$NVM_DIR/nvm.sh" ] && \. "\$NVM_DIR/nvm.sh"
 
 # Automatically start Tmux on terminal open
-if [[ -z "$TMUX" ]]; then
+if [[ -z "\$TMUX" ]]; then
     tmux
 fi
+
+# Always start in the home directory
+cd ~
 ```
 
 ## Post-Installation

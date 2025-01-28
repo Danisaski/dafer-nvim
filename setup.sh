@@ -167,11 +167,6 @@ if ask "Install the complete developer environment?"; then
     print_message "Setting Zsh as the default shell..."
     chsh -s /usr/bin/zsh
 
-    # Install Zsh plugins
-    print_message "Installing Zsh plugins..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
     # Update .zshrc configuration
     print_message "Updating .zshrc..."
     cat > ~/.zshrc <<EOL
@@ -215,6 +210,11 @@ EOL
     }
     
     exit
+
+    # Install Zsh plugins
+    print_message "Installing Zsh plugins..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
     print_success "Developer environment setup is complete!"
 else

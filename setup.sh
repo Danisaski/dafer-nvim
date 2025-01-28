@@ -219,16 +219,16 @@ EOL
     print_message "Setting Zsh as the default shell..."
     chsh -s /usr/bin/zsh
 
+    print_success "Developer environment setup is complete!"
+
     separator
     echo -e "${GREEN}Setup Script Completed Successfully!${NC}"
-
+    
     # Source configuration files
     separator
     print_message "Sourcing configuration files"
     zsh
     clear
-    
-    print_success "Developer environment setup is complete!"
 else
     print_message "Skipping developer environment setup."
 fi

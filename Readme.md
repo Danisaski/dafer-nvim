@@ -213,7 +213,8 @@ sudo pacman-key --populate
 sudo pacman -Sy archlinux-keyring
 sudo pacman-key --refresh-keys {ERRONEUS KEY ID}
 sudo pacman -Syu
-sudo pacman -S base-devel git curl wget unzip zip sudo
+sudo pacman -S base-devel git curl wget unzip zip sudo jdk17-openjdk
+
 ```
 
 Create your user if not exists

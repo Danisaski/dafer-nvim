@@ -60,6 +60,28 @@ require("lazy").setup({
         },
     },
     {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("ibl").setup({
+            indent = {
+                char = "│", -- Use a thin line character
+            },
+        })
+        end
+    },
+    {
+        'petertriho/nvim-scrollbar',
+        config = function()
+            require("scrollbar").setup({
+                handle = {
+                    blend = 20,
+                    color = "#504945",
+                },
+                handlers = { gitsigns = true }
+            })
+        end
+    },
+    {
         'goolord/alpha-nvim',
         dependencies = { 'echasnovski/mini.icons' },
         config = function()
@@ -100,7 +122,7 @@ require("lazy").setup({
     },
     {
         "folke/which-key.nvim",
-        config = function() require("which-key").setup({preset='modern'}) end,
+        config = function() require("which-key").setup({ preset = 'modern' }) end,
     },
     {
         "nvim-lualine/lualine.nvim",

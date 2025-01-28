@@ -67,6 +67,9 @@ separator() {
     echo -e "${BLUE}------------------------------------------${NC}"
 }
 
+# Cd into home
+cd ~
+
 # Step 1: Create symlinks
 separator
 print_message "Symlink Configuration"
@@ -165,9 +168,11 @@ if ask "Install the complete developer environment?"; then
 
     # Install Oh My Zsh
     print_message "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o install.sh)" && sh install.sh --unattended || {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o install.sh)" && sh install.sh --unattended && rm -f install.sh || {
         echo "Oh My Zsh installation failed. Continuing...";
     }
+
+    export ZSH=$HOME/.oh-my-zsh
 
     # Install Zsh plugins
     print_message "Installing Zsh plugins..."
@@ -184,7 +189,7 @@ export ZSH="$HOME/.oh-my-zsh"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 # Source the plugins
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # Initialize starship
 eval "\$(starship init zsh)"
@@ -220,9 +225,10 @@ EOL
     # Source configuration files
     separator
     print_message "Sourcing configuration files"
-    source ~/.zshrc
-    tmux source-file ~/.tmux.conf
-
+    zsh
+    zsh 
+    clear
+    
     print_success "Developer environment setup is complete!"
 else
     print_message "Skipping developer environment setup."

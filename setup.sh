@@ -226,7 +226,6 @@ EOL
     separator
     print_message "Sourcing configuration files"
     zsh
-    zsh 
     clear
     
     print_success "Developer environment setup is complete!"

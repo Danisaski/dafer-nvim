@@ -163,9 +163,16 @@ if ask "Install the complete developer environment?"; then
     separator
     print_message "Shell Configuration"
 
-    # Set Zsh as the default shell
-    print_message "Setting Zsh as the default shell..."
-    chsh -s /usr/bin/zsh
+    # Install Oh My Zsh
+    print_message "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o install.sh)" && sh install.sh --unattended || {
+        echo "Oh My Zsh installation failed. Continuing...";
+    }
+
+    # Install Zsh plugins
+    print_message "Installing Zsh plugins..."
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
     # Update .zshrc configuration
     print_message "Updating .zshrc..."
@@ -203,18 +210,18 @@ fi
 cd ~
 EOL
 
-    # Install Oh My Zsh
-    print_message "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || {
-        print_error "Oh My Zsh installation failed. Continuing...";
-    }
-    
-    exit
+    # Set Zsh as the default shell
+    print_message "Setting Zsh as the default shell..."
+    chsh -s /usr/bin/zsh
 
-    # Install Zsh plugins
-    print_message "Installing Zsh plugins..."
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    separator
+    echo -e "${GREEN}Setup Script Completed Successfully!${NC}"
+
+    # Source configuration files
+    separator
+    print_message "Sourcing configuration files"
+    source ~/.zshrc
+    tmux source-file ~/.tmux.conf
 
     print_success "Developer environment setup is complete!"
 else
@@ -226,8 +233,4 @@ separator
 echo -e "${GREEN}Setup Script Completed Successfully!${NC}"
 echo -e "${YELLOW}Please restart your terminal or run 'source ~/.zshrc' to apply all changes.${NC}"
 
-# Source configuration files
-separator
-print_message "Sourcing configuration files"
-source ~/.zshrc
-tmux source-file ~/.tmux.conf
+

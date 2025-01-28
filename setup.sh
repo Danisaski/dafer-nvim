@@ -110,6 +110,10 @@ if ask "Install the complete developer environment?"; then
         curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
         tar xf lazygit.tar.gz lazygit
         sudo install lazygit /usr/local/bin
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        sudo rm -rf /opt/nvim
+        sudo tar -C /opt -xzf nvim-linux64.tar.gz
+        sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
     fi
     # Language and Environment Installations
     separator

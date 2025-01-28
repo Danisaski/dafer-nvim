@@ -39,6 +39,24 @@ ask() {
     done
 }
 
+# Detect OS type
+get_os_type() {
+    if grep -q "Arch" /etc/os-release; then
+        echo "arch"
+    elif grep -q "Ubuntu\|Debian" /etc/os-release; then
+        echo "debian"
+    else
+        echo "unknown"
+    fi
+}
+
+OS_TYPE=$(get_os_type)
+
+if [ "$OS_TYPE" = "unknown" ]; then
+    print_error "Unsupported OS. This script only supports Arch-based and Debian/Ubuntu-based systems."
+    exit 1
+fi
+
 # Welcome message
 echo -e "${YELLOW}===========================================${NC}"
 echo -e "${GREEN}Welcome to the Neodafer Setup Script!${NC}"
@@ -69,29 +87,45 @@ if ask "Install the complete developer environment?"; then
     # Separator and system update
     separator
     print_message "Updating System"
-    # Initialize and populate pacman keys
-    print_message "Initializing and populating pacman keys..."
-    sudo pacman-key --init
-    sudo pacman-key --populate
-    sudo pacman -Sy archlinux-keyring
+    if [ "$OS_TYPE" = "arch" ]; then
+        # Initialize and populate pacman keys
+        print_message "Initializing and populating pacman keys..."
+        sudo pacman-key --init
+        sudo pacman-key --populate
+        sudo pacman -Sy archlinux-keyring
     
-    # Update system and install essential packages
-    print_message "Updating system and installing essential packages..."
-    sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship openssh
-
+        # Update system and install essential packages
+        print_message "Updating system and installing essential packages..."
+        sudo pacman -Syu --noconfirm
+        sudo pacman -S --noconfirm base-devel git curl wget unzip zip sudo zsh neovim tmux fzf ripgrep lazygit starship openssh
+    elif [ "$OS_TYPE" = "debian" ]; then
+        print_message "Updating system and installing essential packages..."
+        sudo apt update && sudo apt upgrade -y
+        sudo apt install -y build-essential git curl wget unzip zip sudo zsh tmux fzf ripgrep openssh pkg-config
+        curl -sS https://starship.rs/install.sh | sh
+        LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\\K[^"]*')
+        curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+        tar xf lazygit.tar.gz lazygit
+        sudo install lazygit /usr/local/bin
+    fi
     # Language and Environment Installations
     separator
     print_message "Language and Environment Installations"
 
     # Python Setup
-    if ask "Install Python and setup virtual environment?"; then
+    if ask "Install Python?"; then
         print_message "Installing python..."
-        sudo pacman -S --noconfirm python python-pip python-virtualenv
-        print_message "Setting up Python virtual environment..."
-        mkdir -p ~/code/python/venvs
-        python3 -m venv ~/code/python/venvs/denv
-        print_success "Python virtual environment created!"
+        if [ "$OS_TYPE" = "arch" ]; then
+            sudo pacman -S --noconfirm python python-pip python-virtualenv
+        elif [ "$OS_TYPE" = "debian" ]; then
+            sudo apt install -y python3 python3-pip python3-venv
+        fi
+        if ask "Create default virtual environment?"; then
+            print_message "Setting up Python virtual environment..."
+            mkdir -p ~/code/python/venvs
+            python3 -m venv ~/code/python/venvs/denv
+            print_success "Python virtual environment created!"
+        fi
     fi
 
     # Rust Setup
@@ -105,8 +139,12 @@ if ask "Install the complete developer environment?"; then
     # Zig Setup
     if ask "Install Zig programming language?"; then
         print_message "Installing Zig..."
-        # Assuming latest version, adjust URL as needed
-        sudo pacman -S --noconfirm zig
+        if [ "$OS_TYPE" = "arch" ]; then
+            # Assuming latest version, adjust URL as needed
+            sudo pacman -S --noconfirm zig
+        elif [ "$OS_TYPE" = "debian" ]; then
+            sudo apt install -y zig
+        fi
         print_success "Zig installed successfully!"
     fi
 
@@ -170,17 +208,13 @@ fi
 cd ~
 EOL
 
-    # Source configuration files
-    separator
-    print_message "Sourcing configuration files"
-    source ~/.zshrc
-    tmux source-file ~/.tmux.conf
-
     # Install Oh My Zsh
     print_message "Installing Oh My Zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || {
         print_error "Oh My Zsh installation failed. Continuing...";
     }
+    
+    exit
 
     print_success "Developer environment setup is complete!"
 else
@@ -191,3 +225,9 @@ fi
 separator
 echo -e "${GREEN}Setup Script Completed Successfully!${NC}"
 echo -e "${YELLOW}Please restart your terminal or run 'source ~/.zshrc' to apply all changes.${NC}"
+
+# Source configuration files
+separator
+print_message "Sourcing configuration files"
+source ~/.zshrc
+tmux source-file ~/.tmux.conf

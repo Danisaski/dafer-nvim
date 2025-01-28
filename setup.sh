@@ -137,8 +137,17 @@ if ask "Install the complete developer environment?"; then
     # Update .zshrc configuration
     print_message "Updating .zshrc..."
     cat >> ~/.zshrc <<EOL
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# update automatically without asking
+zstyle ':omz:update' mode auto
+    
 # Enable plugins
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+# Source the plugins
+source $ZSH/oh-my-zsh.sh
 
 # Initialize starship
 eval "\$(starship init zsh)"

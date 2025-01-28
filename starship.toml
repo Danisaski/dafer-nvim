@@ -21,7 +21,7 @@ $python\
 [](fg:bg_statusline1 bg:bg_statusline3)\
 [](fg:bg_statusline3 bg:bg_statusline1)\
 $time\
-[ ](fg:bg_statusline1)\
+[](fg:bg_statusline1)\
 $line_break$character"""
 
 palette = 'gruvbox_material'
@@ -158,10 +158,10 @@ disabled = true
 
 [character]
 disabled = false
-success_symbol = '[🠶](bold fg:aqua)'
-error_symbol = '[🠶](bold fg:red)'
-vimcmd_symbol = '[🠴](bold:aqua)'
-vimcmd_replace_one_symbol = '[🠴](bold:yellow)'
-vimcmd_replace_symbol = '[🠴](bold:yellow)'
-vimcmd_visual_symbol = '[🠴](bold:yellow)'
+success_symbol = '[⮞](bold fg:aqua)'
+error_symbol = '[⮞](bold fg:red)'
+vimcmd_symbol = '[⮜](bold:aqua)'
+vimcmd_replace_one_symbol = '[⮜](bold:yellow)'
+vimcmd_replace_symbol = '[⮜](bold:yellow)'
+vimcmd_visual_symbol = '[⮜](bold:yellow)'
 

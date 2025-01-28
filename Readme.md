@@ -412,6 +412,11 @@ Remember to:
 
 ## Github SSH configuration
 
+Modify url
+```bash
+git remote set-url origin git@github.com:Danisaski/neodafer.git
+```
+
 Create a SSH key
 ```bash
 ssh-keygen -t ed25519 -C dafernandezperez@gmail.com

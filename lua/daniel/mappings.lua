@@ -27,7 +27,20 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white
 vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
 -- Esc + clear highlight
-vim.keymap.set({ "n", "v", "x" }, '<Esc>', "<Esc>:noh<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
+  -- Simulate pressing <Esc>
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+
+  -- Clear search highlights
+  vim.cmd("noh")
+
+  -- Close floating windows (LSP popups, Noice, etc.)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+end, { noremap = true, silent = true })
 
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")
@@ -120,17 +133,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local run_script = function(mode)
     -- Save the current file before running
     vim.cmd("silent write")
-    -- Set CWD to the directory of the current file
-    vim.cmd("cd %:p:h")
     local filetype = vim.bo.filetype
 
     if filetype == "python" then
+        -- Set CWD to the directory of the current file
+        vim.cmd("cd %:p:h")
         if mode == "term" then
             vim.cmd(":term python %")
         else
             vim.cmd("!python %")
         end
     elseif filetype == "lua" then
+        -- Set CWD to the directory of the current file
+        vim.cmd("cd %:p:h")
         if mode == "term" then
             vim.cmd(":term lua %")
         else

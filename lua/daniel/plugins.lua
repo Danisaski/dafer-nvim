@@ -63,10 +63,11 @@ require("lazy").setup({
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             require("ibl").setup({
-            indent = {
-                char = "│", -- Use a thin line character
-            },
-        })
+                indent = {
+                    char = "▏", -- Use a thin line character
+                },
+                scope = { enabled = false }
+            })
         end
     },
     {

@@ -427,6 +427,12 @@ Get its contents
 cat ~/.ssh/id_ed25519.pub
 ```
 
+Remove PATH appending in WSL from Windows, slowdown shell autocompletion (add to /etc/wsl.conf)
+```bash
+[interop]
+appendWindowsPath=false
+```
+
 ## Dependencies Overview
 
 The setup includes these main dependencies:

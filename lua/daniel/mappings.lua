@@ -28,19 +28,37 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
-  -- Simulate pressing <Esc>
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+    -- Simulate pressing <Esc>
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 
-  -- Clear search highlights
-  vim.cmd("noh")
+    -- Clear search highlights
+    vim.cmd("noh")
 
-  -- Close floating windows (LSP popups, Noice, etc.)
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative ~= '' then
-      vim.api.nvim_win_close(win, true)
+    -- Close floating windows (LSP popups, Noice, etc.)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_is_valid(win) then
+            local cfg = vim.api.nvim_win_get_config(win)
+            if cfg.relative ~= '' then
+                vim.api.nvim_win_close(win, true)
+            end
+        end
     end
-  end
-end, { noremap = true, silent = true })
+end, { silent = true })
+
+
+vim.keymap.set("n", "K", function()
+    -- Close floating windows (LSP popups, Noice, etc.)
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_is_valid(win) then
+            local cfg = vim.api.nvim_win_get_config(win)
+            if cfg.relative ~= '' then
+                vim.api.nvim_win_close(win, true)
+            end
+        end
+    end
+    vim.lsp.buf.hover()
+end, { silent = true })
+
 
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")

@@ -35,10 +35,7 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 vim.opt.ttimeoutlen = 10
 
-
-
 vim.opt.colorcolumn = "80"
-
 
 -- Automatically save the file when leaving insert mode
 vim.api.nvim_create_autocmd("InsertLeave", {

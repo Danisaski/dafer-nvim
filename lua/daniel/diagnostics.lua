@@ -1,23 +1,50 @@
--- -- Function to show line diagnostics only if no other floating window is open
-local function show_line_diagnostics()
-	if #vim.api.nvim_list_wins() == 1 then
-		vim.diagnostic.open_float(nil, {
-			focusable = false,
-			scope = "line",
-			border = "rounded",
-		})
-	end
+local diag_winid = nil
+
+local function is_any_floating_window_open()
+    -- Get all open windows and check if any of them is a floating window
+    for _, winid in ipairs(vim.api.nvim_list_wins()) do
+        local win_config = vim.api.nvim_win_get_config(winid)
+        if win_config.relative ~= "" then
+            return true -- A floating window is open
+        end
+    end
+    return false -- No floating window is open
 end
 
--- auto-trigger on cursorhold
-vim.api.nvim_create_autocmd("cursorhold", {
-	callback = show_line_diagnostics,
-	desc = "Show line diagnostics in a floating window",
+local function show_line_diagnostics()
+    -- Close existing diagnostic window if it exists
+    if diag_winid and vim.api.nvim_win_is_valid(diag_winid) then
+        vim.api.nvim_win_close(diag_winid, false)
+        diag_winid = nil
+        return
+    end
+
+    -- Only show diagnostics if no other floating window is open
+    if not is_any_floating_window_open() then
+        diag_winid = vim.diagnostic.open_float(nil, {
+            focusable = false,
+            scope = "line",
+            border = "rounded",
+        })
+    end
+end
+
+local diagnostic_group = vim.api.nvim_create_augroup('DiagnosticFloat', { clear = true })
+
+vim.api.nvim_create_autocmd("CursorHold", {
+    group = diagnostic_group,
+    callback = show_line_diagnostics,
+    desc = "Toggle line diagnostics in a floating window",
 })
 
--- -- If spanish keyboard uncomment below
--- -- Keybinding to go to the next diagnostic in Normal and Visual mode
--- vim.keymap.set({ 'n', 'x' }, '<leader>e', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
---
--- -- Keybinding to go to the previous diagnostic in Normal and Visual mode
--- vim.keymap.set({ 'n', 'x' }, '<leader>E', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.api.nvim_create_autocmd({ "WinClosed", "BufWinEnter", "WinNew" }, {
+    group = diagnostic_group,
+    callback = function()
+        if diag_winid and vim.api.nvim_win_is_valid(diag_winid) then
+            vim.api.nvim_win_close(diag_winid, false)
+            diag_winid = nil
+        end
+    end,
+    desc = "Close diagnostic window when any other popup window appears",
+})
+

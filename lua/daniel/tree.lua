@@ -1,5 +1,7 @@
 -- ~/.config/nvim/lua/daniel/tree.lua
 require("nvim-tree").setup({
+    sync_root_with_cwd = true,
+    reload_on_bufenter = true,
     view = {
         width = 30,
         side = "left",

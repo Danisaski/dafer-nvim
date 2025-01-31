@@ -18,6 +18,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = " "
 
 -- Load the plugins configuration

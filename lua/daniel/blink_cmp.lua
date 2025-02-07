@@ -5,7 +5,7 @@ return {
         nerd_font_variant = 'normal'
     },
     completion = {
-        keyword = { range = 'full' }, -- Check if prefix better
+        keyword = { range = 'prefix' }, -- Check if prefix better
         list = {
             selection = { preselect = true, auto_insert = false } },
 

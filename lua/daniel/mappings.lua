@@ -26,6 +26,9 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
+vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
+vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
+
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
     -- Simulate pressing <Esc>

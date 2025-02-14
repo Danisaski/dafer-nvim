@@ -71,6 +71,18 @@ require("lazy").setup({
         end
     },
     {
+        "rachartier/tiny-glimmer.nvim",
+        event = "VeryLazy",
+        opts = {
+            overwrite = {
+                search = { enabled = true },
+                paste = { enabled = true },
+                undo = { enabled = true },
+                redo = { enabled = true }
+            }
+        },
+    },
+    {
         'petertriho/nvim-scrollbar',
         config = function()
             require("scrollbar").setup({
@@ -118,8 +130,13 @@ require("lazy").setup({
         config = function() require("daniel.tree") end,
     },
     {
+        'echasnovski/mini.animate',
+        version = '*',
+        config = function() require("daniel.animations").setup() end
+    },
+    {
         "romgrk/barbar.nvim",
-        dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons", 'echasnovski/mini.nvim' },
+        dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
     },
     {
         "folke/which-key.nvim",

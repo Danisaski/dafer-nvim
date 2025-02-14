@@ -50,16 +50,7 @@ end, { silent = true })
 
 
 vim.keymap.set("n", "K", function()
-    -- Close floating windows (LSP popups, Noice, etc.)
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if vim.api.nvim_win_is_valid(win) then
-            local cfg = vim.api.nvim_win_get_config(win)
-            if cfg.relative ~= '' then
-                vim.api.nvim_win_close(win, true)
-            end
-        end
-    end
-    vim.lsp.buf.hover()
+       vim.lsp.buf.hover()
 end, { silent = true })
 
 
@@ -67,8 +58,8 @@ end, { silent = true })
 vim.keymap.set("n", "Q", "<nop>")
 
 -- Substitute current cursor position word
--- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
---     { desc = "Substitute in active buffer" })
+vim.keymap.set("n", "<leader>*", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Substitute in active buffer" })
 
 -- Floating menu for keyboard users
 vim.keymap.set("n", "<leader>m", function()
@@ -142,14 +133,15 @@ vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>')
 vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>')
 vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>')
 
+-- Overwritten by tiny-glimmer
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
+-- vim.api.nvim_create_autocmd('TextYankPost', {
+--     desc = 'Highlight when yanking (copying) text',
+--     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+--     callback = function()
+--         vim.highlight.on_yank()
+--     end,
+-- })
 
 local run_script = function(mode)
     -- Save the current file before running

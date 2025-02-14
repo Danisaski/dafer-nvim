@@ -24,4 +24,3 @@ vim.api.nvim_create_autocmd("CursorHold", {
     callback = show_line_diagnostics,
     desc = "Show line diagnostics in a floating window if no other floating windows are open",
 })
-

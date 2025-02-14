@@ -98,7 +98,7 @@ require("lazy").setup({
         'goolord/alpha-nvim',
         dependencies = { 'echasnovski/mini.icons' },
         config = function()
-            require 'alpha'.setup(require 'alpha.themes.startify'.config)
+            require('alpha').setup(require('alpha.themes.startify').config)
         end
     },
     {
@@ -116,8 +116,9 @@ require("lazy").setup({
         }
     },
     {
-        'mg979/vim-visual-multi',
-        branch = 'master',
+        "jake-stewart/multicursor.nvim",
+        branch = '1.0',
+        config = function() require("daniel.multicursor").setup() end,
     },
     {
         "ibhagwan/fzf-lua",

@@ -4,7 +4,6 @@
 require("lazy").setup({
     -- **Plugin Manager**
     "folke/lazy.nvim",
-
     -- **LSP and Tooling Management**
     {
         'neovim/nvim-lspconfig',
@@ -12,6 +11,9 @@ require("lazy").setup({
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer" },
+        config = function()
+            require("daniel.mason")
+        end
     },
     {
         'saghen/blink.cmp',
@@ -43,6 +45,9 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        config = function()
+            require("daniel.treesitter")
+        end
     },
 
     -- **Git Integration**
@@ -73,14 +78,17 @@ require("lazy").setup({
     {
         "rachartier/tiny-glimmer.nvim",
         event = "VeryLazy",
-        opts = {
-            overwrite = {
-                search = { enabled = true },
-                paste = { enabled = true },
-                undo = { enabled = true },
-                redo = { enabled = true }
-            }
-        },
+        config = function()
+            require("tiny-glimmer").setup({
+                disable_warnings = false,
+                overwrite = {
+                    search = { enabled = true },
+                    paste = { enabled = true },
+                    undo = { enabled = true },
+                    redo = { enabled = true }
+                }
+            })
+        end
     },
     {
         'petertriho/nvim-scrollbar',
@@ -113,7 +121,10 @@ require("lazy").setup({
                 },
             },
             "stevearc/dressing.nvim",
-        }
+        },
+        config = function()
+            require("daniel.noice")
+        end
     },
     {
         "jake-stewart/multicursor.nvim",
@@ -124,6 +135,9 @@ require("lazy").setup({
         "ibhagwan/fzf-lua",
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("daniel.fzf_lua")
+        end
     },
     {
         "kyazdani42/nvim-tree.lua",
@@ -131,9 +145,8 @@ require("lazy").setup({
         config = function() require("daniel.tree") end,
     },
     {
-        'echasnovski/mini.animate',
-        version = '*',
-        config = function() require("daniel.animations").setup() end
+        "sphamba/smear-cursor.nvim",
+        opts = {},
     },
     {
         "romgrk/barbar.nvim",
@@ -146,9 +159,17 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
+        config = function()
+            require("daniel.statusbar")
+        end
     },
     -- **Undo Tree**
-    { "mbbill/undotree" },
+    {
+        "mbbill/undotree",
+        config = function()
+            require("daniel.undotree")
+        end
+    },
 
     -- **Commenting**
     {
@@ -170,8 +191,8 @@ require("lazy").setup({
 
 
     -- **Custom Menu**
-    { "nvzone/volt",    lazy = true },
-    { "nvzone/menu",    lazy = true },
+    { "nvzone/volt", lazy = true },
+    { "nvzone/menu", lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

@@ -1,8 +1,7 @@
 return {
     keymap = { preset = 'super-tab' },
     appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'normal'
+        nerd_font_variant = 'mono'
     },
     completion = {
         keyword = { range = 'prefix' }, -- Check if prefix better
@@ -36,4 +35,5 @@ return {
     sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
+    -- opts_extend = {"sources.default"}
 }

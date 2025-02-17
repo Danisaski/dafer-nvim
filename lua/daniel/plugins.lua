@@ -82,6 +82,7 @@ require("lazy").setup({
             require("tiny-glimmer").setup({
                 disable_warnings = false,
                 overwrite = {
+                    yank = { enabled = true },
                     search = { enabled = true },
                     paste = { enabled = true },
                     undo = { enabled = true },

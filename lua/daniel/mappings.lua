@@ -31,7 +31,6 @@ vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
-
     if require("multicursor-nvim").hasCursors() then
         require("multicursor-nvim").clearCursors()
     end
@@ -55,7 +54,7 @@ end, { silent = true })
 
 
 vim.keymap.set("n", "K", function()
-       vim.lsp.buf.hover()
+    vim.lsp.buf.hover()
 end, { silent = true })
 
 -- Avoid Q
@@ -148,11 +147,24 @@ vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>')
 -- })
 
 local run_script = function(mode)
+    -- Ensure the buffer is a normal file and has a valid filename
+    if vim.bo.buftype ~= "" then
+        vim.notify("Cannot run script: Current buffer is not a file", vim.log.levels.ERROR)
+        return
+    end
+
+    local filepath = vim.fn.expand("%:p") -- Full path of the current file
+
+    if filepath == "" then
+        vim.notify("Cannot run script: Buffer has no associated file", vim.log.levels.ERROR)
+        return
+    end
+
     -- Save the current file before running
     vim.cmd("silent write")
+
     local filetype = vim.bo.filetype
-    local filepath = vim.fn.expand("%:p")  -- Full path of the current file
-    local filedir = vim.fn.expand("%:p:h") -- Directory of the current file
+    local filedir = vim.fn.expand("%:p:h")  -- Directory of the current file
     local filename = vim.fn.expand("%:t:r") -- File name without extension
     local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
@@ -177,10 +189,11 @@ local run_script = function(mode)
         else
             local compiler = filetype == "c" and "gcc" or "g++"
             local output = filename .. "_out"
-            vim.cmd("!" .. compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
+            vim.cmd("!" ..
+            compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
         end
     else
-        print("Unsupported filetype")
+        vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)
     end
 
     -- If running in terminal mode, switch to insert mode

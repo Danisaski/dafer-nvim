@@ -151,28 +151,33 @@ local run_script = function(mode)
     -- Save the current file before running
     vim.cmd("silent write")
     local filetype = vim.bo.filetype
+    local filepath = vim.fn.expand("%:p")  -- Full path of the current file
+    local filedir = vim.fn.expand("%:p:h") -- Directory of the current file
+    local filename = vim.fn.expand("%:t:r") -- File name without extension
+    local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
-    if filetype == "python" then
-        -- Set CWD to the directory of the current file
-        vim.cmd("cd %:p:h")
-        if mode == "term" then
-            vim.cmd(":term python %")
-        else
-            vim.cmd("!python %")
+    if filetype == "python" or filetype == "lua" then
+        -- Temporarily change CWD, run, then restore CWD
+        local old_cwd = vim.fn.getcwd()
+        vim.cmd("lcd " .. filedir) -- Change directory temporarily
+        if filetype == "python" then
+            vim.cmd(mode == "term" and ":term python " .. filepath or "!python " .. filepath)
+        else -- filetype == "lua"
+            vim.cmd(mode == "term" and ":term lua " .. filepath or "!lua " .. filepath)
         end
-    elseif filetype == "lua" then
-        -- Set CWD to the directory of the current file
-        vim.cmd("cd %:p:h")
-        if mode == "term" then
-            vim.cmd(":term lua %")
-        else
-            vim.cmd("!lua %")
-        end
+        vim.cmd("lcd " .. old_cwd) -- Restore original CWD
     elseif filetype == "rust" then
-        if mode == "term" then
-            vim.cmd(":term cargo run")
+        vim.cmd(mode == "term" and ":term cargo run" or "!cargo run")
+    elseif filetype == "c" or filetype == "cpp" then
+        -- Use gcc for Linux, cl.exe for Windows
+        if is_windows then
+            local compiler = "cl.exe"
+            local output = filename .. ".exe"
+            vim.cmd("!" .. compiler .. " " .. filepath .. " /Fe:" .. output .. " & .\\" .. output)
         else
-            vim.cmd("!cargo run")
+            local compiler = filetype == "c" and "gcc" or "g++"
+            local output = filename .. "_out"
+            vim.cmd("!" .. compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
         end
     else
         print("Unsupported filetype")

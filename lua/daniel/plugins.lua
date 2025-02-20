@@ -75,6 +75,9 @@ require("lazy").setup({
             })
         end
     },
+    { "akinsho/toggleterm.nvim", config = function() 
+        require("toggleterm").setup() 
+    end },
     {
         "rachartier/tiny-glimmer.nvim",
         event = "VeryLazy",
@@ -192,8 +195,8 @@ require("lazy").setup({
 
 
     -- **Custom Menu**
-    { "nvzone/volt", lazy = true },
-    { "nvzone/menu", lazy = true },
+    { "nvzone/volt",             lazy = true },
+    { "nvzone/menu",             lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

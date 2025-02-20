@@ -1,4 +1,4 @@
----@diagnostic disable: missing-fields
+--@diagnostic disable: missing-fields
 --@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/mappings.lua
 
@@ -167,43 +167,65 @@ local run_script = function(mode)
     local filedir = vim.fn.expand("%:p:h")  -- Directory of the current file
     local filename = vim.fn.expand("%:t:r") -- File name without extension
     local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+    local current_cwd = vim.fn.getcwd()     -- Save original working directory
 
-    if filetype == "python" or filetype == "lua" then
-        -- Temporarily change CWD, run, then restore CWD
-        local old_cwd = vim.fn.getcwd()
-        vim.cmd("lcd " .. filedir) -- Change directory temporarily
-        if filetype == "python" then
-            vim.cmd(mode == "term" and ":term python " .. filepath or "!python " .. filepath)
-        else -- filetype == "lua"
-            vim.cmd(mode == "term" and ":term lua " .. filepath or "!lua " .. filepath)
-        end
-        vim.cmd("lcd " .. old_cwd) -- Restore original CWD
+    -- Helper function to run commands in a floating terminal
+    local Terminal = require("toggleterm.terminal").Terminal
+    local function run_in_floating_terminal(cmd, wd)
+        local term = Terminal:new({
+            cmd = cmd,
+            dir = wd,
+            direction = "float",
+            hidden = true,
+            close_on_exit = false,
+            float_opts = {
+                border = "rounded", -- You can also use "single", "double", etc.
+                winblend = 10,      -- Transparency level (0-100), 10 is a mild transparency
+            },
+            highlights = {
+                Normal = { guibg = "NONE" },   -- Transparent background for terminal window
+                NormalNC = { guibg = "NONE" }, -- Transparent background for non-current windows
+            },
+        })
+        term:toggle()
+    end
+
+    -- Handle different filetypes
+    if filetype == "python" then
+        local cmd_string = "python " .. filepath
+        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, filedir)
+    elseif filetype == "lua" then
+        local cmd_string = "lua " .. filepath
+        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, filedir)
     elseif filetype == "rust" then
-        vim.cmd(mode == "term" and ":term cargo run" or "!cargo run")
+        local cmd_string = "cargo run"
+        local cmd = "echo '>> " .. cmd_string .. " ("..current_cwd..")\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, current_cwd)
+    elseif filetype == "zig" then
+        local cmd_string = "zig build run"
+        local cmd = "echo '>> " .. cmd_string .. " ("..current_cwd..")\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, current_cwd)
     elseif filetype == "c" or filetype == "cpp" then
-        -- Use gcc for Linux, cl.exe for Windows
+        -- Use gcc/g++ for Linux, cl.exe for Windows
         if is_windows then
-            local compiler = "cl.exe"
             local output = filename .. ".exe"
-            vim.cmd("!" .. compiler .. " " .. filepath .. " /Fe:" .. output .. " & .\\" .. output)
+            run_in_floating_terminal("cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output)
         else
             local compiler = filetype == "c" and "gcc" or "g++"
             local output = filename .. "_out"
-            vim.cmd("!" ..
-                compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
+            run_in_floating_terminal(compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output)
         end
     else
         vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)
-    end
-
-    -- If running in terminal mode, switch to insert mode
-    if mode == "term" then
-        vim.cmd("startinsert")
+        return
     end
 end
 
+
 -- Uppercase R runs in :term and switches to insert mode
-vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script("term") end,
+vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script() end,
     { desc = "Save and run current script in terminal" })
 
 -- Lowercase r runs using !

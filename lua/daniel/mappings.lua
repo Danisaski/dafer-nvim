@@ -117,8 +117,8 @@ vim.keymap.set("n", "<C-w><up>", "5<C-w>+", { desc = "Increase horizontal split 
 vim.keymap.set("n", "<C-w><down>", "5<C-w>-", { desc = "Decrease horizontal split height by 5" })
 
 -- Move to previous/next
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>')
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>')
+vim.keymap.set('n', '<A-j>', '<Cmd>BufferPrevious<CR>')
+vim.keymap.set('n', '<A-k>', '<Cmd>BufferNext<CR>')
 
 -- Re-order to previous/next
 vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>')
@@ -190,7 +190,7 @@ local run_script = function(mode)
             local compiler = filetype == "c" and "gcc" or "g++"
             local output = filename .. "_out"
             vim.cmd("!" ..
-            compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
+                compiler .. " " .. filepath .. " -o " .. output .. " && ." .. (is_windows and "\\" or "/") .. output)
         end
     else
         vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)

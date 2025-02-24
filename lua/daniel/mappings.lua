@@ -6,8 +6,8 @@
 vim.keymap.set({ "n", "v", "x" }, ";", ":")
 
 -- Quick navigating
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
 -- vim.keymap.set({ "n", "x" }, "J", "5j")
 -- vim.keymap.set({ "n", "x" }, "K", "5k")
 
@@ -146,7 +146,7 @@ vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>')
 --     end,
 -- })
 
-local run_script = function(mode)
+local run_script = function()
     -- Ensure the buffer is a normal file and has a valid filename
     if vim.bo.buftype ~= "" then
         vim.notify("Cannot run script: Current buffer is not a file", vim.log.levels.ERROR)

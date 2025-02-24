@@ -29,13 +29,14 @@ vim.opt.inccommand = "split"
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 7
 
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 vim.opt.ttimeoutlen = 10
 
 vim.opt.colorcolumn = "80"
+vim.opt.wrap = false
 
 -- Auto-save when leaving insert mode, only if it's a valid file type
 vim.api.nvim_create_autocmd("InsertLeave", {

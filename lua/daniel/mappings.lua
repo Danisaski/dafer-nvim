@@ -201,11 +201,11 @@ local run_script = function(mode)
         run_in_floating_terminal(cmd, filedir)
     elseif filetype == "rust" then
         local cmd_string = "cargo run"
-        local cmd = "echo '>> " .. cmd_string .. " ("..current_cwd..")\n' && " .. cmd_string
+        local cmd = "echo '>> " .. cmd_string .. " (" .. current_cwd .. ")\n' && " .. cmd_string
         run_in_floating_terminal(cmd, current_cwd)
     elseif filetype == "zig" then
         local cmd_string = "zig build run"
-        local cmd = "echo '>> " .. cmd_string .. " ("..current_cwd..")\n' && " .. cmd_string
+        local cmd = "echo '>> " .. cmd_string .. " (" .. current_cwd .. ")\n' && " .. cmd_string
         run_in_floating_terminal(cmd, current_cwd)
     elseif filetype == "c" or filetype == "cpp" then
         -- Use gcc/g++ for Linux, cl.exe for Windows

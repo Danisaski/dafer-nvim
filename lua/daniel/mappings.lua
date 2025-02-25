@@ -27,6 +27,12 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 
+-- Navigate buffers
+vim.keymap.set("n", "<M-j>", ":bprevious<CR>",
+    { silent = true, noremap = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<M-k>", ":bnext<CR>",
+    { silent = true, noremap = true, desc = "Next buffer" })
+
 -- Close buffer
 vim.keymap.set({ "n", "v", "x" }, "<leader>bd", ":bd<CR>",
     { silent = true, noremap = true, desc = "Close current buffer" })

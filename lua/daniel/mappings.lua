@@ -6,14 +6,12 @@
 vim.keymap.set({ "n", "v", "x" }, ";", ":")
 
 -- Quick navigating
--- vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
--- vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
--- vim.keymap.set({ "n", "x" }, "J", "5j")
--- vim.keymap.set({ "n", "x" }, "K", "5k")
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate down and stay centered" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate up and stay centered" })
 
 -- Move lines in visual mode
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true, noremap = true, desc = "Move down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true, desc = "Move down" })
 
 -- Keep centered when next and previous
 vim.keymap.set("n", "n", "nzzzv")
@@ -28,6 +26,10 @@ vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
+
+-- Close buffer
+vim.keymap.set({ "n", "v", "x" }, "<leader>bd", ":bd<CR>",
+    { silent = true, noremap = true, desc = "Close current buffer" })
 
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
@@ -93,16 +95,6 @@ vim.keymap.set("x", "p", '"_dp', { desc = "Paste without overwriting register in
 -- Paste in visual line mode without overwriting
 vim.keymap.set("x", "P", '"_dP', { desc = "Paste before without overwriting register" })
 
--- BarBar and Tabs
-vim.keymap.set({ "n", "v", "x" }, '<leader>bb', '<Cmd>BufferPick<CR>',
-    { noremap = true, silent = true, desc = "Fast buffer pick" })
-vim.keymap.set({ "n", "v", "x" }, '<leader>w', '<Cmd>BufferClose<CR>',
-    { noremap = true, silent = true, desc = "Close buffer" })
-vim.keymap.set({ "n", "v", "x" }, '<leader>h', '<Cmd>BufferPrevious<CR>',
-    { noremap = true, silent = true, desc = "Previous buffer" })
-vim.keymap.set({ "n", "v", "x" }, '<leader>l', '<Cmd>BufferNext<CR>',
-    { noremap = true, silent = true, desc = "Next buffer" })
-
 -- Window navigation
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = "Move to left window" })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = "Move to right window" })
@@ -116,35 +108,14 @@ vim.keymap.set("n", "<C-w><left>", "5<C-w><", { desc = "Decrease vertical split 
 vim.keymap.set("n", "<C-w><up>", "5<C-w>+", { desc = "Increase horizontal split height by 5" })
 vim.keymap.set("n", "<C-w><down>", "5<C-w>-", { desc = "Decrease horizontal split height by 5" })
 
--- Move to previous/next
-vim.keymap.set('n', '<A-j>', '<Cmd>BufferPrevious<CR>')
-vim.keymap.set('n', '<A-k>', '<Cmd>BufferNext<CR>')
-
--- Re-order to previous/next
-vim.keymap.set('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>')
-vim.keymap.set('n', '<A->>', '<Cmd>BufferMoveNext<CR>')
-
--- Goto buffer in position...
-vim.keymap.set('n', '<A-1>', '<Cmd>BufferGoto 1<CR>')
-vim.keymap.set('n', '<A-2>', '<Cmd>BufferGoto 2<CR>')
-vim.keymap.set('n', '<A-3>', '<Cmd>BufferGoto 3<CR>')
-vim.keymap.set('n', '<A-4>', '<Cmd>BufferGoto 4<CR>')
-vim.keymap.set('n', '<A-5>', '<Cmd>BufferGoto 5<CR>')
-vim.keymap.set('n', '<A-6>', '<Cmd>BufferGoto 6<CR>')
-vim.keymap.set('n', '<A-7>', '<Cmd>BufferGoto 7<CR>')
-vim.keymap.set('n', '<A-8>', '<Cmd>BufferGoto 8<CR>')
-vim.keymap.set('n', '<A-9>', '<Cmd>BufferGoto 9<CR>')
-vim.keymap.set('n', '<A-0>', '<Cmd>BufferLast<CR>')
-
--- Overwritten by tiny-glimmer
 -- Highlight when yanking (copying) text
--- vim.api.nvim_create_autocmd('TextYankPost', {
---     desc = 'Highlight when yanking (copying) text',
---     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
---     callback = function()
---         vim.highlight.on_yank()
---     end,
--- })
+vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
 
 local run_script = function()
     -- Ensure the buffer is a normal file and has a valid filename

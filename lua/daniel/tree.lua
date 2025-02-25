@@ -30,7 +30,7 @@ require("nvim-tree").setup({
     }
 })
 
--- Keymap to toggle the tree view and update Barbar's offset
+-- Keymap to toggle the tree view
 vim.keymap.set("n", "<leader>t", function()
     -- Toggle the Nvim-Tree
     vim.cmd("NvimTreeToggle")

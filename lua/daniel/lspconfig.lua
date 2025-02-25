@@ -11,7 +11,7 @@ local servers = {
     ltex = {
         settings = {
             ltex = {
-                checkFrequency = "save"}
+                checkFrequency = "save" }
         }
     },
     zls = {},
@@ -43,6 +43,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Jump to the implementation of the word under your cursor.
         map('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 
+        -- Go to declaration.
+        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
         -- Jump to the type of the word under your cursor.
         map('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
@@ -50,7 +53,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map('<leader>ds', vim.lsp.buf.document_symbol, '[D]ocument [S]ymbols')
 
         -- List all symbols in the current workspace.
-        map('<leader>dS', vim.lsp.buf.workspace_symbol, '[W]orkspace [S]ymbols')
+        map('<leader>ws', vim.lsp.buf.workspace_symbol, '[W]orkspace [S]ymbols')
 
         -- Rename the variable under your cursor.
         map('<F2>', vim.lsp.buf.rename, 'Rename variable')
@@ -58,32 +61,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Execute a code action.
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-        -- Go to declaration.
-        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
         -- Highlight references of the word under your cursor.
-        -- local client = vim.lsp.get_client_by_id(event.data.client_id)
-        -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-        --     local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-        --     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-        --         buffer = event.buf,
-        --         group = highlight_augroup,
-        --         callback = vim.lsp.buf.document_highlight,
-        --     })
-        --
-        --     vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-        --         buffer = event.buf,
-        --         group = highlight_augroup,
-        --         callback = vim.lsp.buf.clear_references,
-        --     })
-        --
-        --     vim.api.nvim_create_autocmd('LspDetach', {
-        --         group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
-        --         callback = function(event2)
-        --             vim.lsp.buf.clear_references()
-        --             vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-        --         end,
-        --     })
-        -- end
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                buffer = event.buf,
+                group = highlight_augroup,
+                callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                buffer = event.buf,
+                group = highlight_augroup,
+                callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+                group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+                callback = function(event2)
+                    vim.lsp.buf.clear_references()
+                    vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                end,
+            })
+        end
     end,
 })

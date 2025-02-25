@@ -3,7 +3,7 @@
 -- Set up lazy.nvim as the plugin manager
 require("lazy").setup({
     -- **Plugin Manager**
-    "folke/lazy.nvim",
+    { "folke/lazy.nvim" },
     -- **LSP and Tooling Management**
     {
         'neovim/nvim-lspconfig',
@@ -55,7 +55,6 @@ require("lazy").setup({
         "lewis6991/gitsigns.nvim",
         config = function() require("gitsigns").setup() end,
     },
-
     -- **UI Enhancements**
     {
         "windwp/nvim-autopairs",
@@ -156,10 +155,6 @@ require("lazy").setup({
         opts = {},
     },
     {
-        "romgrk/barbar.nvim",
-        dependencies = { "lewis6991/gitsigns.nvim", "nvim-tree/nvim-web-devicons" },
-    },
-    {
         "folke/which-key.nvim",
         config = function() require("which-key").setup({ preset = 'modern' }) end,
     },
@@ -198,8 +193,8 @@ require("lazy").setup({
 
 
     -- **Custom Menu**
-    { "nvzone/volt", lazy = true },
-    { "nvzone/menu", lazy = true },
+    { "nvzone/volt",    lazy = true },
+    { "nvzone/menu",    lazy = true },
     'MunifTanjim/nui.nvim',
 
     -- **Debugging**

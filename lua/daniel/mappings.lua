@@ -114,14 +114,15 @@ vim.keymap.set("n", "<C-w><left>", "5<C-w><", { desc = "Decrease vertical split 
 vim.keymap.set("n", "<C-w><up>", "5<C-w>+", { desc = "Increase horizontal split height by 5" })
 vim.keymap.set("n", "<C-w><down>", "5<C-w>-", { desc = "Decrease horizontal split height by 5" })
 
+-- Overwritten by tiny-glimmer
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
+-- vim.api.nvim_create_autocmd('TextYankPost', {
+--     desc = 'Highlight when yanking (copying) text',
+--     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+--     callback = function()
+--         vim.highlight.on_yank()
+--     end,
+-- })
 
 local run_script = function()
     -- Ensure the buffer is a normal file and has a valid filename

@@ -98,9 +98,7 @@ require("lazy").setup({
     {
         'goolord/alpha-nvim',
         dependencies = { 'echasnovski/mini.icons' },
-        config = function()
-            require('alpha').setup(require('alpha.themes.startify').config)
-        end
+        config = function() require('daniel.alpha') end,
     },
     {
         "folke/noice.nvim",

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Determine the proper path based on OS
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if vim.fn.has('win32') == 1 then
@@ -27,7 +28,6 @@ vim.g.mapleader = " "
 require("daniel.plugins")
 
 -- Load other configurations
-require('daniel.debug')
 require('daniel.diagnostics')
 require('daniel.lspconfig')
 require("daniel.settings")

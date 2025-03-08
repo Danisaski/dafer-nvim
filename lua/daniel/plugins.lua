@@ -1,6 +1,6 @@
----@diagnostic disable: undefined-global, missing-fields
+---@diagnostic disable: missing-fields, undefined-global
 -- ~/.config/nvim/lua/daniel/plugins.lua
--- Set up lazy.nvim as the plugin manager
+
 require("lazy").setup({
     -- **Plugin Manager**
     { "folke/lazy.nvim" },
@@ -11,9 +11,7 @@ require("lazy").setup({
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer" },
-        config = function()
-            require("daniel.mason")
-        end
+        config = function() require("daniel.mason") end,
     },
     {
         'saghen/blink.cmp',
@@ -23,6 +21,7 @@ require("lazy").setup({
         -- Load the configuration from the external file
         opts = require("daniel.blink_cmp"),
     },
+    -- **Git integration**
     {
         "kdheepak/lazygit.nvim",
         lazy = true,
@@ -38,22 +37,28 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
         },
         keys = {
-            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
         }
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function() require("gitsigns").setup() end,
     },
     -- **Treesitter**
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        config = function()
-            require("daniel.treesitter")
-        end
+        config = function() require("daniel.treesitter") end,
     },
-
-    -- **Git Integration**
+    -- **External languages**
     {
-        "lewis6991/gitsigns.nvim",
-        config = function() require("gitsigns").setup() end,
+        "lervag/vimtex",
+        lazy = false,
+        init = function()
+            -- vim.g.vimtex_view_method = "zathura"
+            vim.g.vimtex_compiler_method = 'latexmk'
+            vim.g.maplocalleader = " "
+        end
     },
     -- **UI Enhancements**
     {
@@ -76,25 +81,7 @@ require("lazy").setup({
     },
     {
         "akinsho/toggleterm.nvim",
-        config = function()
-            require("toggleterm").setup()
-        end
-    },
-    {
-        "rachartier/tiny-glimmer.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("tiny-glimmer").setup({
-                disable_warnings = false,
-                overwrite = {
-                    yank = { enabled = true },
-                    search = { enabled = true },
-                    paste = { enabled = true },
-                    undo = { enabled = true },
-                    redo = { enabled = true }
-                }
-            })
-        end
+        config = function() require("toggleterm").setup() end,
     },
     {
         'petertriho/nvim-scrollbar',
@@ -128,9 +115,7 @@ require("lazy").setup({
             },
             "stevearc/dressing.nvim",
         },
-        config = function()
-            require("daniel.noice")
-        end
+        config = function() require("daniel.noice") end,
     },
     {
         "jake-stewart/multicursor.nvim",
@@ -141,9 +126,7 @@ require("lazy").setup({
         "ibhagwan/fzf-lua",
         -- optional for icon support
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("daniel.fzf_lua")
-        end
+        config = function() require("daniel.fzf_lua") end,
     },
     {
         "kyazdani42/nvim-tree.lua",
@@ -152,7 +135,7 @@ require("lazy").setup({
     },
     {
         "sphamba/smear-cursor.nvim",
-        opts = {},
+        opts = {}
     },
     {
         "folke/which-key.nvim",
@@ -161,16 +144,12 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
-        config = function()
-            require("daniel.statusbar")
-        end
+        config = function() require("daniel.statusbar") end,
     },
     -- **Undo Tree**
     {
         "mbbill/undotree",
-        config = function()
-            require("daniel.undotree")
-        end
+        config = function() require("daniel.undotree") end,
     },
 
     -- **Commenting**
@@ -190,27 +169,4 @@ require("lazy").setup({
             require('daniel.theme').setup()
         end,
     },
-
-
-    -- **Custom Menu**
-    { "nvzone/volt",    lazy = true },
-    { "nvzone/menu",    lazy = true },
-    'MunifTanjim/nui.nvim',
-
-    -- **Debugging**
-    {
-        "folke/lazydev.nvim",
-        config = function() require("lazydev").setup({}) end,
-    },
-    { "nvim-neotest/nvim-nio" },
-    {
-        "mfussenegger/nvim-dap-python",
-        ft = "python",
-        dependencies = { "mfussenegger/nvim-dap", "rcarriga/nvim-dap-ui" },
-    },
-    {
-        "rcarriga/nvim-dap-ui",
-        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    },
-    { "mfussenegger/nvim-dap" },
 })

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 --@diagnostic disable: missing-fields
 --@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/mappings.lua
@@ -72,19 +73,6 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>*", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Substitute in active buffer" })
 
--- Floating menu for keyboard users
-vim.keymap.set("n", "<leader>m", function()
-    require("menu").open("default")
-end, { desc = "Open context menu" })
-
--- Floating menu for mouse users + nvimtree users!
-vim.keymap.set("n", "<RightMouse>", function()
-    vim.cmd.exec '"normal! \\<RightMouse>"'
-
-    local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
-    require("menu").open(options, { mouse = true })
-end, {})
-
 -- Format Buffer
 vim.keymap.set({ "n", "v", "x" }, '<leader>fm', function()
     vim.lsp.buf.format({ async = true })
@@ -113,16 +101,6 @@ vim.keymap.set("n", "<C-w><left>", "5<C-w><", { desc = "Decrease vertical split 
 
 vim.keymap.set("n", "<C-w><up>", "5<C-w>+", { desc = "Increase horizontal split height by 5" })
 vim.keymap.set("n", "<C-w><down>", "5<C-w>-", { desc = "Decrease horizontal split height by 5" })
-
--- Overwritten by tiny-glimmer
--- Highlight when yanking (copying) text
--- vim.api.nvim_create_autocmd('TextYankPost', {
---     desc = 'Highlight when yanking (copying) text',
---     group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
---     callback = function()
---         vim.highlight.on_yank()
---     end,
--- })
 
 local run_script = function()
     -- Ensure the buffer is a normal file and has a valid filename

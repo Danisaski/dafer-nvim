@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/settings.lua
 
 vim.g.have_nerd_font = true
@@ -37,6 +38,16 @@ vim.opt.ttimeoutlen = 10
 
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
+
+-- Overwritten by tiny-glimmer
+-- Highlight when yanking (copying) text
+vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
 
 -- Auto-save when leaving insert mode, only if it's a valid file type
 vim.api.nvim_create_autocmd("InsertLeave", {

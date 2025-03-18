@@ -9,11 +9,17 @@ local servers = {
     ruff = {},          -- Ruff Linter (LSP mode)
     rust_analyzer = {}, -- Rust Language Server
     ltex = {
+        language = "auto",
         settings = {
             ltex = {
                 checkFrequency = "save" }
-        }
+        },
+        additionalRules = {
+            enablePickyRules = true,
+            motherTongue = "es-ES",
+        },
     },
+    texlab = {},
     zls = {},
     marksman = {},
     clangd = {},

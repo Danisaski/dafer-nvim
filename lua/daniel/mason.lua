@@ -9,6 +9,7 @@ require("mason-lspconfig").setup({
         "clangd",          -- C/C++
         -- "gopls",           -- Go
         "zls",             -- Zig
+        "texlab",
         "ltex",            -- English grammar, LaTeX, and Markdown
         "marksman"         -- Markdown
     },

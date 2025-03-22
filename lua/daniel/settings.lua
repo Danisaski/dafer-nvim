@@ -39,7 +39,16 @@ vim.opt.ttimeoutlen = 10
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
 
--- Overwritten by tiny-glimmer
+vim.opt.spelllang = "en_us"
+
+-- Enable spell checking for common text-based filetypes
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "text", "gitcommit", "tex" },
+    callback = function()
+        vim.opt.spell = true
+    end,
+})
+
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',

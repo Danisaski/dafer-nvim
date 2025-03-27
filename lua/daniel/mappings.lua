@@ -167,11 +167,15 @@ local run_script = function()
         -- Use gcc/g++ for Linux, cl.exe for Windows
         if is_windows then
             local output = filename .. ".exe"
-            run_in_floating_terminal("cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output)
+            local cmd_string = "cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output
+            local cmd = "echo '>> " .. cmd_string .. " \n' && " .. cmd_string
+            run_in_floating_terminal(cmd)
         else
             local compiler = filetype == "c" and "gcc" or "g++"
             local output = filename .. "_out"
-            run_in_floating_terminal(compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output)
+            local cmd_string = compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output
+            local cmd = "echo '>> " .. cmd_string .. " \n' && " .. cmd_string
+            run_in_floating_terminal(cmd)
         end
     else
         vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)

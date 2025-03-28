@@ -177,6 +177,14 @@ local run_script = function()
             local cmd = "echo '>> " .. cmd_string .. " \n' && " .. cmd_string
             run_in_floating_terminal(cmd)
         end
+    elseif filetype == "javascript" then
+        local cmd_string = "node " .. filepath
+        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, filedir)
+    elseif filetype == "typescript" then
+        local cmd_string = "ts-node " .. filepath
+        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
+        run_in_floating_terminal(cmd, filedir)
     else
         vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)
         return

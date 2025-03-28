@@ -8,6 +8,7 @@ local servers = {
     pyright = {},       -- Python LSP
     ruff = {},          -- Ruff Linter (LSP mode)
     rust_analyzer = {}, -- Rust Language Server
+    ts_ls = {},         -- Typescript Language Server
     ltex = {
         language = "auto",
         settings = {

@@ -8,6 +8,7 @@ require("mason-lspconfig").setup({
         "rust_analyzer",   -- Rust
         "clangd",          -- C/C++
         -- "gopls",           -- Go
+        "ts_ls",           -- Typescritp/JS
         "zls",             -- Zig
         "texlab",
         "ltex",            -- English grammar, LaTeX, and Markdown

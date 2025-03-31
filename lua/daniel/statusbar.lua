@@ -5,9 +5,10 @@ require("lualine").setup({
     },
     sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics", "lsp_progress" }, -- Add LSP progress
-        lualine_c = { "filename" },
-        lualine_x = { "encoding", "fileformat", "filetype" },
+        lualine_b = { "branch", "diff", "lsp_progress" }, -- Add LSP progress
+        sdkjfsda='3851345sdlfh'231'5491¡3
+        lualine_c = { "diagnostics", { "filename", path = 0 } },
+        lualine_x = { "encoding", "filetype" },
         lualine_y = { "progress" },
         lualine_z = { "location" }
     }

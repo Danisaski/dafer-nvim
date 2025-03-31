@@ -39,7 +39,34 @@ vim.opt.ttimeoutlen = 10
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
 
--- Overwritten by tiny-glimmer
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.fillchars:append({ fold = " " })
+vim.o.foldtext = 'v:lua.custom_foldtext()'
+vim.o.fillchars = "fold: ,foldopen: ,foldsep: ,foldclose:>"
+
+function _G.custom_foldtext()
+    -- Get the first line of the fold
+    local first_line = vim.fn.getline(vim.v.foldstart)
+    -- Calculate the number of folded lines
+    local fold_count = vim.v.foldend - vim.v.foldstart + 1
+    return first_line .. " (" .. fold_count .. " lines hidden)"
+end
+
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client:supports_method('textDocument/foldingRange') then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
+    end,
+})
+
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',

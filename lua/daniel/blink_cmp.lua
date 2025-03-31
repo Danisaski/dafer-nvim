@@ -5,8 +5,7 @@ return {
     },
     cmdline = {
         keymap = {
-            -- recommended, as the default keymap will only show and select the next item
-            ['<Tab>'] = { 'show', 'accept' },
+            preset = 'super-tab'
         },
         completion = { menu = { auto_show = true } },
     },

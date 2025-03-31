@@ -7,7 +7,8 @@ require("nvim-tree").setup({
         side = "left",
     },
     filters = {
-        dotfiles = false
+        dotfiles = false,
+        git_ignored = false
     },
     renderer = {
         highlight_git = true,

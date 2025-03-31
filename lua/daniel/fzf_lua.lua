@@ -7,7 +7,6 @@ if not status then
 end
 
 fzf.setup({
-    'telescope',
     winopts = {
         height   = 0.85,
         width    = 0.80,
@@ -22,16 +21,18 @@ fzf.setup({
             ['<esc>'] = 'abort',
         },
         fzf = {
-            ['tab'] = 'up',            -- Tab navigates up
-            ['btab'] = 'down',         -- S-Tab navigates down
-            ['left'] = 'toggle+up',    -- Left arrow untoggles and moves up
-            ['right'] = 'toggle+down', -- Right arrow untoggles and moves down
-            ['up'] = 'up',             -- Up arrow for navigating up
-            ['down'] = 'down',         -- Down arrow for navig'shift-tab:up'ating down
+            ['tab'] = 'down',         -- Tab navigates down
+            ['btab'] = 'up',          -- S-Tab navigates up
+            ['left'] = 'toggle+down', -- Left arrow untoggles and moves down
+            ['right'] = 'toggle+up',  -- Right arrow untoggles and moves up
+            ['down'] = 'down',        -- Up arrow for navigating up
+            ['up'] = 'up',            -- Down arrow for navig'shift-tab:up'ating down
         },
     },
+    files = { no_ignore = true },
+    grep = { no_ignore = true },
+
     fzf_opts = {
-        ['--info'] = 'inline', -- Displays the info inline like Telescope.
     },
     colors = {
         fg = "#cdd6f4",      -- Catppuccin text color

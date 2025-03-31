@@ -64,6 +64,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
             local win = vim.api.nvim_get_current_win()
             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
         end
+    end
+})
+
+vim.opt.spelllang = "en_us"
+
+-- Enable spell checking for common text-based filetypes
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "text", "gitcommit", "tex" },
+    callback = function()
+        vim.opt.spell = true
     end,
 })
 

@@ -19,8 +19,12 @@ vim.opt.smartindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+if vim.fn.has("win32") == 1 then
+    vim.opt.undodir = vim.fn.expand("$USERPROFILE") .. "\\vimfiles\\undodir"
+else
+    vim.opt.undodir = vim.fn.expand("$HOME") .. "/.vim/undodir"
+end
+vim.opt.undofile = true -- Ensure undofile is enabled
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true

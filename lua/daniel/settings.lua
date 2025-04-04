@@ -42,6 +42,10 @@ vim.opt.ttimeoutlen = 10
 
 vim.opt.colorcolumn = "80"
 vim.opt.wrap = false
+vim.keymap.set("n", "<leader>ww", function()
+    vim.opt.wrap = not vim.opt.wrap:get()
+end, { desc = "Toggle line wrapping" })
+
 
 vim.o.foldenable = true
 vim.o.foldlevel = 99

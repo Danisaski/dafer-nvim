@@ -29,8 +29,8 @@ fzf.setup({
             ['up'] = 'up',            -- Down arrow for navig'shift-tab:up'ating down
         },
     },
-    files = { no_ignore = true },
-    grep = { no_ignore = true },
+    -- files = { no_ignore = true },
+    -- grep = { no_ignore = true },
 
     fzf_opts = {
     },

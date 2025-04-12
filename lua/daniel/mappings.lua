@@ -61,11 +61,6 @@ vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
     end
 end, { silent = true })
 
-
-vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover()
-end, { silent = true })
-
 -- Avoid Q
 vim.keymap.set("n", "Q", "<nop>")
 

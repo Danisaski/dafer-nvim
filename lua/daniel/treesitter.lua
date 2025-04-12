@@ -22,7 +22,8 @@ require('nvim-treesitter.configs').setup {
         "regex",
         "gitignore",
         "toml",
-        "latex" },
+        -- "latex"
+    },
 
 
     -- Install parsers synchronously (only applied to `ensure_installed`)

@@ -97,30 +97,18 @@ vim.keymap.set("n", "<C-w><left>", "5<C-w><", { desc = "Decrease vertical split 
 vim.keymap.set("n", "<C-w><up>", "5<C-w>+", { desc = "Increase horizontal split height by 5" })
 vim.keymap.set("n", "<C-w><down>", "5<C-w>-", { desc = "Decrease horizontal split height by 5" })
 
-local run_script = function()
-    -- Ensure the buffer is a normal file and has a valid filename
-    if vim.bo.buftype ~= "" then
-        vim.notify("Cannot run script: Current buffer is not a file", vim.log.levels.ERROR)
-        return
-    end
-
-    local filepath = vim.fn.expand("%:p") -- Full path of the current file
-
-    if filepath == "" then
-        vim.notify("Cannot run script: Buffer has no associated file", vim.log.levels.ERROR)
-        return
-    end
-
-    -- Save the current file before running
-    vim.cmd("silent write")
-
+local run_script = function(rust_mode, zig_mode)
+    local current_cwd = vim.fn.getcwd()
+    local filepath = vim.fn.expand("%:p") -- Full path
+    local filedir = vim.fn.expand("%:p:h")
+    local filename = vim.fn.expand("%:t:r")
     local filetype = vim.bo.filetype
-    local filedir = vim.fn.expand("%:p:h")  -- Directory of the current file
-    local filename = vim.fn.expand("%:t:r") -- File name without extension
     local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-    local current_cwd = vim.fn.getcwd()     -- Save original working directory
 
-    -- Helper function to run commands in a floating terminal
+    local is_rust_project = vim.fn.filereadable(current_cwd .. "/Cargo.toml") == 1
+    local is_zig_project = vim.fn.filereadable(current_cwd .. "/build.zig") == 1
+
+    -- Floating terminal helper
     local Terminal = require("toggleterm.terminal").Terminal
     local function run_in_floating_terminal(cmd, wd)
         local term = Terminal:new({
@@ -130,66 +118,74 @@ local run_script = function()
             hidden = true,
             close_on_exit = false,
             float_opts = {
-                border = "rounded", -- You can also use "single", "double", etc.
-                winblend = 10,      -- Transparency level (0-100), 10 is a mild transparency
+                border = "rounded",
+                winblend = 10,
             },
             highlights = {
-                Normal = { guibg = "NONE" },   -- Transparent background for terminal window
-                NormalNC = { guibg = "NONE" }, -- Transparent background for non-current windows
+                Normal = { guibg = "NONE" },
+                NormalNC = { guibg = "NONE" },
             },
         })
         term:toggle()
     end
 
-    -- Handle different filetypes
-    if filetype == "python" then
-        local cmd_string = "python " .. filepath
-        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, filedir)
-    elseif filetype == "lua" then
-        local cmd_string = "lua " .. filepath
-        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, filedir)
-    elseif filetype == "rust" then
-        local cmd_string = "cargo run"
-        local cmd = "echo '>> " .. cmd_string .. " (" .. current_cwd .. ")\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, current_cwd)
-    elseif filetype == "zig" then
-        local cmd_string = "zig build run"
-        local cmd = "echo '>> " .. cmd_string .. " (" .. current_cwd .. ")\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, current_cwd)
-    elseif filetype == "c" or filetype == "cpp" then
-        -- Use gcc/g++ for Linux, cl.exe for Windows
-        if is_windows then
-            local output = filename .. ".exe"
-            local cmd_string = "cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output
-            local cmd = "echo '>> " .. cmd_string .. " \n' && " .. cmd_string
-            run_in_floating_terminal(cmd)
-        else
-            local compiler = filetype == "c" and "gcc" or "g++"
-            local output = filename .. "_out"
-            local cmd_string = compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output
-            local cmd = "echo '>> " .. cmd_string .. " \n' && " .. cmd_string
-            run_in_floating_terminal(cmd)
+    local ran = false -- Track if we ran anything
+
+    -- Attempt to run the file directly if it's a known code file
+    if filepath ~= "" and vim.bo.buftype == "" then
+        -- Save file
+        vim.cmd("silent write")
+
+        local cmd_string, cmd
+        if filetype == "python" then
+            cmd_string = "python " .. filepath
+        elseif filetype == "lua" then
+            cmd_string = "lua " .. filepath
+        elseif filetype == "c" or filetype == "cpp" then
+            if is_windows then
+                local output = filename .. ".exe"
+                cmd_string = "cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output
+            else
+                local compiler = filetype == "c" and "gcc" or "g++"
+                local output = filename .. "_out"
+                cmd_string = compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output
+            end
+        elseif filetype == "javascript" then
+            cmd_string = "node " .. filepath
+        elseif filetype == "typescript" then
+            cmd_string = "ts-node " .. filepath
         end
-    elseif filetype == "javascript" then
-        local cmd_string = "node " .. filepath
-        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, filedir)
-    elseif filetype == "typescript" then
-        local cmd_string = "ts-node " .. filepath
-        local cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
-        run_in_floating_terminal(cmd, filedir)
-    else
-        vim.notify("Unsupported filetype: " .. filetype, vim.log.levels.WARN)
-        return
+
+        if cmd_string then
+            cmd = "echo '>> " .. cmd_string .. "\n' && " .. cmd_string
+            run_in_floating_terminal(cmd, filedir)
+            ran = true
+        end
+    end
+
+    -- Fallback to Rust/Zig project run if filetype not supported or file invalid
+    if not ran then
+        if is_rust_project then
+            local cmd = "echo '>> cargo " .. rust_mode .. " (" .. current_cwd .. ")\\n' && cargo run"
+            run_in_floating_terminal(cmd, current_cwd)
+            ran = true
+        elseif is_zig_project then
+            local cmd = "echo '>> zig " .. zig_mode .. " (" .. current_cwd .. ")\\n' && zig build run"
+            run_in_floating_terminal(cmd, current_cwd)
+            ran = true
+        end
+    end
+
+    -- If we still haven't run anything, show error
+    if not ran then
+        vim.notify("Cannot run script: unsupported filetype and no known project type", vim.log.levels.ERROR)
     end
 end
 
-
 -- Uppercase R runs in :term and switches to insert mode
-vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script() end,
-    { desc = "Save and run current script in terminal" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>r", function() run_script('run', 'build run') end,
+    { desc = "Save and run current script in terminal." })
 
 -- Lowercase r runs using !
-vim.keymap.set({ "n", "v", "x" }, "<leader>R", function() run_script() end, { desc = "Save and run current script" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>R", function() run_script('check', 'build test') end,
+    { desc = "Save and check current script in terminal." })

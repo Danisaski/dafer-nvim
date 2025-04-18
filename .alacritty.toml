@@ -23,12 +23,12 @@ live_config_reload = true
 [window]
 # Set dimensions in columns and lines (not pixels) for a modest default size.
 # dimensions = { columns = 120, lines = 30 }
-position = "None"
+# position = "None"
 # padding = { x = 0, y = 0 }
 # Disable dynamic padding for consistent performance.
 dynamic_padding = true
 # Use no window decorations (or choose "Full" if you prefer a title bar and borders).
-decorations = "None"
+# decorations = "None"
 # Set opacity to a value less than 1.0 for a transparent background.
 opacity = 0.95
 startup_mode = "Windowed"

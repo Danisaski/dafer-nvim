@@ -26,13 +26,13 @@ live_config_reload = true
 # position = "None"
 # padding = { x = 0, y = 0 }
 # Disable dynamic padding for consistent performance.
-dynamic_padding = true
+# dynamic_padding = true
 # Use no window decorations (or choose "Full" if you prefer a title bar and borders).
-# decorations = "None"
+decorations = "None"
 # Set opacity to a value less than 1.0 for a transparent background.
 opacity = 0.95
-startup_mode = "Windowed"
-title = "Alacritty"
+# startup_mode = "Windowed"
+# title = "Alacritty"
 # Disable dynamic title changes for less work on each update.
 # dynamic_title = false
 # Resize window by increments equal to cell dimensions (helps in snap sizing).

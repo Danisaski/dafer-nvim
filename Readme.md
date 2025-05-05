@@ -48,6 +48,7 @@ git clone https://github.com/Danisaski/neodafer.git ~/.config/nvim
 ln -s ~/.config/nvim/starship.toml ~/.config/starship.toml
 ln -s ~/.config/nvim/.tmux.conf ~/.tmux.conf
 ln -s ~/.config/nvim/.alacritty.toml ~/.alacritty.toml
+ln -s ~/.config/nvim/config ~/.config/ghostty/config
 ```
 
 To update configuration later:

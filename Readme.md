@@ -17,7 +17,7 @@ Files related to my neovim configuration. Installed along with [my other dotfile
 ## Matching colorscheme in all statuslines (Gruvbox Material)
 ![Gruvbox Material theme](images/neovim.png)
 
-## Running a Rust project by pressing <leader>r
+## Running a Rust project by pressing `<leader>r`
 ![Convenient mappings to run and compile projects](images/nvim_run.png)
 
 ## Some utils embedded (Lazygit)

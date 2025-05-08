@@ -8,9 +8,9 @@ require("lazy").setup({
     {
         'neovim/nvim-lspconfig',
         dependencies = { 'saghen/blink.cmp',
-            "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "WhoIsSethDaniel/mason-tool-installer" },
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
+        },
         config = function() require("daniel.mason") end,
     },
     {

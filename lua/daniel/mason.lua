@@ -21,12 +21,3 @@ require("mason-lspconfig").setup({
         end
     }
 })
-
--- Setup for other tools
-require("mason-tool-installer").setup({
-    ensure_installed = {
-        "debugpy",      -- Existing tools
-    },
-    auto_update = true, -- Automatically update installed tools
-    run_on_start = true -- Run the installer on startup
-})

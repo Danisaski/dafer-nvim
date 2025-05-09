@@ -24,6 +24,7 @@ local servers = {
     zls = {},
     marksman = {},
     clangd = {},
+    cssls = {},
 }
 
 -- Setup each server with capabilities

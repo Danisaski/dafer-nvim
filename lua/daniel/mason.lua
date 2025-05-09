@@ -12,7 +12,8 @@ require("mason-lspconfig").setup({
         "zls",             -- Zig
         "texlab",
         "ltex",            -- English grammar, LaTeX, and Markdown
-        "marksman"         -- Markdown
+        "marksman",        -- Markdown
+        "cssls"            -- css
     },
     handlers = {
         function(server_name)

@@ -131,10 +131,10 @@ require("lazy").setup({
         dependencies = { "kyazdani42/nvim-web-devicons" },
         config = function() require("daniel.tree") end,
     },
-    {
-        "sphamba/smear-cursor.nvim",
-        opts = {}
-    },
+    -- {
+    --     "sphamba/smear-cursor.nvim",
+    --     opts = {}
+    -- },
     {
         "folke/which-key.nvim",
         config = function() require("which-key").setup({ preset = 'modern' }) end,

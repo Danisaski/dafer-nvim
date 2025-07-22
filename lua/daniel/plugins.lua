@@ -96,11 +96,6 @@ require("lazy").setup({
         end
     },
     {
-        'goolord/alpha-nvim',
-        dependencies = { 'echasnovski/mini.icons' },
-        config = function() require('daniel.alpha') end,
-    },
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         dependencies = {

@@ -40,7 +40,7 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 vim.opt.ttimeoutlen = 10
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "100"
 vim.opt.wrap = false
 vim.keymap.set("n", "<leader>ww", function()
     vim.opt.wrap = not vim.opt.wrap:get()

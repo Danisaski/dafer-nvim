@@ -15,12 +15,12 @@ require("lazy").setup({
     },
     {
         'saghen/blink.cmp',
-        dependencies = 'rafamadriz/friendly-snippets',
         version = '*',
 
         -- Load the configuration from the external file
         opts = require("daniel.blink_cmp"),
     },
+    { 'mfussenegger/nvim-dap' },
     -- **Git integration**
     {
         "kdheepak/lazygit.nvim",
@@ -49,16 +49,6 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function() require("daniel.treesitter") end,
-    },
-    -- **External languages**
-    {
-        "lervag/vimtex",
-        lazy = false,
-        init = function()
-            -- vim.g.vimtex_view_method = "zathura"
-            vim.g.vimtex_compiler_method = 'latexmk'
-            vim.g.maplocalleader = " "
-        end
     },
     -- **UI Enhancements**
     {
@@ -126,10 +116,6 @@ require("lazy").setup({
         dependencies = { "kyazdani42/nvim-web-devicons" },
         config = function() require("daniel.tree") end,
     },
-    -- {
-    --     "sphamba/smear-cursor.nvim",
-    --     opts = {}
-    -- },
     {
         "folke/which-key.nvim",
         config = function() require("which-key").setup({ preset = 'modern' }) end,

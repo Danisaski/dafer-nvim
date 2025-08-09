@@ -24,11 +24,14 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.g.mapleader = " "
 
+
 -- Load the plugins configuration
 require("daniel.plugins")
+require("daniel.settings")
 
 -- Load other configurations
 require('daniel.diagnostics')
 require('daniel.lspconfig')
-require("daniel.settings")
+require('daniel.run')
+require('daniel.debug')
 require("daniel.mappings")

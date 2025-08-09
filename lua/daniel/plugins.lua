@@ -20,7 +20,10 @@ require("lazy").setup({
         -- Load the configuration from the external file
         opts = require("daniel.blink_cmp"),
     },
+    -- Debugger Adapter Protocols
     { 'mfussenegger/nvim-dap' },
+    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+
     -- **Git integration**
     {
         "kdheepak/lazygit.nvim",

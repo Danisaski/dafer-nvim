@@ -7,13 +7,13 @@ require("mason-lspconfig").setup({
         "lua_ls",          -- Lua
         "rust_analyzer",   -- Rust
         "clangd",          -- C/C++
-        -- "gopls",           -- Go
-        "ts_ls",           -- Typescritp/JS
-        "zls",             -- Zig
-        "texlab",
-        "ltex",            -- English grammar, LaTeX, and Markdown
         "marksman",        -- Markdown
-        "cssls"            -- css
+        -- "cssls"            -- css
+        -- "zls",             -- Zig
+        -- "gopls",           -- Go
+        -- "ts_ls",           -- Typescritp/JS
+        -- "texlab",          -- English grammar, LaTeX, and Markdown
+        -- "ltex",            -- English grammar, LaTeX, and Markdown
     },
     handlers = {
         function(server_name)

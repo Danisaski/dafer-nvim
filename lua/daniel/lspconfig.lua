@@ -5,26 +5,26 @@ local lspconfig = require('lspconfig')
 -- Define servers and their configurations
 local servers = {
     lua_ls = {},        -- Lua Language Server
-    pyright = {},       -- Python LSP
+    pyright = {},       -- Python Language Server
     ruff = {},          -- Ruff Linter (LSP mode)
     rust_analyzer = {}, -- Rust Language Server
-    ts_ls = {},         -- Typescript Language Server
-    ltex = {
-        language = "auto",
-        settings = {
-            ltex = {
-                checkFrequency = "save" }
-        },
-        additionalRules = {
-            enablePickyRules = true,
-            motherTongue = "es-ES",
-        },
-    },
-    texlab = {},
-    zls = {},
-    marksman = {},
-    clangd = {},
-    cssls = {},
+    marksman = {},      -- Markdown Language Server
+    clangd = {},        -- C Language Server
+    -- zls = {},           -- Zig Language Server
+    -- cssls = {},         -- CSS Language Server
+    -- ts_ls = {},         -- Typescript Language Server
+    -- ltex = {            -- LaTeX Language Sever
+    --     language = "auto",
+    --     settings = {
+    --         ltex = {
+    --             checkFrequency = "save" }
+    --     },
+    --     additionalRules = {
+    --         enablePickyRules = true,
+    --         motherTongue = "es-ES",
+    --     },
+    -- },
+    -- texlab = {},
 }
 
 -- Setup each server with capabilities

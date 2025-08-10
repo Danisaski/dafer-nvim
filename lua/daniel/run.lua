@@ -2,8 +2,9 @@
 
 local run_script = function(rust_mode, zig_mode)
     local current_cwd = vim.fn.getcwd()
-    local filepath = vim.fn.expand("%:p") -- Full path
+    local filepath = vim.fn.expand("%:p")   -- Full path
     local filedir = vim.fn.expand("%:p:h")
+    local filename = vim.fn.expand("%:t:r") -- Filename without extension
     local filetype = vim.bo.filetype
 
     local is_rust_project = vim.fn.filereadable(current_cwd .. "/Cargo.toml") == 1
@@ -44,10 +45,62 @@ local run_script = function(rust_mode, zig_mode)
         return nil
     end
 
+    -- Compile single C/C++ file with clang/gcc
+    local function compile_single_c_file()
+        local compiler = filetype == "c" and "clang" or "clang++"
+        local output = filename .. "_out"
+        local cmd_string = compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output
+
+        -- Save before compiling
+        vim.cmd("silent write")
+
+        local full_cmd = "echo '>> " .. cmd_string .. "\\n' && " .. cmd_string
+        run_in_floating_terminal(full_cmd, filedir)
+    end
+
+    -- Prompt user for C/C++ compilation choice
+    local function c_compile_choice()
+        vim.ui.select({ "Project (Makefile)", "Single file" }, {
+            prompt = "Compile C/C++ project or single file?",
+            format_item = function(item) return item end,
+        }, function(choice)
+            if choice == "Project (Makefile)" then
+                -- Use existing Makefile logic
+                local target = get_makefile_target()
+                local cmd
+                if target then
+                    cmd = "echo '>> make " .. target .. " (" .. current_cwd .. ")\\n' && make " .. target
+                else
+                    cmd = "echo '>> make (" .. current_cwd .. ")\\n' && make"
+                end
+                run_in_floating_terminal(cmd, current_cwd)
+            elseif choice == "Single file" then
+                compile_single_c_file()
+            else
+                vim.notify("Cancelled compilation.", vim.log.levels.INFO)
+            end
+        end)
+    end
+
     local ran = false -- Track if we ran anything
 
+    -- Handle C/C++ files with prompt if Makefile exists
+    if (filetype == "c" or filetype == "cpp") and filepath ~= "" and vim.bo.buftype == "" then
+        vim.cmd("silent write") -- Save file
+
+        if is_c_project then
+            -- Prompt user choice async
+            c_compile_choice()
+            ran = true
+        else
+            -- No Makefile, just compile single file
+            compile_single_c_file()
+            ran = true
+        end
+    end
+
     -- Attempt to run the file directly if it's a known code file (excluding C/C++)
-    if filepath ~= "" and vim.bo.buftype == "" then
+    if not ran and filepath ~= "" and vim.bo.buftype == "" then
         vim.cmd("silent write") -- Save file
 
         local cmd_string, cmd
@@ -68,7 +121,7 @@ local run_script = function(rust_mode, zig_mode)
         end
     end
 
-    -- Fallback to project-level runners
+    -- Fallback to project-level runners for Rust, Zig, Makefile (if no previous run)
     if not ran then
         if is_rust_project then
             local cmd = "echo '>> cargo " .. rust_mode .. " (" .. current_cwd .. ")\\n' && cargo run"

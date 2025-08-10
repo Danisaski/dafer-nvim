@@ -1,13 +1,14 @@
+---@diagnostic disable: undefined-global
+
 local run_script = function(rust_mode, zig_mode)
     local current_cwd = vim.fn.getcwd()
     local filepath = vim.fn.expand("%:p") -- Full path
     local filedir = vim.fn.expand("%:p:h")
-    local filename = vim.fn.expand("%:t:r")
     local filetype = vim.bo.filetype
-    local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
 
     local is_rust_project = vim.fn.filereadable(current_cwd .. "/Cargo.toml") == 1
     local is_zig_project = vim.fn.filereadable(current_cwd .. "/build.zig") == 1
+    local is_c_project = vim.fn.filereadable(current_cwd .. "/Makefile") == 1
 
     -- Floating terminal helper
     local Terminal = require("toggleterm.terminal").Terminal
@@ -30,27 +31,30 @@ local run_script = function(rust_mode, zig_mode)
         term:toggle()
     end
 
+    -- Get first target from Makefile (excluding .PHONY)
+    local function get_makefile_target()
+        local makefile_path = current_cwd .. "/Makefile"
+        local lines = vim.fn.readfile(makefile_path)
+        for _, line in ipairs(lines) do
+            local target = line:match("^([%w%._-]+):")
+            if target and target ~= ".PHONY" then
+                return target
+            end
+        end
+        return nil
+    end
+
     local ran = false -- Track if we ran anything
 
-    -- Attempt to run the file directly if it's a known code file
+    -- Attempt to run the file directly if it's a known code file (excluding C/C++)
     if filepath ~= "" and vim.bo.buftype == "" then
-        -- Save file
-        vim.cmd("silent write")
+        vim.cmd("silent write") -- Save file
 
         local cmd_string, cmd
         if filetype == "python" then
             cmd_string = "python " .. filepath
         elseif filetype == "lua" then
             cmd_string = "lua " .. filepath
-        elseif filetype == "c" or filetype == "cpp" then
-            if is_windows then
-                local output = filename .. ".exe"
-                cmd_string = "cl.exe " .. filepath .. " /Fe:" .. output .. " & .\\" .. output
-            else
-                local compiler = filetype == "c" and "gcc" or "g++"
-                local output = filename .. "_out"
-                cmd_string = compiler .. " " .. filepath .. " -o " .. output .. " && ./" .. output
-            end
         elseif filetype == "javascript" then
             cmd_string = "node " .. filepath
         elseif filetype == "typescript" then
@@ -64,7 +68,7 @@ local run_script = function(rust_mode, zig_mode)
         end
     end
 
-    -- Fallback to Rust/Zig project run if filetype not supported or file invalid
+    -- Fallback to project-level runners
     if not ran then
         if is_rust_project then
             local cmd = "echo '>> cargo " .. rust_mode .. " (" .. current_cwd .. ")\\n' && cargo run"
@@ -74,10 +78,19 @@ local run_script = function(rust_mode, zig_mode)
             local cmd = "echo '>> zig " .. zig_mode .. " (" .. current_cwd .. ")\\n' && zig build run"
             run_in_floating_terminal(cmd, current_cwd)
             ran = true
+        elseif is_c_project then
+            local target = get_makefile_target()
+            local cmd
+            if target then
+                cmd = "echo '>> make " .. target .. " (" .. current_cwd .. ")\\n' && make " .. target
+            else
+                cmd = "echo '>> make (" .. current_cwd .. ")\\n' && make"
+            end
+            run_in_floating_terminal(cmd, current_cwd)
+            ran = true
         end
     end
 
-    -- If we still haven't run anything, show error
     if not ran then
         vim.notify("Cannot run script: unsupported filetype and no known project type", vim.log.levels.ERROR)
     end

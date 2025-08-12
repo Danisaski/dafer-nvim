@@ -4,12 +4,12 @@ local lspconfig = require('lspconfig')
 
 -- Define servers and their configurations
 local servers = {
-    lua_ls = {},        -- Lua Language Server
-    pyright = {},       -- Python Language Server
-    ruff = {},          -- Ruff Linter (LSP mode)
-    rust_analyzer = {}, -- Rust Language Server
-    marksman = {},      -- Markdown Language Server
-    clangd = {},        -- C Language Server
+    lua_ls = {},   -- Lua Language Server
+    pyright = {},  -- Python Language Server
+    ruff = {},     -- Ruff Linter (LSP mode)
+    -- rust_analyzer = {}, -- Rust Language Server
+    marksman = {}, -- Markdown Language Server
+    clangd = {},   -- C Language Server
     -- zls = {},           -- Zig Language Server
     -- cssls = {},         -- CSS Language Server
     -- ts_ls = {},         -- Typescript Language Server

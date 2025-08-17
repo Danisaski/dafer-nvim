@@ -5,44 +5,44 @@ require("lazy").setup({
     -- **Plugin Manager**
     { "folke/lazy.nvim" },
     -- **LSP and Tooling Management**
-    {
-        'neovim/nvim-lspconfig',
-        dependencies = { 'saghen/blink.cmp',
-            "mason-org/mason.nvim",
-            "mason-org/mason-lspconfig.nvim",
-        },
-        config = function() require("daniel.mason") end,
-    },
-    {
-        'saghen/blink.cmp',
-        version = '*',
-
-        -- Load the configuration from the external file
-        opts = require("daniel.blink_cmp"),
-    },
-    -- Debugger Adapter Protocols
-    { 'mfussenegger/nvim-dap' },
-    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+--    {
+--        'neovim/nvim-lspconfig',
+--        dependencies = { 'saghen/blink.cmp',
+--            "mason-org/mason.nvim",
+--            "mason-org/mason-lspconfig.nvim",
+--        },
+--        config = function() require("daniel.mason") end,
+--    },
+--    {
+--        'saghen/blink.cmp',
+--        version = '*',
+--
+--        -- Load the configuration from the external file
+--        opts = require("daniel.blink_cmp"),
+--    },
+--    -- Debugger Adapter Protocols
+--    { 'mfussenegger/nvim-dap' },
+--    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 
     -- **Git integration**
-    {
-        "kdheepak/lazygit.nvim",
-        lazy = true,
-        cmd = {
-            "LazyGit",
-            "LazyGitConfig",
-            "LazyGitCurrentFile",
-            "LazyGitFilter",
-            "LazyGitFilterCurrentFile",
-        },
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        keys = {
-            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
-        }
-    },
+--    {
+--        "kdheepak/lazygit.nvim",
+--        lazy = true,
+--        cmd = {
+--            "LazyGit",
+--            "LazyGitConfig",
+--            "LazyGitCurrentFile",
+--            "LazyGitFilter",
+--            "LazyGitFilterCurrentFile",
+--        },
+--        -- optional for floating window border decoration
+--        dependencies = {
+--            "nvim-lua/plenary.nvim",
+--        },
+--        keys = {
+--            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
+--        }
+--    },
     {
         "lewis6991/gitsigns.nvim",
         config = function() require("gitsigns").setup() end,
@@ -72,10 +72,10 @@ require("lazy").setup({
             })
         end
     },
-    {
-        "akinsho/toggleterm.nvim",
-        config = function() require("toggleterm").setup() end,
-    },
+--    {
+--        "akinsho/toggleterm.nvim",
+--        config = function() require("toggleterm").setup() end,
+--    },
     {
         'petertriho/nvim-scrollbar',
         config = function()

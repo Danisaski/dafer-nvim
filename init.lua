@@ -30,8 +30,8 @@ require("daniel.plugins")
 require("daniel.settings")
 
 -- Load other configurations
-require('daniel.diagnostics')
-require('daniel.lspconfig')
-require('daniel.run')
-require('daniel.debug')
+-- require('daniel.diagnostics')
+-- require('daniel.lspconfig')
+-- require('daniel.run')
+-- require('daniel.debug')
 require("daniel.mappings")

@@ -14,7 +14,6 @@ or with SSH access
 ```bash
 git clone git@github.com:Danisaski/neodafer.git ~/.config/nvim
 ```
-Or the slim version:
 ```bash
 git clone -b slim git@github.com:Danisaski/neodafer.git ~/.config/nvim
 ```

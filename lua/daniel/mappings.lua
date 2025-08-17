@@ -38,10 +38,7 @@ vim.keymap.set({ "n", "v", "x" }, "<leader>bd", ":bd<CR>",
 
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
-    if require("multicursor-nvim").hasCursors() then
-        require("multicursor-nvim").clearCursors()
-    end
-
+     
     -- Simulate pressing <Esc>
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 

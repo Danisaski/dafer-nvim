@@ -47,12 +47,12 @@ require("lazy").setup({
         "lewis6991/gitsigns.nvim",
         config = function() require("gitsigns").setup() end,
     },
-    -- **Treesitter**
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function() require("daniel.treesitter") end,
-    },
+--    -- **Treesitter**
+--    {
+--        "nvim-treesitter/nvim-treesitter",
+--        build = ":TSUpdate",
+--        config = function() require("daniel.treesitter") end,
+--    },
     -- **UI Enhancements**
     {
         "windwp/nvim-autopairs",
@@ -88,26 +88,26 @@ require("lazy").setup({
             })
         end
     },
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            {
-                "rcarriga/nvim-notify",
-                opts = {
-                    top_down = false,
-                },
-            },
-            "stevearc/dressing.nvim",
-        },
-        config = function() require("daniel.noice") end,
-    },
-    {
-        "jake-stewart/multicursor.nvim",
-        branch = '1.0',
-        config = function() require("daniel.multicursor").setup() end,
-    },
+--    {
+--        "folke/noice.nvim",
+--        event = "VeryLazy",
+--        dependencies = {
+--            "MunifTanjim/nui.nvim",
+--            {
+--                "rcarriga/nvim-notify",
+--                opts = {
+--                    top_down = false,
+--                },
+--            },
+--            "stevearc/dressing.nvim",
+--        },
+--       config = function() require("daniel.noice") end,
+--    },
+--    {
+--        "jake-stewart/multicursor.nvim",
+--        branch = '1.0',
+--        config = function() require("daniel.multicursor").setup() end,
+--    },
     {
         "ibhagwan/fzf-lua",
         -- optional for icon support
@@ -141,7 +141,7 @@ require("lazy").setup({
         opts = {}
     },
     -- **Themes**
-    {
+    { 
         -- "catppuccin/nvim",
         -- "rebelot/kanagawa.nvim",
         "sainnhe/gruvbox-material",

@@ -47,6 +47,7 @@ vim.keymap.set("n", "<leader>ww", function()
 end, { desc = "Toggle line wrapping" })
 
 
+-- Folding configuration
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 vim.o.foldmethod = "expr"
@@ -64,13 +65,15 @@ function _G.custom_foldtext()
     return first_line .. " (" .. fold_count .. " lines hidden)"
 end
 
--- Prefer LSP folding if client supports it
+-- Prefer LSP folding if client supports it, otherwise fall back to treesitter
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client:supports_method('textDocument/foldingRange') then
-            local win = vim.api.nvim_get_current_win()
-            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        if client and client:supports_method('textDocument/foldingRange') then
+            vim.schedule(function()
+                vim.wo.foldmethod = 'expr'
+                vim.wo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+            end)
         end
     end
 })
@@ -94,13 +97,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- Auto-save when leaving insert mode, only if it's a valid file type
+-- Auto-save when leaving insert mode for specific filetypes
 vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
         -- Ensure buffer is modified, is a normal file, and has a filetype
         if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%:p") ~= "" and vim.bo.modifiable and not vim.bo.readonly then
             local ft = vim.bo.filetype
-            local allowed_filetypes = { "python", "rust", "markdown", "go", "c", "cpp", "vim", "lua" } -- Customize as needed
+            local allowed_filetypes = { "python", "rust", "markdown", "go", "c", "cpp", "vim", "lua", "javascript",
+                "typescript", "json" }
 
             if vim.tbl_contains(allowed_filetypes, ft) then
                 vim.cmd("silent write") -- Auto-save
@@ -109,32 +113,22 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end,
 })
 
--- Auto-save on InsertLeave if the filetype can be saved
-vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = "*", -- You can adjust this to specific filetypes, e.g., {"python", "lua"}
-    callback = function()
-        local ft = vim.bo.filetype
-        -- Add your list of valid filetypes here (adjust as needed)
-        local valid_filetypes = { "python", "lua", "go", "cpp", "rust", "json", "c" }
-        if vim.fn.index(valid_filetypes, ft) ~= -1 and vim.fn.bufname() ~= "" then
-            vim.cmd("silent write")
-        end
-    end,
-})
-
--- Autoformat on manual save if LSP is attached and can format
+-- Auto-format on save using LSP if available (optimized)
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*", -- You can adjust this to specific filetypes if needed
-    callback = function()
-        -- Check if an LSP server is attached and can format
-        local clients = vim.lsp.get_clients()
-        if next(clients) then
-            for _, client in pairs(clients) do
-                if client.server_capabilities.documentFormattingProvider then
-                    -- Trigger LSP formatting before saving
-                    vim.lsp.buf.format({ async = false })
-                    break
-                end
+    group = vim.api.nvim_create_augroup('AutoFormat', { clear = true }),
+    callback = function(args)
+        -- Only format if we have LSP clients attached to this buffer
+        local clients = vim.lsp.get_clients({ bufnr = args.buf })
+        for _, client in pairs(clients) do
+            if client.server_capabilities.documentFormattingProvider then
+                vim.lsp.buf.format({
+                    async = false,
+                    bufnr = args.buf,
+                    filter = function(c)
+                        return c.server_capabilities.documentFormattingProvider
+                    end
+                })
+                break -- Only format once
             end
         end
     end,

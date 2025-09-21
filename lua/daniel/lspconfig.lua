@@ -1,36 +1,76 @@
 -- ~/.config/nvim/lua/daniel/lspconfig.lua
 local capabilities = require('blink.cmp').get_lsp_capabilities()
-local lspconfig = require('lspconfig')
 
--- Define servers and their configurations
-local servers = {
-    lua_ls = {},   -- Lua Language Server
-    pyright = {},  -- Python Language Server
-    ruff = {},     -- Ruff Linter (LSP mode)
-    -- rust_analyzer = {}, -- Rust Language Server
-    marksman = {}, -- Markdown Language Server
-    clangd = {},   -- C Language Server
-    -- zls = {},           -- Zig Language Server
-    -- cssls = {},         -- CSS Language Server
-    -- ts_ls = {},         -- Typescript Language Server
-    -- ltex = {            -- LaTeX Language Sever
-    --     language = "auto",
+-- Check if we have the new LSP API (Neovim 0.11+)
+if vim.lsp.config and vim.lsp.enable then
+    -- Use the new vim.lsp.config API
+    -- Configure common capabilities for all servers
+    vim.lsp.config('*', {
+        capabilities = capabilities,
+    })
+
+    -- Define and configure individual servers using the new vim.lsp.config API
+    vim.lsp.config('lua_ls', {
+        cmd = { 'lua-language-server' },
+        filetypes = { 'lua' },
+        root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
+    })
+
+    vim.lsp.config('pyright', {
+        cmd = { 'pyright-langserver', '--stdio' },
+        filetypes = { 'python' },
+        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', '.git' },
+    })
+
+    vim.lsp.config('ruff', {
+        cmd = { 'ruff', 'server', '--preview' },
+        filetypes = { 'python' },
+        root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+    })
+
+    vim.lsp.config('marksman', {
+        cmd = { 'marksman', 'server' },
+        filetypes = { 'markdown', 'markdown.mdx' },
+        root_markers = { '.marksman.toml', '.git' },
+    })
+
+    vim.lsp.config('clangd', {
+        cmd = { 'clangd' },
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+        root_markers = { '.clangd', '.clang-tidy', '.clang-format', 'compile_commands.json', 'compile_flags.txt', 'configure.ac', '.git' },
+    })
+
+    vim.lsp.config('cssls', {
+        cmd = { 'vscode-css-language-server', '--stdio' },
+        filetypes = { 'css', 'scss', 'less' },
+        root_markers = { 'package.json', '.git' },
+    })
+
+    -- vim.lsp.config('ltex', {
+    --     cmd = { 'ltex-ls' },
+    --     filetypes = { 'latex', 'tex', 'bib', 'markdown', 'gitcommit', 'text' },
+    --     root_markers = { '.git' },
     --     settings = {
     --         ltex = {
-    --             checkFrequency = "save" }
+    --             language = "auto",
+    --             checkFrequency = "save",
+    --             additionalRules = {
+    --                 enablePickyRules = true,
+    --                 motherTongue = "es-ES",
+    --             },
+    --         }
     --     },
-    --     additionalRules = {
-    --         enablePickyRules = true,
-    --         motherTongue = "es-ES",
-    --     },
-    -- },
-    -- texlab = {},
-}
+    -- })
 
--- Setup each server with capabilities
-for server, config in pairs(servers) do
-    config.capabilities = vim.tbl_deep_extend("force", config.capabilities or {}, capabilities)
-    lspconfig[server].setup(config)
+    vim.lsp.config('texlab', {
+        cmd = { 'texlab' },
+        filetypes = { 'tex', 'plaintex', 'bib' },
+        root_markers = { '.latexmkrc', '.texlabroot', 'texlabroot', 'Tectonic.toml', '.git' },
+    })
+
+    -- Enable all configured servers
+    local servers = { 'lua_ls', 'pyright', 'ruff', 'marksman', 'clangd', 'cssls', 'ltex', 'texlab' }
+    vim.lsp.enable(servers)
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -95,5 +135,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-
-return servers

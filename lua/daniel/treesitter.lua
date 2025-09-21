@@ -22,7 +22,7 @@ require('nvim-treesitter.configs').setup {
         "regex",
         "gitignore",
         "toml",
-        -- "latex"
+        "latex"
     },
 
 

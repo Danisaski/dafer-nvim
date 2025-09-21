@@ -23,11 +23,9 @@ require("lazy").setup({
     -- Debugger Adapter Protocols
     { 'mfussenegger/nvim-dap' },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
-
     -- **Git integration**
     {
         "kdheepak/lazygit.nvim",
-        lazy = true,
         cmd = {
             "LazyGit",
             "LazyGitConfig",
@@ -35,16 +33,19 @@ require("lazy").setup({
             "LazyGitFilter",
             "LazyGitFilterCurrentFile",
         },
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
+        dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
             { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
         }
     },
+    -- LaTeX support
+    {
+        "lervag/vimtex",
+        ft = { "tex", "plaintex" }, -- Only load for tex files
+    },
     {
         "lewis6991/gitsigns.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         config = function() require("gitsigns").setup() end,
     },
     -- **Treesitter**
@@ -56,6 +57,7 @@ require("lazy").setup({
     -- **UI Enhancements**
     {
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
         config = true,
         opts = {
             map_bs = false,
@@ -63,6 +65,7 @@ require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("ibl").setup({
                 indent = {
@@ -74,6 +77,10 @@ require("lazy").setup({
     },
     {
         "akinsho/toggleterm.nvim",
+        cmd = { "ToggleTerm", "TermExec" },
+        keys = { 
+            { "<C-\\>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
+        },
         config = function() require("toggleterm").setup() end,
     },
     {

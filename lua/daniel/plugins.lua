@@ -25,6 +25,11 @@ require("lazy").setup({
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
     -- **Git integration**
     {
+        "lewis6991/gitsigns.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function() require("gitsigns").setup() end,
+    },
+    {
         "kdheepak/lazygit.nvim",
         cmd = {
             "LazyGit",
@@ -38,15 +43,10 @@ require("lazy").setup({
             { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
         }
     },
-    -- LaTeX support
+    -- **LaTeX support**
     {
         "lervag/vimtex",
         ft = { "tex", "plaintex" }, -- Only load for tex files
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function() require("gitsigns").setup() end,
     },
     -- **Treesitter**
     {
@@ -78,7 +78,7 @@ require("lazy").setup({
     {
         "akinsho/toggleterm.nvim",
         cmd = { "ToggleTerm", "TermExec" },
-        keys = { 
+        keys = {
             { "<C-\\>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
         },
         config = function() require("toggleterm").setup() end,

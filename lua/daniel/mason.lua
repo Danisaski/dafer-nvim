@@ -1,4 +1,5 @@
 -- ~/.config/nvim/lua/daniel/mason.lua
+
 require("mason").setup()
 
 -- Define the servers that should be auto-installed by Mason

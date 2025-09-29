@@ -1,4 +1,5 @@
----@diagnostic disable: missing-fields, undefined-global
+-- ~/.config/nvim/lua/daniel/treesitter.lua
+
 require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = {

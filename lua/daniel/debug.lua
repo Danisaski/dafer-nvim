@@ -1,4 +1,5 @@
----@diagnostic disable: missing-fields
+-- ~/.config/nvim/lua/daniel/debug.lua
+
 local dap = require("dap")
 local dapui = require("dapui")
 

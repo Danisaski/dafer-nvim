@@ -1,10 +1,8 @@
----@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/settings.lua
 
 vim.g.have_nerd_font = true
 
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = 'number'
 
 vim.opt.nu = true
 vim.opt.relativenumber = false
@@ -44,6 +42,11 @@ vim.opt.colorcolumn = "100"
 vim.opt.wrap = false
 vim.keymap.set("n", "<leader>ww", function()
     vim.opt.wrap = not vim.opt.wrap:get()
+    if vim.opt.wrap:get() then
+        print("Line wrapping toggled on.")
+    else
+        print("Line wrapping toggled off.")
+    end
 end, { desc = "Toggle line wrapping" })
 
 

@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields, undefined-global
 -- ~/.config/nvim/lua/daniel/plugins.lua
 
 require("lazy").setup({
@@ -6,9 +5,8 @@ require("lazy").setup({
     { "folke/lazy.nvim" },
     -- **LSP and Tooling Management**
     {
-        'neovim/nvim-lspconfig',
-        dependencies = { 'saghen/blink.cmp',
-            "mason-org/mason.nvim",
+        "mason-org/mason.nvim",
+        dependencies = {
             "mason-org/mason-lspconfig.nvim",
         },
         config = function() require("daniel.mason") end,

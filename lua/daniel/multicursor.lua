@@ -1,4 +1,5 @@
--- multicursor.lua
+-- ~/.config/nvim/lua/daniel/multicursor.lua
+
 local M = {}
 
 M.setup = function()

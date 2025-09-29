@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-global
 -- ~/.config/nvim/lua/daniel/mappings.lua
 
 -- Map ';' to ':' and other command line tools
@@ -16,10 +15,6 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true, noremap = true, de
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- Insert white line without leaving normal mode
-vim.keymap.set({ "n", "v", "x" }, "<leader>o", "o<Esc>k", { desc = "Insert white line below" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>O", "O<Esc>j", { desc = "Insert white line above" })
-
 -- Remap 'jk' to 'Esc' in insert mode
 vim.keymap.set("i", "jk", "<Esc>", { silent = true })
 
@@ -31,10 +26,6 @@ vim.keymap.set("n", "<M-j>", ":bprevious<CR>",
     { silent = true, noremap = true, desc = "Previous buffer" })
 vim.keymap.set("n", "<M-k>", ":bnext<CR>",
     { silent = true, noremap = true, desc = "Next buffer" })
-
--- Close buffer
-vim.keymap.set({ "n", "v", "x" }, "<leader>bd", ":bd<CR>",
-    { silent = true, noremap = true, desc = "Close current buffer" })
 
 -- Esc + clear highlight
 vim.keymap.set({ "n", "v", "x" }, '<Esc>', function()
@@ -75,6 +66,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Copy Content
 vim.keymap.set({ "n", "v", "x" }, "<C-c>", '"+y', { desc = "Copy Content" })
+vim.keymap.set({ "n", "v", "x" }, "y", '"+y', { desc = "Copy Content" })
 
 -- Paste in visual mode without copying the replaced text
 vim.keymap.set("x", "p", '"_dp', { desc = "Paste without overwriting register in visual mode" })

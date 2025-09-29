@@ -1,3 +1,5 @@
+-- ~/.config/nvim/lua/daniel/diagnostics.lua
+
 local function is_any_floating_window_open()
     for _, winid in ipairs(vim.api.nvim_list_wins()) do
         if vim.api.nvim_win_get_config(winid).relative ~= "" then

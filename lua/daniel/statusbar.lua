@@ -1,3 +1,5 @@
+-- ~/.config/nvim/lua/daniel/statusbar.lua
+
 require("lualine").setup({
     options = {
         theme = "auto", -- Choose a theme that fits your style

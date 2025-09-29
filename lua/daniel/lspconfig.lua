@@ -1,4 +1,5 @@
 -- ~/.config/nvim/lua/daniel/lspconfig.lua
+
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 -- Check if we have the new LSP API (Neovim 0.11+)

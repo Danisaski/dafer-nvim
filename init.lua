@@ -1,4 +1,5 @@
----@diagnostic disable: undefined-global
+-- ~/.config/nvim/init.lua
+
 -- Determine the proper path based on OS
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if vim.fn.has('win32') == 1 then

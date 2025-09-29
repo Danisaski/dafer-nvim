@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+-- ~/.config/nvim/lua/daniel/run.lua
 
 local run_script = function(rust_mode, zig_mode)
     local current_cwd = vim.fn.getcwd()
@@ -153,12 +153,12 @@ local run_script = function(rust_mode, zig_mode)
 
         if #bins > 1 then
             vim.ui.select(bins, {
-                prompt = "Select Rust binary to run:",
+                prompt = "Select Rust binary to " .. rust_mode .. ":",
                 format_item = function(item) return item end,
             }, function(choice)
                 if choice then
                     local cmd = string.format(
-                        "echo '>> cargo run --bin %s (%s)\\n' && cargo run --bin %s",
+                        "echo '>> cargo " .. rust_mode .. " --bin %s (%s)\\n' && cargo " .. rust_mode .. " --bin %s",
                         choice, current_cwd, choice
                     )
                     run_in_floating_terminal(cmd, current_cwd)
@@ -167,8 +167,8 @@ local run_script = function(rust_mode, zig_mode)
                 end
             end)
         else
-            -- No bins detected, fallback to just `cargo run`
-            local cmd = "echo '>> cargo run (" .. current_cwd .. ")\\n' && cargo run"
+            -- No bins detected, fallback to just `cargo check` or `cargo run`
+            local cmd = "echo '>> cargo " .. rust_mode .. " (" .. current_cwd .. ")\\n' && cargo " .. rust_mode
             run_in_floating_terminal(cmd, current_cwd)
         end
     end
@@ -216,7 +216,7 @@ local run_script = function(rust_mode, zig_mode)
             run_rust_project()
             ran = true
         elseif is_zig_project then
-            local cmd = "echo '>> zig " .. zig_mode .. " (" .. current_cwd .. ")\\n' && zig build run"
+            local cmd = "echo '>> zig " .. zig_mode .. " (" .. current_cwd .. ")\\n' && zig " .. zig_mode
             run_in_floating_terminal(cmd, current_cwd)
             ran = true
         elseif is_c_project then

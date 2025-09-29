@@ -1,4 +1,4 @@
--- lua/daniel/theme.lua
+-- ~/.config/nvim/lua/daniel/theme.lua
 
 local M = {}
 
@@ -21,10 +21,10 @@ function M.setup()
     vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
 
     -- Ensure the popup menu matches floating windows
-    vim.api.nvim_set_hl(0, 'Pmenu', { link = 'Normal' })        -- Popup menu background
-    vim.api.nvim_set_hl(0, 'PmenuSel', { link = 'Visual' })     -- Selected item in the menu
-    vim.api.nvim_set_hl(0, 'PmenuSbar', { link = 'Normal' })    -- Popup menu scrollbar background
-    vim.api.nvim_set_hl(0, 'PmenuThumb', { link = 'Normal' })   -- Popup menu scrollbar thumb
+    vim.api.nvim_set_hl(0, 'Pmenu', { link = 'Normal' })      -- Popup menu background
+    vim.api.nvim_set_hl(0, 'PmenuSel', { link = 'Visual' })   -- Selected item in the menu
+    vim.api.nvim_set_hl(0, 'PmenuSbar', { link = 'Normal' })  -- Popup menu scrollbar background
+    vim.api.nvim_set_hl(0, 'PmenuThumb', { link = 'Normal' }) -- Popup menu scrollbar thumb
 end
 
 return M

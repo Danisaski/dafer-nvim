@@ -1,3 +1,5 @@
+-- ~/.config/nvim/lua/daniel/blink_cmp.lua
+
 return {
     keymap = { preset = 'super-tab' },
     appearance = {

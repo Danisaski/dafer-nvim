@@ -72,14 +72,25 @@ vim.keymap.set('n', '<leader><leader>', fzf.buffers, { desc = '[ ] Find existing
 vim.keymap.set('n', '<leader>sn', fzf_files_in_dir(vim.fn.stdpath('config')), { desc = '[S]earch [N]eovim files' })
 
 -- Fuzzy find in the current buffer
-vim.keymap.set('n', '<C-f>', function()
+vim.keymap.set({ 'n', 'x', 'v' }, '/', function()
     fzf.blines({
         winopts = {
             height = 0.5,
             width = 0.80,
-            preview = {
-                hidden = 'hidden',
-            },
+            preview = { hidden = 'hidden' },
+        },
+        actions = {
+            ["default"] = function(selected, opts)
+                -- First, run the builtin default action (jump to line)
+                fzf.actions.file_edit(selected, opts) -- works for blines too
+
+                -- Then, set the search register based on the fzf query
+                if opts and opts.query and #opts.query > 0 then
+                    -- Use the fuzzy query, so `n/N` cycles through matches
+                    vim.fn.setreg("/", vim.fn.escape(opts.query, "\\/"))
+                    vim.cmd("normal! n")
+                end
+            end,
         },
     })
 end, { desc = '[/] Fuzzily search in current buffer' })

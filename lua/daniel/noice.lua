@@ -1,4 +1,5 @@
----@diagnostic disable: missing-fields
+-- ~/.config/nvim/lua/daniel/noice.lua
+
 require("noice").setup({
     lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

@@ -4,18 +4,18 @@ Files related to my neovim configuration. Installed along with [my other dotfile
 
 ### For standalone installation
 ```bash
-git clone https://github.com/Danisaski/neodafer.git ~/.config/nvim
+git clone https://github.com/Danisaski/dafer-nvim.git ~/.config/nvim
 ```
 Or the slim version:
 ```bash
-git clone -b slim https://github.com/Danisaski/neodafer.git ~/.config/nvim
+git clone -b slim https://github.com/Danisaski/dafer-nvim.git ~/.config/nvim
 ```
 or with SSH access
 ```bash
-git clone git@github.com:Danisaski/neodafer.git ~/.config/nvim
+git clone git@github.com:Danisaski/dafer-nvim.git ~/.config/nvim
 ```
 ```bash
-git clone -b slim git@github.com:Danisaski/neodafer.git ~/.config/nvim
+git clone -b slim git@github.com:Danisaski/dafer-nvim.git ~/.config/nvim
 ```
 
 ## Custom landing page using 'alpha-nvim'

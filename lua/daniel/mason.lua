@@ -11,6 +11,7 @@ local servers = {
     "clangd",   -- C Language Server
     "cssls",    -- CSS Language Server
     "texlab",   -- Another LaTeX Language Server
+    "rust_analyzer"
 }
 
 require("mason-lspconfig").setup({

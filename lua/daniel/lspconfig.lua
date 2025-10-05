@@ -29,10 +29,24 @@ if vim.lsp.config and vim.lsp.enable then
         root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
     })
 
-    vim.lsp.config('marksman', {
-        cmd = { 'marksman', 'server' },
-        filetypes = { 'markdown', 'markdown.mdx' },
-        root_markers = { '.marksman.toml', '.git' },
+    vim.lsp.config('rust_analyzer', {
+        cmd = { 'rust-analyzer' }, -- ensure rust-analyzer is installed and in PATH
+        filetypes = { 'rust' },
+        root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
+        single_file_support = true,
+
+        settings = {
+            ['rust-analyzer'] = {
+                cargo = { allFeatures = true },
+                procMacro = { enable = true },
+                checkOnSave = { command = 'clippy' },
+            },
+        },
+        vim.lsp.config('marksman', {
+            cmd = { 'marksman', 'server' },
+            filetypes = { 'markdown', 'markdown.mdx' },
+            root_markers = { '.marksman.toml', '.git' },
+        })
     })
 
     vim.lsp.config('clangd', {
@@ -47,22 +61,6 @@ if vim.lsp.config and vim.lsp.enable then
         root_markers = { 'package.json', '.git' },
     })
 
-    -- vim.lsp.config('ltex', {
-    --     cmd = { 'ltex-ls' },
-    --     filetypes = { 'latex', 'tex', 'bib', 'markdown', 'gitcommit', 'text' },
-    --     root_markers = { '.git' },
-    --     settings = {
-    --         ltex = {
-    --             language = "auto",
-    --             checkFrequency = "save",
-    --             additionalRules = {
-    --                 enablePickyRules = true,
-    --                 motherTongue = "es-ES",
-    --             },
-    --         }
-    --     },
-    -- })
-
     vim.lsp.config('texlab', {
         cmd = { 'texlab' },
         filetypes = { 'tex', 'plaintex', 'bib' },
@@ -70,7 +68,7 @@ if vim.lsp.config and vim.lsp.enable then
     })
 
     -- Enable all configured servers
-    local servers = { 'lua_ls', 'pyright', 'ruff', 'marksman', 'clangd', 'cssls', 'ltex', 'texlab' }
+    local servers = { 'lua_ls', 'pyright', 'ruff', 'marksman', 'clangd', 'cssls', 'ltex', 'texlab', 'rust_analyzer' }
     vim.lsp.enable(servers)
 end
 

@@ -12,7 +12,7 @@ end
 local function show_line_diagnostics()
     if not is_any_floating_window_open() then
         vim.diagnostic.open_float(nil, {
-            -- focusable = false,
+            focusable = true,
             scope = "line",
             border = "rounded",
         })

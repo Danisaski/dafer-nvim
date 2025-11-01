@@ -17,10 +17,10 @@ if vim.lsp.config and vim.lsp.enable then
         root_markers = { { '.luarc.json', '.luarc.jsonc' }, '.git' },
     })
 
-    vim.lsp.config('pyright', {
-        cmd = { 'pyright-langserver', '--stdio' },
+    vim.lsp.config('ty', {
+        cmd = { "ty", "server" },
         filetypes = { 'python' },
-        root_markers = { 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', '.git' },
+        root_markers = { 'pyproject.toml', 'requirements.txt', 'setup.py', '.git' },
     })
 
     vim.lsp.config('ruff', {
@@ -67,8 +67,28 @@ if vim.lsp.config and vim.lsp.enable then
         root_markers = { '.latexmkrc', '.texlabroot', 'texlabroot', 'Tectonic.toml', '.git' },
     })
 
+    vim.lsp.config('rust_analyzer', {
+        cmd = { 'rust-analyzer' },
+        filetypes = { 'rust' },
+        root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
+        settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    allFeatures = true,
+                },
+                check = {
+                    command = "clippy",
+                },
+                diagnostics = {
+                    enable = true,
+                },
+            },
+        },
+    })
+
     -- Enable all configured servers
-    local servers = { 'lua_ls', 'pyright', 'ruff', 'marksman', 'clangd', 'cssls', 'ltex', 'texlab', 'rust_analyzer' }
+    local servers = { 'lua_ls', 'ty', 'ruff', 'marksman', 'clangd', 'cssls', 'texlab', 'rust_analyzer' }
+    -- 'ltex',
     vim.lsp.enable(servers)
 end
 

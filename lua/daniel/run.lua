@@ -94,19 +94,19 @@ local run_script = function(rust_mode, zig_mode)
         local is_workspace = false
         local members = {}
         local in_members_list = false
+        local in_bin_table = false
+        local current_bin = {}
 
         for _, line in ipairs(lines) do
+            -- Detect workspace members
             if line:match("^%[workspace%]") then
                 is_workspace = true
             elseif is_workspace and line:match("^members%s*=") then
-                -- Could be inline or start of multi-line list
                 if line:match("%[") and line:match("%]") then
-                    -- Inline array
                     for member in line:gmatch('"(.-)"') do
                         table.insert(members, member)
                     end
                 else
-                    -- Start of multi-line list
                     in_members_list = true
                     for member in line:gmatch('"(.-)"') do
                         table.insert(members, member)
@@ -119,25 +119,47 @@ local run_script = function(rust_mode, zig_mode)
                 if line:match("%]") then
                     in_members_list = false
                 end
+
+                -- Detect [bin] array-style tables
+            elseif line:match("^{%s*name%s*=") or line:match("^%s*{") then
+                local name = line:match('name%s*=%s*"(.-)"')
+                if name then
+                    table.insert(bins, name)
+                end
+
+                -- Detect TOML-style [[bin]] tables
+            elseif line:match("^%[%[bin%]%]") then
+                in_bin_table = true
+                current_bin = {}
+            elseif in_bin_table then
+                local name = line:match('^name%s*=%s*"(.-)"')
+                if name then
+                    current_bin.name = name
+                end
+                if line:match("^path%s*=%s*") or line:match("^name%s*=%s*") then
+                    -- When both name and path appear, finalize
+                    if current_bin.name then
+                        table.insert(bins, current_bin.name)
+                        current_bin = {}
+                        in_bin_table = false
+                    end
+                end
             end
         end
 
-        -- If not a workspace, just check current crate
         if not is_workspace then
             members = { "." }
         end
 
-        -- For each member crate, detect binaries
+        -- Add standard src/main.rs and src/bin/*.rs detection too
         for _, member in ipairs(members) do
             local member_path = member == "." and current_cwd or (current_cwd .. "/" .. member)
             local crate_name = vim.fn.fnamemodify(member_path, ":t")
 
-            -- src/main.rs → default bin
             if vim.fn.filereadable(member_path .. "/src/main.rs") == 1 then
                 table.insert(bins, crate_name)
             end
 
-            -- src/bin/*.rs → additional bins
             local bin_files = vim.fn.globpath(member_path .. "/src/bin", "*.rs", false, true)
             for _, f in ipairs(bin_files) do
                 local bn = vim.fn.fnamemodify(f, ":t:r")
@@ -145,21 +167,37 @@ local run_script = function(rust_mode, zig_mode)
             end
         end
 
-        return bins
+        return vim.fn.uniq(bins)
     end
 
     local function run_rust_project()
         local bins = get_rust_binaries()
+        local file_path = vim.fn.expand("%:p")
 
-        if #bins > 1 then
+        -- Try to auto-detect which bin corresponds to current file
+        local auto_bin = nil
+        for _, bin in ipairs(bins) do
+            if file_path:find(bin .. "%.rs$") then
+                auto_bin = bin
+                break
+            end
+        end
+
+        if auto_bin then
+            local cmd = string.format(
+                "echo '>> cargo %s --bin %s (%s)\\n' && cargo %s --bin %s",
+                rust_mode, auto_bin, current_cwd, rust_mode, auto_bin
+            )
+            run_in_floating_terminal(cmd, current_cwd)
+        elseif #bins > 1 then
             vim.ui.select(bins, {
                 prompt = "Select Rust binary to " .. rust_mode .. ":",
                 format_item = function(item) return item end,
             }, function(choice)
                 if choice then
                     local cmd = string.format(
-                        "echo '>> cargo " .. rust_mode .. " --bin %s (%s)\\n' && cargo " .. rust_mode .. " --bin %s",
-                        choice, current_cwd, choice
+                        "echo '>> cargo %s --bin %s (%s)\\n' && cargo %s --bin %s",
+                        rust_mode, choice, current_cwd, rust_mode, choice
                     )
                     run_in_floating_terminal(cmd, current_cwd)
                 else
@@ -167,7 +205,6 @@ local run_script = function(rust_mode, zig_mode)
                 end
             end)
         else
-            -- No bins detected, fallback to just `cargo check` or `cargo run`
             local cmd = "echo '>> cargo " .. rust_mode .. " (" .. current_cwd .. ")\\n' && cargo " .. rust_mode
             run_in_floating_terminal(cmd, current_cwd)
         end

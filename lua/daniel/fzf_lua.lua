@@ -72,7 +72,7 @@ vim.keymap.set('n', '<leader><leader>', fzf.buffers, { desc = '[ ] Find existing
 vim.keymap.set('n', '<leader>sn', fzf_files_in_dir(vim.fn.stdpath('config')), { desc = '[S]earch [N]eovim files' })
 
 -- Fuzzy find in the current buffer
-vim.keymap.set({ 'n', 'x', 'v' }, '/', function()
+vim.keymap.set({ 'n', 'x', 'v' }, '<C-f>', function()
     fzf.blines({
         winopts = {
             height = 0.5,

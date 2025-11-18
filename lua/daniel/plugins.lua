@@ -27,20 +27,6 @@ require("lazy").setup({
         event = { "BufReadPre", "BufNewFile" },
         config = function() require("gitsigns").setup() end,
     },
-    {
-        "kdheepak/lazygit.nvim",
-        cmd = {
-            "LazyGit",
-            "LazyGitConfig",
-            "LazyGitCurrentFile",
-            "LazyGitFilter",
-            "LazyGitFilterCurrentFile",
-        },
-        dependencies = { "nvim-lua/plenary.nvim" },
-        keys = {
-            { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open Lazygit" }
-        }
-    },
     -- **LaTeX support**
     {
         "lervag/vimtex",
